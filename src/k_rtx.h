@@ -25,7 +25,7 @@
 #define RAM_TOP 0x10008000
 
 #define MEM_BLK_SZ 0x80
-#define PCB_SZ 0x40
+#define PCB_SZ 0x48
 
 #ifdef DEBUG_0
 #define USR_SZ_STACK 0x200         /* user proc stack size 512B   */
@@ -56,6 +56,8 @@ typedef struct PCB
 	void* m_pc; /* PC (4 Bytes) */
 	struct PCB* next; /* 4 Bytes */
 	struct PCB* prev; /* 4 Bytes */
+	void * first_msg;
+	void * last_msg;
 } PCB;
 
 /* initialization table item */
