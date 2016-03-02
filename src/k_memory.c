@@ -143,7 +143,7 @@ void *k_request_memory_block(void) {
 
 	free_mem = (mem_block*)free_mem->next;
 	
-	printf("assigned mem_block: 0x%08x\r\n", (int)req_block);
+	//printf("assigned mem_block: 0x%08x\r\n", (int)req_block);
 	return req_block;
 }
 

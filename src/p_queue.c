@@ -49,6 +49,32 @@ PCB* p_findproc(p_queue* queue){
     return NULL;
 }
 
+PCB* p_findAllproc(p_queue* queue){
+    PCB* cur_node;
+    PCB* prev;
+    PCB* next;
+    PCB* retNode;
+    int count;
+    
+    cur_node = queue->first;
+    
+	count = 0;
+    while(count < queue->size)
+    {
+			//This needs to be changed for later parts
+        if (cur_node->m_state == RDY || cur_node->m_state == NEW || cur_node->m_state == RUN)
+        {
+            retNode = cur_node;
+            return retNode;
+        }
+        cur_node = cur_node->next;
+				count++;
+    }
+    
+    return NULL;
+}
+
+
 PCB* p_findblockedproc(p_queue* queue){
     PCB* cur_node;
     PCB* prev;

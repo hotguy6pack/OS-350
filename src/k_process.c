@@ -101,10 +101,10 @@ PCB *scheduler(void)
 	int i;
 	PCB* nextProc;
 	
-	if (gp_current_process == NULL) {
+	/*if (gp_current_process == NULL) {
 		gp_current_process = gp_pcbs[0]; 
 		return gp_pcbs[0];
-	}
+	}*/
 	
 	
 	 for ( i = 0; i < 4; i++ ) {
@@ -191,6 +191,8 @@ int k_release_processor(void)
 	return RTX_OK;
 }
 
+
+
 int set_process_priority(int process_id, int priority)
 {
     PCB* proc;
@@ -211,10 +213,11 @@ int set_process_priority(int process_id, int priority)
 	
 		
 		for ( i = 0; i < 4; i++ ) {
-		 nextProc = (PCB*)p_findproc(&priority_q[i]);
+		 nextProc = (PCB*)p_findAllproc(&priority_q[i]);
 		 if(nextProc != NULL ){
 					if(nextProc != gp_current_process){
 							release_processor();
+							break;
 					}
 					else{
 							break;
@@ -246,7 +249,7 @@ int notify_mem_released(void) {
 		 proc = (PCB*)p_findblockedproc(&priority_q[i]);
 		 if(proc != NULL){
 				proc->m_state = RDY;
-			 if(proc->m_priority < gp_current_process->m_priority){
+			 if(proc->m_priority <= gp_current_process->m_priority){
 						return 1;
 			 }
 		 }

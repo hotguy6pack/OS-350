@@ -1,0 +1,1223 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+N:\se350\SE350-Labv5\context_switching.uvproj
+Project File Date:  02/05/2016
+
+<h2>Output:</h2>
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc.c...
+src\usr_proc.c(67): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(61): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(62): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(63): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(96): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(97): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(121): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(139): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(200): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(210): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(225): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5584 RO-data=440 RW-data=72 ZI-data=896  
+"context_switching.axf" - 0 Error(s), 25 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+context_switching.axf: Error: L6200E: Symbol g_test_procs multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol set_test_procs multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc6 multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc5 multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc4 multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc3 multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc2 multiply defined (by usr_proc_a.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc1 multiply defined (by usr_proc_a.o and usr_proc.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+context_switching.axf: Error: L6218E: Undefined symbol k_set_process_priority (referred from usr_proc_a.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 4 Warning(s).
+Build target 'Context Switching SIM'
+assembling startup_LPC17xx.s...
+linking...
+context_switching.axf: Error: L6218E: Undefined symbol g_test_procs (referred from k_process.o).
+context_switching.axf: Error: L6218E: Undefined symbol set_test_procs (referred from k_process.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(76): error:  #20: identifier "PID_P2" is undefined
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): error:  #20: identifier "PID_P1" is undefined
+Target not created
+Build target 'Context Switching SIM'
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(76): error:  #20: identifier "PID_P2" is undefined
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): error:  #20: identifier "PID_P1" is undefined
+Target not created
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(228): error:  #79: expected a type specifier
+src\k_process.c(228): error:  #147-D: declaration is incompatible with "int _get_process_priority(U32, int)__svc(2147483648)" (declared at line 75 of "src\rtx.h")
+src\k_process.c(228): error:  #141-D: unnamed prototyped parameters not allowed when body is present
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(228): error:  #79: expected a type specifier
+src\k_process.c(228): error:  #147-D: declaration is incompatible with "int _get_process_priority(U32, int)__svc(2147483648)" (declared at line 75 of "src\rtx.h")
+src\k_process.c(228): error:  #141-D: unnamed prototyped parameters not allowed when body is present
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(228): error:  #79: expected a type specifier
+src\k_process.c(228): error:  #147-D: declaration is incompatible with "int _get_process_priority(U32, int)__svc(2147483648)" (declared at line 75 of "src\rtx.h")
+src\k_process.c(228): error:  #141-D: unnamed prototyped parameters not allowed when body is present
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+Target not created
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(76): error:  #20: identifier "PID_P2" is undefined
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): error:  #20: identifier "PID_P1" is undefined
+Target not created
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+context_switching.axf: Error: L6218E: Undefined symbol set_process_priority (referred from usr_proc_a.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4564 RO-data=440 RW-data=64 ZI-data=896  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Build target 'Context Switching SIM'
+assembling startup_LPC17xx.s...
+compiling main_svc.c...
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4560 RO-data=440 RW-data=64 ZI-data=896  
+"context_switching.axf" - 0 Error(s), 2 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\usr_proc.c(37): error:  #20: identifier "proc0" is undefined
+src\usr_proc.c(67): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(61): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(62): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(63): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(96): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(97): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(121): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(139): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(200): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(210): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(225): warning:  #1-D: last line of file ends without a newline
+Target not created
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5576 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5576 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5576 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+linking...
+Program Size: Code=5572 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5576 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5576 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4560 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 7 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(244): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=4560 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling HAL.c...
+linking...
+Program Size: Code=4560 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+linking...
+context_switching.axf: Error: L6218E: Undefined symbol k_set_process_priority (referred from usr_proc_b.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(246): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4548 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(214): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(246): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4548 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4548 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4520 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 2 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4520 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 7 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 14 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 15 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 15 Warning(s).
+Build target 'Context Switching SIM'
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 8 Warning(s).
+Build target 'Context Switching SIM'
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 15 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4508 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 15 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 1 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(248): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Rebuild target 'Context Switching SIM'
+assembling startup_LPC17xx.s...
+compiling system_LPC17xx.c...
+compiling uart_polling.c...
+compiling printf.c...
+compiling main_svc.c...
+compiling uart_irq.c...
+compiling HAL.c...
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 15 Warning(s).
+Build target 'Context Switching SIM'
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 9 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+linking...
+Program Size: Code=4496 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling HAL.c...
+linking...
+Program Size: Code=4484 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+context_switching.axf: Error: L6200E: Symbol g_test_procs multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol set_test_procs multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc6 multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc5 multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc4 multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc3 multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc2 multiply defined (by usr_proc_b.o and usr_proc.o).
+context_switching.axf: Error: L6200E: Symbol proc1 multiply defined (by usr_proc_b.o and usr_proc.o).
+Target not created
+Build target 'Context Switching SIM'
+linking...
+Program Size: Code=5512 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(65): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(59): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(60): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(61): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(94): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(95): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(119): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(137): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(198): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(208): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(219): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(223): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5512 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5508 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5508 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5508 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 27 Warning(s).
+Build target 'Context Switching SIM'
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5508 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 13 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5568 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 26 Warning(s).
+Build target 'Context Switching SIM'
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=4492 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+linking...
+Program Size: Code=4504 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling main_svc.c...
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=4496 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling main_svc.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_A.c...
+src\usr_proc_A.c(76): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc_A.c(108): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4504 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 12 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(138): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5560 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=5560 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(80): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(81): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(164): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5608 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 7 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAnyproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+context_switching.axf: Error: L6218E: Undefined symbol p_findAnyproc (referred from k_process.o).
+Target not created
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=5608 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(80): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(81): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(164): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5608 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 12 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc.c...
+src\k_rtx.h(19): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 11 of "src\rtx.h")
+src\usr_proc.c(63): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(57): warning:  #177-D: variable "i" was declared but never referenced
+src\usr_proc.c(58): warning:  #550-D: variable "temp" was set but never used
+src\usr_proc.c(59): warning:  #177-D: variable "tmppt" was declared but never referenced
+src\usr_proc.c(92): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(93): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(117): warning:  #223-D: function "get_process_priority" declared implicitly
+src\usr_proc.c(135): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(196): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(206): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(217): warning:  #223-D: function "set_process_priority" declared implicitly
+src\usr_proc.c(221): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=5608 RO-data=440 RW-data=72 ZI-data=880  
+"context_switching.axf" - 0 Error(s), 18 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4532 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling HAL.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4532 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 6 Warning(s).
+Build target 'Context Switching SIM'
+compiling k_rtx_init.c...
+src\k_rtx_init.c(16): warning:  #177-D: variable "ret" was declared but never referenced
+compiling k_memory.c...
+src\k_memory.c(139): warning:  #223-D: function "k_release_processor" declared implicitly
+src\k_memory.c(126): warning:  #177-D: variable "end_addr" was declared but never referenced
+src\k_memory.c(192): warning:  #223-D: function "k_release_processor" declared implicitly
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+compiling p_queue.c...
+src\p_queue.c(29): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(30): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(54): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(55): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(80): warning:  #177-D: variable "prev" was declared but never referenced
+src\p_queue.c(81): warning:  #177-D: variable "next" was declared but never referenced
+src\p_queue.c(164): warning:  #1-D: last line of file ends without a newline
+compiling usr_proc_B.c...
+src\usr_proc_B.c(116): warning:  #223-D: function "set_process_priority" declared implicitly
+linking...
+Program Size: Code=4532 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 17 Warning(s).
+Build target 'Context Switching SIM'
+compiling uart_polling.c...
+compiling k_process.c...
+src\rtx.h(11): warning:  #47-D: incompatible redefinition of macro "NUM_TEST_PROCS" (declared at line 19 of "src\k_rtx.h")
+src\k_process.c(111): warning:  #223-D: function "p_findproc" declared implicitly
+src\k_process.c(100): warning:  #177-D: variable "id" was declared but never referenced
+src\k_process.c(216): warning:  #223-D: function "p_findAllproc" declared implicitly
+src\k_process.c(249): warning:  #223-D: function "p_findblockedproc" declared implicitly
+linking...
+Program Size: Code=4544 RO-data=440 RW-data=64 ZI-data=864  
+"context_switching.axf" - 0 Error(s), 5 Warning(s).

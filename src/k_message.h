@@ -5,7 +5,6 @@
 #include "p_queue.h"
 
 //Function declarations
-void message_init(void);
 void k_send_message(uint32, msg_t *);
 msg_t* k_receive_message(void);
 void k_delayed_send(uint32, msg_t *, unint32);
