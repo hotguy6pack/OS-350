@@ -32,8 +32,6 @@ void set_test_procs() {
 		g_test_procs[i].m_stack_size=0x100;
 	}
 	
-  g_test_procs[0].m_priority=NULLPROC;
-	
 	g_test_procs[0].mpf_start_pc = &proc1;
 	g_test_procs[1].mpf_start_pc = &proc2;
 	g_test_procs[2].mpf_start_pc = &proc3;
@@ -123,7 +121,7 @@ void proc3(void)
 			uart0_put_string("G006_test: test 1 FAIL\r\n");
 	}
 			
-	for (i = 0; i < 30; i++) {
+	for (i = 0; i < NUM_MEM_BLKS; i++) {
 		tmppt = request_memory_block();
 		printf("proc3: tmppt = 0x%08x\r\n", tmppt);
 	}
@@ -146,10 +144,10 @@ void proc3(void)
 	temp = release_memory_block(tmppt);
 	
 	if(temp == 0){
-			uart0_put_string("G006_test: test 4 OK\r\n");
+			uart0_put_string("G006_test: test 6 OK\r\n");
 					numTestPassed++;
 	} else {
-			uart0_put_string("G006_test: test 4 FAIL\r\n");
+			uart0_put_string("G006_test: test 6 FAIL\r\n");
 	}
 	printf("proc3 released mem %d\r\n", temp);
 	//release_processor();

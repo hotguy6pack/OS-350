@@ -364,7 +364,7 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>NO_CRP</Define>
+              <Define></Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -450,6 +450,11 @@
               <FileName>k_process.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\k_process.c</FilePath>
+            </File>
+            <File>
+              <FileName>p_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\p_queue.c</FilePath>
             </File>
           </Files>
         </Group>
