@@ -8,10 +8,13 @@
 
 #include <LPC17xx.h>
 #include "timer.h"
+#include "k_rtx.h"
 
 #define BIT(X) (1<<X)
 
 volatile uint32_t g_timer_count = 0; // increment every 1 ms
+
+PCB *timer_i_pcb;
 
 /**
  * @brief: initialize timer. Only timer 0 is supported
@@ -87,6 +90,17 @@ uint32_t timer_init(uint8_t n_timer)
 
 	/* Step 4.5: Enable the TCR. See table 427 on pg494 of LPC17xx_UM. */
 	pTimer->TCR = 1;
+
+
+	timer_i_pcb->mp_sp = NULL;		/* stack pointer of the process (4 Bytes) */
+	timer_i_pcb->m_priority = 0; /*priotrity (1 Byte)*/
+	timer_i_pcb->m_pid = 0;		/* process id (1 Byte)*/
+	timer_i_pcb->m_state = RUN;   /* state of the process (4 Bytes)*/
+	timer_i_pcb->m_pc = NULL; /* PC (4 Bytes) */
+	timer_i_pcb->next = NULL; /* 4 Bytes */
+	timer_i_pcb->prev = NULL; /* 4 Bytes */
+	timer_i_pcb->first_msg = 0;
+	timer_i_pcb->last_msg = 0;
 
 	return 0;
 }
