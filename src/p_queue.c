@@ -88,6 +88,7 @@ PCB* p_findblockedproc(p_queue* queue){
     while(count < queue->size)
     {
 			//This needs to be changed for later parts
+			//Not need to add MSG_BLK
         if (cur_node->m_state == BLK)
         {
             retNode = cur_node;

@@ -68,4 +68,16 @@ extern int k_release_memory_block(void *);
 #define release_memory_block(p_mem_blk) _release_memory_block((U32)k_release_memory_block, p_mem_blk)
 extern int _release_memory_block(U32 p_func, void *p_mem_blk) __SVC_0;
 
+extern int k_send_message(int, void*);
+#define send_message(process_id, message_envelope) _send_message((int)k_send_message, process_id, message_envelope)
+extern int _send_message(int p_func, int process_id, void* message_envelope) __SVC_0;
+
+extern void* k_receive_message(int*);
+#define receive_message(sender_id) _receive_message((void *)k_receive_message, sender_id)
+extern void* _receive_message(void* p_func, int* sender_id) __SVC_0;
+
+extern int k_delayed_send(int, void*, int);
+#define delayed_send(process_id, message_envelope, delay) _delayed_send((int)k_delayed_send, process_id, message_envelope, delay)
+extern int _delayed_send(int p_func, int process_id, void* message_envelope, int delay) __SVC_0;
+
 #endif /* !RTX_H_ */

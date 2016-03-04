@@ -17,7 +17,7 @@
 
 #define NULL 0
 #define NUM_TEST_PROCS 7
-#define NUM_MEM_BLKS 30
+#define NUM_MEM_BLKS 20
 
 #define RTX_ERR -1
 #define RTX_OK  0
@@ -38,8 +38,7 @@ typedef unsigned char U8;
 typedef unsigned int U32;
 
 /* process states, note we only assume three states in this example */
-
-typedef enum {NEW = 0, RDY, RUN, BLK} PROC_STATE_E;  
+typedef enum {NEW = 0, RDY, RUN, BLK, MSG_BLK} PROC_STATE_E;  
 
 /*
   PCB data structure definition.

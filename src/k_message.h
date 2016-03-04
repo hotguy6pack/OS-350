@@ -4,19 +4,29 @@
 #include "k_rtx.h"
 #include "p_queue.h"
 
+#define DEFAULT 0
+#define KCD_REG 1
+#define CRT_DISPLAY 2
+
+
+
+typedef struct msgbuf{
+
+//#ifdef K_MSG_ENV
+	void* mp_next;
+	int m_send_pid;
+	int m_recv_pid;
+	int m_kdata[5];
+//#endif
+	int mtype;
+	char mtext[1];
+} msgbuf;
+
 //Function declarations
-void k_send_message(uint32, msg_t *);
-msg_t* k_receive_message(void);
-void k_delayed_send(uint32, msg_t *, unint32);
+int k_send_message(int , void *);
+void* k_receive_message(int* );
 
-typedef struct msg_t{
-	 void* next;
-	 time_t expir;
-	 unint32 sender_pid;
-	 unint32 dest_pid;
-	 unit8 msg_type;
-} msg_t;
-
+int k_delayed_send(int, void *, int);
 
 #endif
 

@@ -1,0 +1,13 @@
+usr_proc_p2.o: src\usr_proc_p2.c
+usr_proc_p2.o: src\rtx.h
+usr_proc_p2.o: src\uart_polling.h
+usr_proc_p2.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdint.h
+usr_proc_p2.o: src\uart_def.h
+usr_proc_p2.o: src\usr_proc.h
+usr_proc_p2.o: src\k_process.h
+usr_proc_p2.o: src\k_rtx.h
+usr_proc_p2.o: src\p_queue.h
+usr_proc_p2.o: src\k_process.h
+usr_proc_p2.o: src\k_message.h
+usr_proc_p2.o: src\printf.h
+usr_proc_p2.o: C:\Software\Keil\ARM\ARMCC\bin\..\include\stdarg.h

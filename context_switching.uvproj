@@ -381,7 +381,7 @@
             <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>usr_proc_a.o</Misc>
+            <Misc></Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -456,10 +456,22 @@
               <FileType>1</FileType>
               <FilePath>.\src\p_queue.c</FilePath>
             </File>
+            <File>
+              <FileName>k_message.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\k_message.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>User Code</GroupName>
+          <Files>
+            <File>
+              <FileName>usr_proc_p2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\usr_proc_p2.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Documentation</GroupName>

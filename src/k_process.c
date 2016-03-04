@@ -65,6 +65,8 @@ void process_init()
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;
         (gp_pcbs[i])->m_state = NEW;
+				(gp_pcbs[i])->first_msg = NULL;
+				(gp_pcbs[i])->last_msg = NULL;
         
         sp = alloc_stack((g_proc_table[i]).m_stack_size);
         *(--sp)  = INITIAL_xPSR;      // user process initial xPSR
@@ -142,8 +144,10 @@ int process_switch(PCB *p_pcb_old)
 
 	if (state == NEW) {
 		if (gp_current_process != p_pcb_old && p_pcb_old->m_state != NEW) {
-			p_pcb_old->m_state = RDY;
-			p_pcb_old->mp_sp = (U32 *) __get_MSP();
+			if(p_pcb_old->m_state != BLK && p_pcb_old->m_state != MSG_BLK){
+							p_pcb_old->m_state = RDY;	
+			}
+				p_pcb_old->mp_sp = (U32 *) __get_MSP();		
 		}
 		gp_current_process->m_state = RUN;
 		__set_MSP((U32) gp_current_process->mp_sp);
@@ -154,7 +158,7 @@ int process_switch(PCB *p_pcb_old)
 
 	if (gp_current_process != p_pcb_old) {
 		if (state == RDY){ 		
-			if(p_pcb_old->m_state != BLK){
+			if(p_pcb_old->m_state != BLK && p_pcb_old->m_state != MSG_BLK) {
 				p_pcb_old->m_state = RDY; 
 			}
 
@@ -256,4 +260,12 @@ int notify_mem_released(void) {
 	 }
 	 
 	 return 0;
+}
+
+void unblock_proc(int id) {
+		gp_pcbs[id -1]->m_state = RDY;
+}
+
+void block_proc(int id){
+		gp_pcbs[id -1]->m_state = BLK;
 }

@@ -29,5 +29,7 @@ extern void set_test_procs(void);      /* test process initial set up */
 extern PCB **gp_pcbs;
 extern PCB *gp_current_process; /* always point to the current RUN process */
 extern int notify_mem_released(void);
+extern void unblock_proc(int);
+extern void block_proc(int);
 
 #endif /* ! K_PROCESS_H_ */

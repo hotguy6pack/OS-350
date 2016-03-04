@@ -381,7 +381,7 @@
             <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>usr_proc_a.o</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -460,13 +460,6 @@
         </Group>
         <Group>
           <GroupName>User Code</GroupName>
-          <Files>
-            <File>
-              <FileName>usr_proc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\usr_proc.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>Documentation</GroupName>
