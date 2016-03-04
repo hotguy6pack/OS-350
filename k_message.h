@@ -25,8 +25,9 @@ typedef struct msgbuf{
 //Function declarations
 int k_send_message(int , void *);
 void* k_receive_message(int* );
-
+int k_send_message_i(int, void *);
 int k_delayed_send(int, void *, int);
+int is_message_empty();
 
 #endif
 

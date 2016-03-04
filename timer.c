@@ -8,18 +8,18 @@
 
 #include <LPC17xx.h>
 #include "timer.h"
-#include "k_rtx.h"
+
 
 #define BIT(X) (1<<X)
 
 volatile uint32_t g_timer_count = 0; // increment every 1 ms
-
 PCB *timer_i_pcb;
+
 
 /**
  * @brief: initialize timer. Only timer 0 is supported
  */
-uint32_t timer_init(uint8_t n_timer) 
+int timer_init(int n_timer) 
 {
 	LPC_TIM_TypeDef *pTimer;
 	if (n_timer == 0) {

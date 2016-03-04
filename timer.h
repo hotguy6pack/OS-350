@@ -6,6 +6,9 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-extern uint32_t timer_init ( uint8_t n_timer );  /* initialize timer n_timer */
+#include "k_rtx.h"
+
+extern int timer_init ( int n_timer );  /* initialize timer n_timer */
+extern PCB *timer_i_pcb;
 
 #endif /* ! _TIMER_H_ */
