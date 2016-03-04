@@ -3,6 +3,7 @@
 
 #include "k_rtx.h"
 #include "p_queue.h"
+#include "timer.h"
 
 #define DEFAULT 0
 #define KCD_REG 1
@@ -17,6 +18,7 @@ typedef struct msgbuf{
 	int m_send_pid;
 	int m_recv_pid;
 	int m_kdata[5];
+	int m_expiry;
 //#endif
 	int mtype;
 	char mtext[1];

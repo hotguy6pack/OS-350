@@ -110,6 +110,7 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 	msgbuf* message = (msgbuf*) message_envelope;
 	message->m_recv_pid = process_id;
 	message->m_send_pid = gp_current_process->m_pid;
+	message->m_expiry = g_timer_count + delay;
 
 	if(delay==0){
 		 return k_send_message(process_id, message_envelope);
