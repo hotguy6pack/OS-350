@@ -34,7 +34,9 @@ void set_sys_procs() {
 	g_sys_procs[2].mpf_start_pc = &crt;
 	
 	g_sys_procs[1].m_priority=HIGH;
+	KCD_PROC_ID = NUM_TEST_PROCS + 1;
 	g_sys_procs[2].m_priority=HIGH;
+	CRT_PROC_ID = NUM_TEST_PROCS + 2;
 }
 
 void nullproc(void) {
