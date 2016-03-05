@@ -55,21 +55,22 @@ void process_init()
 		int priority;
     
     /* fill out the initialization table */
-		set_sys_procs();
-		for ( i = 0; i < NUM_SYS_PROCS; i++) {
-				g_proc_table[i].m_pid = g_sys_procs[i].m_pid;
-				g_proc_table[i].m_priority = g_sys_procs[i].m_priority;
-        g_proc_table[i].m_stack_size = g_sys_procs[i].m_stack_size;
-        g_proc_table[i].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
-		}
 	
     set_test_procs();
     for ( i = 0; i < NUM_TEST_PROCS; i++ ) {
-        g_proc_table[i + NUM_SYS_PROCS].m_pid = g_test_procs[i].m_pid;
-				g_proc_table[i + NUM_SYS_PROCS].m_priority = g_test_procs[i].m_priority;
-        g_proc_table[i + NUM_SYS_PROCS].m_stack_size = g_test_procs[i].m_stack_size;
-        g_proc_table[i + NUM_SYS_PROCS].mpf_start_pc = g_test_procs[i].mpf_start_pc;
+        g_proc_table[i].m_pid = g_test_procs[i].m_pid;
+				g_proc_table[i].m_priority = g_test_procs[i].m_priority;
+        g_proc_table[i].m_stack_size = g_test_procs[i].m_stack_size;
+        g_proc_table[i].mpf_start_pc = g_test_procs[i].mpf_start_pc;
     }
+		
+		set_sys_procs();
+		for ( i = 0; i < NUM_SYS_PROCS; i++) {
+				g_proc_table[i+ NUM_TEST_PROCS].m_pid = g_sys_procs[i].m_pid;
+				g_proc_table[i+ NUM_TEST_PROCS].m_priority = g_sys_procs[i].m_priority;
+        g_proc_table[i+ NUM_TEST_PROCS].m_stack_size = g_sys_procs[i].m_stack_size;
+        g_proc_table[i+ NUM_TEST_PROCS].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
+		}
 		
 		
     
