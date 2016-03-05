@@ -20,6 +20,8 @@
 #include "p_queue.h"
 #include "rtx.h"
 #include "timer.h"
+#include "usr_proc.h"
+#include "sys_proc.h"
 
 #ifdef DEBUG_0
 #include "printf.h"
@@ -34,8 +36,9 @@ U32 g_switch_flag = 0;          /* whether to continue to run the process before
 				/* this value will be set by UART handler */
 
 /* process initialization table */
-PROC_INIT2 g_proc_table[NUM_TEST_PROCS];
+PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS];
 extern PROC_INIT2 g_test_procs[NUM_TEST_PROCS];
+extern PROC_INIT2 g_sys_procs[NUM_SYS_PROCS];
 
 /**
  * @biref: initialize all processes in the system
@@ -52,16 +55,26 @@ void process_init()
 		int priority;
     
     /* fill out the initialization table */
+		set_sys_procs();
+		for ( i = 0; i < NUM_SYS_PROCS; i++) {
+				g_proc_table[i].m_pid = g_sys_procs[i].m_pid;
+				g_proc_table[i].m_priority = g_sys_procs[i].m_priority;
+        g_proc_table[i].m_stack_size = g_sys_procs[i].m_stack_size;
+        g_proc_table[i].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
+		}
+	
     set_test_procs();
     for ( i = 0; i < NUM_TEST_PROCS; i++ ) {
-        g_proc_table[i].m_pid = g_test_procs[i].m_pid;
-				g_proc_table[i].m_priority = g_test_procs[i].m_priority;
-        g_proc_table[i].m_stack_size = g_test_procs[i].m_stack_size;
-        g_proc_table[i].mpf_start_pc = g_test_procs[i].mpf_start_pc;
+        g_proc_table[i + NUM_SYS_PROCS].m_pid = g_test_procs[i].m_pid;
+				g_proc_table[i + NUM_SYS_PROCS].m_priority = g_test_procs[i].m_priority;
+        g_proc_table[i + NUM_SYS_PROCS].m_stack_size = g_test_procs[i].m_stack_size;
+        g_proc_table[i + NUM_SYS_PROCS].mpf_start_pc = g_test_procs[i].mpf_start_pc;
     }
+		
+		
     
     /* initilize exception stack frame (i.e. initial context) for each process */
-    for ( i = 0; i < NUM_TEST_PROCS; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS; i++ ) {
         int j;
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;
@@ -82,13 +95,14 @@ void process_init()
     {
         p_queue_init(&priority_q[i]);    
     }
-    
-
-    for ( i = 0; i < NUM_TEST_PROCS; i++ ) {
+		
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS; i++ ) {
         priority = gp_pcbs[i]->m_priority;
 
         p_enqueue(&priority_q[priority], gp_pcbs[i]);
     }
+		
+		
 	timer_i_pcb->mp_sp = NULL;	
 	timer_i_pcb->m_priority = 0; 
 	timer_i_pcb->m_pid = 0;		
