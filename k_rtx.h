@@ -17,6 +17,7 @@
 
 #define NULL 0
 #define NUM_TEST_PROCS 7
+#define NUM_SYS_PROCS 1
 #define NUM_MEM_BLKS 20
 
 #define RTX_ERR -1

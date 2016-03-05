@@ -56,15 +56,23 @@ void proc0(void) {
 void proc1(void)
 {
 	msgbuf* env;
+	msgbuf* env2;
 	char* data;
 
 	env = (msgbuf *)request_memory_block();
+	env2 = (msgbuf *)request_memory_block();
 	
 	data = "A";
 	env->mtype = DEFAULT;
 	strncpy(env->mtext, data, strlen(data));
 	
 	delayed_send(2, env, 200);
+	
+	data = "B";
+	env2->mtype = DEFAULT;
+	strncpy(env2->mtext, data, strlen(data));
+	
+	delayed_send(2, env2, 100);
 
 	set_process_priority(2, 1);
 	
@@ -86,12 +94,16 @@ void proc2(void)
 	char data[5];
 	char data2[5];
 	msgbuf* envo;
+	msgbuf* envo2;
 	msgbuf* env;
 	
 	envo = (msgbuf *)request_memory_block();
 	envo = receive_message(&sender_id);
 	strncpy(data, envo->mtext, 5);
 
+	envo2 = (msgbuf *)request_memory_block();
+	envo2 = receive_message(&sender_id);
+	strncpy(data, envo2->mtext, 5);
 	
 	env = (msgbuf *)request_memory_block();
 	//env = receive_message(&sender_id2);
