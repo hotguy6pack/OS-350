@@ -9,8 +9,8 @@
 #endif /* DEBUG_0 */
 
 PROC_INIT g_sys_procs[NUM_TEST_PROCS];
-extern int CRT_PROC_ID;
-extern int KCD_PROC_ID;
+int CRT_PROC_ID;
+int KCD_PROC_ID;
 
 typedef enum {
 	clk_reset,
@@ -74,7 +74,6 @@ void kcd(void) {
 	printf("kcd started\r\n");
 
 	while(1) {
-		env = (msgbuf *)request_memory_block();
 		env = receive_message(&sender_id);
 		strncpy(data, env->mtext, 5);
 		
@@ -95,18 +94,19 @@ void kcd(void) {
 				// invalid command
 				printf("Command - ERROR\r\n");
 		}
+		
+		release_memory_block(env);
 	}
 }
 
 void crt(void) {
 	msgbuf* env;
-	void* sender_id;
+	int sender_id;
 	char data[MEM_BLK_SZ - 0x28];
 	
 	printf("crt started\r\n");
-	sender_id = request_memory_block();
 	while(1) {
-		env = receive_message(sender_id);
+		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
 			strncpy(data, env->mtext, MEM_BLK_SZ - 0x28);
 			uart0_put_string(data);
