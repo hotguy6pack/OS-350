@@ -14,10 +14,11 @@
 #define MEDIUM  1
 #define LOW     2
 #define LOWEST  3
+#define NULLPROC 4
 
 #define NULL 0
-#define NUM_TEST_PROCS 7
-#define NUM_SYS_PROCS 1
+#define NUM_TEST_PROCS 6
+#define NUM_SYS_PROCS 3
 #define NUM_MEM_BLKS 20
 
 #define RTX_ERR -1

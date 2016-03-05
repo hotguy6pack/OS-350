@@ -8,13 +8,6 @@
 /* ----- Definitations ----- */
 #define RTX_ERR -1
 #define NULL 0
-#define NUM_TEST_PROCS 7
-/* Process Priority. The bigger the number is, the lower the priority is*/
-#define HIGH    0
-#define MEDIUM  1
-#define LOW     2
-#define LOWEST  3
-#define NULLPROC 4
 
 /* Process IDs */
 #define PID_NULL 0
