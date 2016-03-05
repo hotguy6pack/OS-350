@@ -46,12 +46,20 @@ int k_send_message(int process_id, void * message_envelope){
 }
 
 int k_send_message_i(int process_id, void * message_envelope){
-	
 	//init message 
 	msgbuf* message = (msgbuf*) message_envelope;
+	message->m_recv_pid = process_id;
+	
+	if(NUM_TEST_PROCS < process_id - 1){
+		return 1;
+	}
+	else if(process_id < 0){
+		return 1;
+  }
 	// m.type =	
 
 	//add msg to to desination PCB linked list
+	
 	if(gp_pcbs[process_id-1]->first_msg == NULL){
 		gp_pcbs[process_id-1]->first_msg = message;
 		gp_pcbs[process_id-1]->last_msg = message;

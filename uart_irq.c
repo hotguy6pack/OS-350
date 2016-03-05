@@ -8,13 +8,16 @@
 #include <LPC17xx.h>
 #include "uart.h"
 #include "uart_polling.h"
-#ifdef DEBUG_0
 #include "printf.h"
-#endif
+#include "k_message.h"
+#include "k_memory.h"
+#include "k_rtx.h"
+#include "sys_proc.h"
 
-
-uint8_t g_buffer[]= "You Typed a Q\n\r";
-uint8_t *gp_buffer = g_buffer;
+int g_buffer_size = MEM_BLK_SZ - 0x28;			//fix
+uint8_t g_buffer[MEM_BLK_SZ - 0x28];
+uint8_t *gp_buffer = '\0';
+uint32_t g_buffer_index =0;
 uint8_t g_send_char = 0;
 uint8_t g_char_in;
 uint8_t g_char_out;
@@ -180,25 +183,36 @@ RESTORE
 /**
  * @brief: c UART0 IRQ Handler
  */
-void c_UART0_IRQHandler(void)
-{
+void c_UART0_IRQHandler(void){
+	input_char();
+}
+
+input_char(){
 	uint8_t IIR_IntId;	    // Interrupt ID from IIR 		 
 	LPC_UART_TypeDef *pUart = (LPC_UART_TypeDef *)LPC_UART0;
 	
-#ifdef DEBUG_0
-	uart1_put_string("Entering c_UART0_IRQHandler\n\r");
-#endif // DEBUG_0
+//	uart1_put_string("Entering c_UART0_IRQHandler\n\r");
 
 	/* Reading IIR automatically acknowledges the interrupt */
 	IIR_IntId = (pUart->IIR) >> 1 ; // skip pending bit in IIR 
 	if (IIR_IntId & IIR_RDA) { // Receive Data Avaialbe
 		/* read UART. Read RBR will clear the interrupt */
 		g_char_in = pUart->RBR;
-#ifdef DEBUG_0
-		uart1_put_string("Reading a char = ");
-		uart1_put_char(g_char_in);
-		uart1_put_string("\n\r");
-#endif // DEBUG_0
+		
+		//if(g_index)
+		if(g_char_in =='\n'||g_char_in =='\r'){
+				//g_buffer_index=0;
+				send_KCD_message();
+		}
+		
+		//send message to CRT
+		
+		//uart1_put_string("Reading a char = ");
+		
+		uart0_put_char(g_char_in);
+		g_buffer[g_buffer_index] = g_char_in;
+		g_buffer_index++;
+		
 		g_buffer[12] = g_char_in; // nasty hack
 		g_send_char = 1;
 		
@@ -213,20 +227,17 @@ void c_UART0_IRQHandler(void)
 
 		if (*gp_buffer != '\0' ) {
 			g_char_out = *gp_buffer;
-#ifdef DEBUG_0
 			//uart1_put_string("Writing a char = ");
-			//uart1_put_char(g_char_out);
+			//uart0_put_char(g_char_out);
 			//uart1_put_string("\n\r");
 			
 			// you could use the printf instead
-			printf("Writing a char = %c \n\r", g_char_out);
-#endif // DEBUG_0			
+			printf("Writing a char = %c \n\r", g_char_out);		
 			pUart->THR = g_char_out;
 			gp_buffer++;
+			
 		} else {
-#ifdef DEBUG_0
 			uart1_put_string("Finish writing. Turning off IER_THRE\n\r");
-#endif // DEBUG_0
 			pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
 			pUart->THR = '\0';
 			g_send_char = 0;
@@ -234,9 +245,31 @@ void c_UART0_IRQHandler(void)
 		}
 	      
 	} else {  /* not implemented yet */
-#ifdef DEBUG_0
 			uart1_put_string("Should not get here!\n\r");
-#endif // DEBUG_0
 		return;
 	}	
+}
+
+void send_KCD_message(){
+	msgbuf* kcd_message;
+	kcd_message= (msgbuf*)k_request_memory_block_i();
+	if(kcd_message==NULL){
+		//scrap message
+		return;
+	}
+	kcd_message->mtype=KCD_REG;
+	strncpy(kcd_message->mtext, (char*)g_buffer, g_buffer_index);
+	
+	// set current process to this process
+	k_send_message_i(KCD_PROC_ID, kcd_message);
+	
+	clear_g_buffer();
+}
+
+void clear_g_buffer(){
+	int i;
+	for(i=0;i<g_buffer_size;i++){
+		g_buffer[i]='\0';
+	}
+	g_buffer_index =0;
 }
