@@ -19,6 +19,7 @@
 #include "k_process.h"
 #include "p_queue.h"
 #include "rtx.h"
+#include "timer.h"
 
 #ifdef DEBUG_0
 #include "printf.h"
@@ -88,6 +89,14 @@ void process_init()
 
         p_enqueue(&priority_q[priority], gp_pcbs[i]);
     }
+	timer_i_pcb->mp_sp = NULL;	
+	timer_i_pcb->m_priority = 0; 
+	timer_i_pcb->m_pid = 0;		
+	timer_i_pcb->m_state = RUN;   
+	timer_i_pcb->next = NULL; 
+	timer_i_pcb->prev = NULL; 
+	timer_i_pcb->first_msg = NULL;
+	timer_i_pcb->last_msg = NULL;
 }
 
 /*@brief: scheduler, pick the pid of the next to run process

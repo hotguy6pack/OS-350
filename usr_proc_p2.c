@@ -56,23 +56,16 @@ void proc0(void) {
 void proc1(void)
 {
 	msgbuf* env;
-	msgbuf* env2;
 	char* data;
 
 	env = (msgbuf *)request_memory_block();
-	env2 = (msgbuf *)request_memory_block();
 	
 	data = "A";
 	env->mtype = DEFAULT;
 	strncpy(env->mtext, data, strlen(data));
 	
-	env2->mtype = DEFAULT;
-	strncpy(env2->mtext, data, strlen(data));
-	
-	
-	send_message(2, env);
-	send_message(2, env2);
-	
+	delayed_send(2, env, 200);
+
 	set_process_priority(2, 1);
 	
 	//send_message(2, env);
@@ -95,14 +88,9 @@ void proc2(void)
 	msgbuf* envo;
 	msgbuf* env;
 	
-	//set_process_priority(3, 2);
-	//set_process_priority(5, 2);
-	
 	envo = (msgbuf *)request_memory_block();
 	envo = receive_message(&sender_id);
-	envo = receive_message(&sender_id);
 	strncpy(data, envo->mtext, 5);
-	strncpy(data2, envo->mtext, 5);
 
 	
 	env = (msgbuf *)request_memory_block();
@@ -116,16 +104,7 @@ void proc2(void)
 
 void proc3(void)
 {
-	msgbuf* env;
-	char* data;
 	printf("proc3 started\r\n");
-	env = (msgbuf *)request_memory_block();
-	
-	data = "B";
-	env->mtype = DEFAULT;
-	strncpy(env->mtext, data, strlen(data));
-	send_message(2, env);
-	
 	while(1){
 		release_processor();
 	}
@@ -141,7 +120,8 @@ void proc4(void)
 
 void proc5(void)
 {
-	printf("proc5 started\r\n");
+	int sender_id;
+	int sender_id2;
 	while(1){
 		release_processor();
 	}

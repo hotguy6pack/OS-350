@@ -8,12 +8,15 @@
 
 #include <LPC17xx.h>
 #include "timer.h"
+#include "k_message.h"
 
 
 #define BIT(X) (1<<X)
 
-volatile uint32_t g_timer_count = 0; // increment every 1 ms
-PCB *timer_i_pcb;
+int g_timer_count; // increment every 1 ms
+PCB **timer_i_pcb_holder;
+msgbuf* timer_q;
+int release_flag;
 
 
 /**
@@ -90,19 +93,23 @@ int timer_init(int n_timer)
 
 	/* Step 4.5: Enable the TCR. See table 427 on pg494 of LPC17xx_UM. */
 	pTimer->TCR = 1;
-
-
-	timer_i_pcb->mp_sp = NULL;		/* stack pointer of the process (4 Bytes) */
-	timer_i_pcb->m_priority = 0; /*priotrity (1 Byte)*/
-	timer_i_pcb->m_pid = 0;		/* process id (1 Byte)*/
-	timer_i_pcb->m_state = RUN;   /* state of the process (4 Bytes)*/
-	timer_i_pcb->m_pc = NULL; /* PC (4 Bytes) */
-	timer_i_pcb->next = NULL; /* 4 Bytes */
-	timer_i_pcb->prev = NULL; /* 4 Bytes */
-	timer_i_pcb->first_msg = 0;
-	timer_i_pcb->last_msg = 0;
+/*
+	timer_i_pcb->mp_sp = NULL;	
+	timer_i_pcb->m_priority = 0; 
+	timer_i_pcb->m_pid = 0;		
+	timer_i_pcb->m_state = RUN;   
+	timer_i_pcb->m_pc = NULL; 
+	timer_i_pcb->next = NULL; 
+	timer_i_pcb->prev = NULL; 
+	timer_i_pcb->first_msg = NULL;
+	timer_i_pcb->last_msg = NULL;
+	*/
+	timer_q = NULL;
+	g_timer_count = 0;
+	release_flag = 0;
 
 	return 0;
+
 }
 
 /**
@@ -114,10 +121,24 @@ int timer_init(int n_timer)
  */
 __asm void TIMER0_IRQHandler(void)
 {
+	CPSID I; //disable irq
+	
 	PRESERVE8
 	IMPORT c_TIMER0_IRQHandler
+	IMPORT k_release_processor
+	
 	PUSH{r4-r11, lr}
 	BL c_TIMER0_IRQHandler
+	LDR R4, = __cpp(&release_flag)
+	LDR R4, [R4]
+	CMP R4, #0
+
+	CPSIE I; //enable irq
+
+	BEQ POP_STACK
+	BL k_release_processor
+
+POP_STACK
 	POP{r4-r11, pc}
 } 
 /**
@@ -125,8 +146,56 @@ __asm void TIMER0_IRQHandler(void)
  */
 void c_TIMER0_IRQHandler(void)
 {
+	
 	/* ack inttrupt, see section  21.6.1 on pg 493 of LPC17XX_UM */
 	LPC_TIM0->IR = BIT(0);  
-	
 	g_timer_count++ ;
+	
+	timer_i_process();
+}
+
+void timer_i_process(void) {
+	msgbuf *cur_msg, *runner, *prev;
+	int * sender_id;
+	PCB* orig_proc;
+	
+	release_flag = 0;
+	orig_proc = gp_current_process;
+	gp_current_process = timer_i_pcb;
+	
+	while(!is_message_empty()) {
+		cur_msg = (msgbuf*) k_receive_message(sender_id);
+		
+		runner = timer_q;
+		prev = NULL;
+		
+		while (runner != NULL && cur_msg->m_expiry > runner->m_expiry){
+			prev = runner;
+			runner = runner->mp_next;
+		}
+		
+		if (prev != NULL){
+			prev->mp_next = cur_msg;
+			cur_msg->mp_next = runner;
+		}else{
+			cur_msg->mp_next = timer_q;
+			timer_q = cur_msg;
+		}
+	}
+	
+	
+	while (timer_q != NULL && timer_q->m_expiry <= g_timer_count) {
+		cur_msg = timer_q;
+		timer_q = cur_msg->mp_next;
+		
+		//send message to appropriate process
+		gp_current_process = gp_pcbs[(cur_msg->m_send_pid) - 1];
+		k_send_message_i(cur_msg->m_recv_pid, cur_msg);
+		
+		if (gp_pcbs[(cur_msg->m_recv_pid) - 1]->m_priority <= orig_proc->m_priority) {
+			release_flag = 1;
+		}
+	}
+	
+	gp_current_process = orig_proc;
 }
