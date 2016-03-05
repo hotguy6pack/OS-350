@@ -147,6 +147,23 @@ void *k_request_memory_block(void) {
 	return req_block;
 }
 
+void *k_request_memory_block_i(void) {
+	unsigned int end_addr = (unsigned int) &Image$$RW_IRAM1$$ZI$$Limit;	
+	mem_block* req_block = NULL;
+	//mem_block* temp_block = used_mem;
+	
+	if(free_mem == NULL){
+		return NULL;		
+	}
+	
+	req_block = free_mem;
+
+	free_mem = (mem_block*)free_mem->next;
+	
+	//printf("assigned mem_block: 0x%08x\r\n", (int)req_block);
+	return req_block;
+}
+
 int is_valid_mem_blk( void* p_mem_blk ){
 	int i;
 	int ret = 0;
