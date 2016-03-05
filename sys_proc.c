@@ -71,36 +71,44 @@ void kcd(void) {
 	
 	printf("kcd started\r\n");
 
-	env = (msgbuf *)request_memory_block();
-	env = receive_message(&sender_id);
-	strncpy(data, env->mtext, 5);
-	
-	switch (decode(data)){
-		case clk_reset:
-			printf("Command - Reset Clock\r\n");
-			break;
-		case clk_set:
-			printf("Command - Set Clock\r\n");
-			break;
-		case clk_terminate:
-			printf("Command - Terminate Clock\r\n");
-			break;
-		case pri_set:
-			printf("Command - Set Priority\r\n");
-			break;
-		default:
-			// invalid command
-			printf("Command - ERROR\r\n");
-	}
-	
 	while(1) {
-		release_processor();
+		env = (msgbuf *)request_memory_block();
+		env = receive_message(&sender_id);
+		strncpy(data, env->mtext, 5);
+		
+		switch (decode(data)){
+			case clk_reset:
+				printf("Command - Reset Clock\r\n");
+				break;
+			case clk_set:
+				printf("Command - Set Clock\r\n");
+				break;
+			case clk_terminate:
+				printf("Command - Terminate Clock\r\n");
+				break;
+			case pri_set:
+				printf("Command - Set Priority\r\n");
+				break;
+			default:
+				// invalid command
+				printf("Command - ERROR\r\n");
+		}
 	}
 }
 
 void crt(void) {
+	msgbuf* env;
+	void* sender_id;
+	char data[MEM_BLK_SZ - 0x28];
+	
 	printf("crt started\r\n");
+	sender_id = request_memory_block();
 	while(1) {
-		release_processor();
+		env = receive_message(sender_id);
+		if (env->mtype == CRT_DISPLAY) {
+			strncpy(data, env->mtext, MEM_BLK_SZ - 0x28);
+			uart0_put_string(data);
+		}
+		release_memory_block(env);
 	}
 }
