@@ -13,7 +13,7 @@ int k_send_message(int process_id, void * message_envelope){
 	message->m_recv_pid = process_id;
 	message->m_send_pid = gp_current_process->m_pid;
 
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
+	if(NUM_TEST_PROCS < process_id - 1){
 		return 1;
 	}
 	else if(process_id < 0){
@@ -46,20 +46,12 @@ int k_send_message(int process_id, void * message_envelope){
 }
 
 int k_send_message_i(int process_id, void * message_envelope){
+	
 	//init message 
 	msgbuf* message = (msgbuf*) message_envelope;
-	message->m_recv_pid = process_id;
-	
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
-		return 1;
-	}
-	else if(process_id < 0){
-		return 1;
-  }
 	// m.type =	
 
 	//add msg to to desination PCB linked list
-	
 	if(gp_pcbs[process_id-1]->first_msg == NULL){
 		gp_pcbs[process_id-1]->first_msg = message;
 		gp_pcbs[process_id-1]->last_msg = message;
@@ -116,7 +108,7 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 		 return k_send_message(process_id, message_envelope);
 	}
 	
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
+	if(NUM_TEST_PROCS < process_id - 1){
 		return 1;
 	}
 	else if(process_id < 0){
@@ -138,14 +130,7 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 	return 0;
 }
 
-int is_message_empty(int curr_PID){
-	if(gp_pcbs[curr_PID-1]->first_msg==NULL){
-		return 1;
-	}
-	return 0;
-}
-
-int is_timer_message_empty(){
+int is_message_empty(){
 	if(timer_i_pcb->first_msg==NULL){
 		return 1;
 	}

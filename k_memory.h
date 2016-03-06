@@ -24,7 +24,6 @@ void memory_init(void);
 U32 *alloc_stack(U32 size_b);
 void *k_request_memory_block(void);
 int k_release_memory_block(void *);
-void *k_request_memory_block_i(void);
 
 
 typedef struct mem_block{

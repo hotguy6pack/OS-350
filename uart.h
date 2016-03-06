@@ -56,13 +56,9 @@
 						 
 
 #define uart0_irq_init() uart_irq_init(0)
-#define uart1_irq_init() uart_irq_init(1)   
+#define uart1_irq_init() uart_irq_init(1)       
      
 /* initialize the n_uart to use interrupt */
 int uart_irq_init(int n_uart);		
-void send_KCD_message(void);
-void print_RDY_PROC();
-void print_BLK_PROC();
-void print_BLK_MSG_PROC();
 
 #endif /* ! UART_IRQ_H_ */
