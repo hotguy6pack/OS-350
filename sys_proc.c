@@ -3,6 +3,8 @@
 #include "sys_proc.h"
 #include "k_process.h"
 #include "k_message.h"
+#include "i_proc.h"
+#include <LPC17xx.h>
 #ifdef DEBUG_0
 #include "printf.h"
 
@@ -103,14 +105,18 @@ void crt(void) {
 	msgbuf* env;
 	int sender_id;
 	char data[MEM_BLK_SZ - 0x28];
+	LPC_UART_TypeDef *pUart;
 	
 	printf("crt started\r\n");
 	while(1) {
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
-			strncpy(data, env->mtext, MEM_BLK_SZ - 0x28);
-			uart0_put_string(data);
+			send_message(UART_PROC_ID, env);
+			
+			pUart = (LPC_UART_TypeDef *) LPC_UART0;
+			pUart->IER = IER_THRE | IER_RLS | IER_RBR;
+		} else {
+			release_memory_block(env);
 		}
-		release_memory_block(env);
 	}
 }

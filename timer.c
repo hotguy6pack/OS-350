@@ -147,7 +147,7 @@ void c_TIMER0_IRQHandler(void)
 
 void timer_i_process(void) {
 	msgbuf *cur_msg, *runner, *prev;
-	int * sender_id;
+	int sender_id;
 	PCB* orig_proc;
 	
 	release_flag = 0;
@@ -155,7 +155,7 @@ void timer_i_process(void) {
 	gp_current_process = timer_i_pcb;
 	
 	while(!is_message_empty(TIME_PROC_ID)) {
-		cur_msg = (msgbuf*) k_receive_message(sender_id);
+		cur_msg = (msgbuf*) k_receive_message(&sender_id);
 		
 		runner = timer_q;
 		prev = NULL;
