@@ -20,5 +20,5 @@ void set_i_procs() {
 	//g_i_procs[1].mpf_start_pc = &???????????????;
 	
 	UART_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 1;
-	//TIME_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 2;
+	TIME_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 2;
 }

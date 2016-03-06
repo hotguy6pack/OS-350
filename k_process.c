@@ -83,7 +83,7 @@ void process_init()
 		}
     
     /* initilize exception stack frame (i.e. initial context) for each process */
-    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS /*+ NUM_I_PROCS*/; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
         int j;
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;
@@ -111,7 +111,7 @@ void process_init()
         p_enqueue(&priority_q[priority], gp_pcbs[i]);
     }
 		
-		
+		/*
 	timer_i_pcb->mp_sp = NULL;	
 	timer_i_pcb->m_priority = 0; 
 	timer_i_pcb->m_pid = TIME_PROC_ID;		
@@ -119,9 +119,9 @@ void process_init()
 	timer_i_pcb->next = NULL; 
 	timer_i_pcb->prev = NULL; 
 	timer_i_pcb->first_msg = NULL;
-	timer_i_pcb->last_msg = NULL;
+	timer_i_pcb->last_msg = NULL;*/
 		
-	gp_pcbs[TIME_PROC_ID-1] = timer_i_pcb;
+	//gp_pcbs[TIME_PROC_ID-1] = timer_i_pcb;
 }
 
 /*@brief: scheduler, pick the pid of the next to run process

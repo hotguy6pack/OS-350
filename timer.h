@@ -6,7 +6,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#define timer_i_pcb timer_i_pcb_holder[0]
+#define timer_i_pcb gp_pcbs[10]
 
 #include "k_rtx.h"
 
