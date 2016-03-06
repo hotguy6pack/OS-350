@@ -15,7 +15,7 @@
 #define BIT(X) (1<<X)
 
 int g_timer_count; // increment every 1 ms
-PCB **timer_i_pcb_holder;
+//PCB **timer_i_pcb_holder;
 msgbuf* timer_q;
 int release_flag;
 
