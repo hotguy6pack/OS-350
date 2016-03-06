@@ -19,6 +19,6 @@ void set_i_procs() {
 	//g_i_procs[0].mpf_start_pc = &timer_i_process;
 	//g_i_procs[1].mpf_start_pc = &???????????????;
 	
-	TIME_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 0;
-	UART_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 1;
+	TIME_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 1;
+	UART_PROC_ID = NUM_TEST_PROCS + NUM_SYS_PROCS + 2;
 }
