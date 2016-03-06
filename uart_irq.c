@@ -216,12 +216,29 @@ input_char(){
 		g_buffer[12] = g_char_in; // nasty hack
 		g_send_char = 1;
 		
-		/* setting the g_switch_flag */
-		if ( g_char_in == 'S' ) {
-			g_switch_flag = 1; 
-		} else {
-			g_switch_flag = 0;
+		//hot key interrupts
+		if ( g_char_in == 'q' || g_char_in =='w' || g_char_in=='e' ) {
+			switch(g_char_in){
+				printf("Current Process");
+				//ready
+				case 'q' :
+					print_RDY_PROC();
+					break;
+				
+				//blocked on memory
+				case 'w' :
+					print_BLK_PROC();
+					break;
+				
+				//blocked on message
+				case 'e' :
+					print_BLK_MSG_PROC();
+					break;
+			}
 		}
+		
+		
+		
 	} else if (IIR_IntId & IIR_THRE) {
 	/* THRE Interrupt, transmit holding register becomes empty */
 
@@ -231,7 +248,6 @@ input_char(){
 			//uart0_put_char(g_char_out);
 			//uart1_put_string("\n\r");
 			
-			// you could use the printf instead
 			printf("Writing a char = %c \n\r", g_char_out);		
 			pUart->THR = g_char_out;
 			gp_buffer++;
@@ -272,4 +288,14 @@ void clear_g_buffer(){
 		g_buffer[i]='\0';
 	}
 	g_buffer_index =0;
+}
+
+void print_RDY_PROC(){
+	
+}
+void print_BLK_PROC(){
+	
+}
+void print_BLK_MSG_PROC(){
+
 }

@@ -9,6 +9,7 @@
 #include <LPC17xx.h>
 #include "timer.h"
 #include "k_message.h"
+#include "i_proc.h"
 
 
 #define BIT(X) (1<<X)
@@ -163,7 +164,7 @@ void timer_i_process(void) {
 	orig_proc = gp_current_process;
 	gp_current_process = timer_i_pcb;
 	
-	while(!is_message_empty()) {
+	while(!is_message_empty(TIMER_PROC_ID)) {
 		cur_msg = (msgbuf*) k_receive_message(sender_id);
 		
 		runner = timer_q;

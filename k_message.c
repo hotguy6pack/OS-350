@@ -138,8 +138,8 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 	return 0;
 }
 
-int is_message_empty(){
-	if(timer_i_pcb->first_msg==NULL){
+int is_message_empty(int curr_PID){
+	if(gp_pcbs[curr_PID-1]->first_msg==NULL){
 		return 1;
 	}
 	return 0;
