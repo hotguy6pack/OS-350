@@ -145,4 +145,11 @@ int is_message_empty(int curr_PID){
 	return 0;
 }
 
+int is_timer_message_empty(){
+	if(timer_i_pcb->first_msg==NULL){
+		return 1;
+	}
+	return 0;
+}
+
 #endif /* ! DEBUG_0 */

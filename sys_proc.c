@@ -8,7 +8,7 @@
 
 #endif /* DEBUG_0 */
 
-PROC_INIT g_sys_procs[NUM_TEST_PROCS];
+PROC_INIT g_sys_procs[NUM_SYS_PROCS];
 int CRT_PROC_ID;
 int KCD_PROC_ID;
 

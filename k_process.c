@@ -37,7 +37,7 @@ U32 g_switch_flag = 0;          /* whether to continue to run the process before
 				/* this value will be set by UART handler */
 
 /* process initialization table */
-PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS];
+PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS];
 extern PROC_INIT2 g_test_procs[NUM_TEST_PROCS];
 extern PROC_INIT2 g_sys_procs[NUM_SYS_PROCS];
 extern PROC_INIT2 g_i_procs[NUM_I_PROCS];
@@ -83,7 +83,7 @@ void process_init()
 		}
     
     /* initilize exception stack frame (i.e. initial context) for each process */
-    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS /*+ NUM_I_PROCS*/; i++ ) {
         int j;
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;
