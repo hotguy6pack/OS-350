@@ -22,6 +22,7 @@
 #include "timer.h"
 #include "usr_proc.h"
 #include "sys_proc.h"
+#include "i_proc.h"
 
 #ifdef DEBUG_0
 #include "printf.h"
@@ -39,6 +40,7 @@ U32 g_switch_flag = 0;          /* whether to continue to run the process before
 PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS];
 extern PROC_INIT2 g_test_procs[NUM_TEST_PROCS];
 extern PROC_INIT2 g_sys_procs[NUM_SYS_PROCS];
+extern PROC_INIT2 g_i_procs[NUM_I_PROCS];
 
 /**
  * @biref: initialize all processes in the system
@@ -72,10 +74,16 @@ void process_init()
         g_proc_table[i+ NUM_TEST_PROCS].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
 		}
 		
-		
+		set_i_procs();
+		for ( i = 0; i < NUM_I_PROCS; i++) {
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_pid = g_i_procs[i].m_pid;
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_priority = g_i_procs[i].m_priority;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_stack_size = g_i_procs[i].m_stack_size;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].mpf_start_pc = g_i_procs[i].mpf_start_pc;
+		}
     
     /* initilize exception stack frame (i.e. initial context) for each process */
-    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
         int j;
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;

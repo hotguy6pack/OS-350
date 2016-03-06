@@ -24,7 +24,7 @@ void set_sys_procs() {
 	int i;
 	
 	for( i = 0; i < NUM_SYS_PROCS; i++ ) {
-		g_sys_procs[i].m_pid=(U32)(i+1);
+		g_sys_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
 		g_sys_procs[i].m_priority=NULLPROC;
 		g_sys_procs[i].m_stack_size=0x100;
 	}
