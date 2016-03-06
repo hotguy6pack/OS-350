@@ -9,7 +9,7 @@
 #define KCD_REG 1
 #define CRT_DISPLAY 2
 
-#define MSG_BUF_HEADER_SZ = 0x28;
+
 
 typedef struct msgbuf{
 
@@ -29,8 +29,7 @@ int k_send_message(int , void *);
 void* k_receive_message(int* );
 int k_send_message_i(int, void *);
 int k_delayed_send(int, void *, int);
-int is_message_empty(int);
-void clear_g_buffer();
+int is_message_empty();
 
 #endif
 
