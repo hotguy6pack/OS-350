@@ -114,12 +114,14 @@ void process_init()
 		
 	timer_i_pcb->mp_sp = NULL;	
 	timer_i_pcb->m_priority = 0; 
-	timer_i_pcb->m_pid = 0;		
+	timer_i_pcb->m_pid = TIME_PROC_ID;		
 	timer_i_pcb->m_state = RUN;   
 	timer_i_pcb->next = NULL; 
 	timer_i_pcb->prev = NULL; 
 	timer_i_pcb->first_msg = NULL;
 	timer_i_pcb->last_msg = NULL;
+		
+	gp_pcbs[TIME_PROC_ID-1] = timer_i_pcb;
 }
 
 /*@brief: scheduler, pick the pid of the next to run process

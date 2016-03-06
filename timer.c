@@ -94,17 +94,7 @@ int timer_init(int n_timer)
 
 	/* Step 4.5: Enable the TCR. See table 427 on pg494 of LPC17xx_UM. */
 	pTimer->TCR = 1;
-/*
-	timer_i_pcb->mp_sp = NULL;	
-	timer_i_pcb->m_priority = 0; 
-	timer_i_pcb->m_pid = 0;		
-	timer_i_pcb->m_state = RUN;   
-	timer_i_pcb->m_pc = NULL; 
-	timer_i_pcb->next = NULL; 
-	timer_i_pcb->prev = NULL; 
-	timer_i_pcb->first_msg = NULL;
-	timer_i_pcb->last_msg = NULL;
-	*/
+
 	timer_q = NULL;
 	g_timer_count = 0;
 	release_flag = 0;
