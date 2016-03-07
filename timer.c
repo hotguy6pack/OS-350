@@ -125,6 +125,7 @@ char* time_to_string(){
 	int hour;
 	int min;
 	int sec;
+	
 	char temp;
 	char buffer[8];
 	int i;
@@ -133,11 +134,9 @@ char* time_to_string(){
 	
 	sec_to_display = g_second_count;
 	
-	hour = sec_to_display / (60 * 60);
-	sec_to_display -= hour * (60 * 60);
-	min = sec_to_display / 60;
-	sec_to_display -= min * 60;
-	sec = sec_to_display / 60;
+	sec = sec_to_display % 60;
+	min = (sec_to_display / 60) % 60;
+	hour = (sec_to_display / 3600);
 	
 	temp = (hour / 10) + '0';
 	buffer[i++] = temp;
