@@ -11,6 +11,7 @@
 #include "usr_proc.h"
 #include "k_process.h"
 #include "k_message.h"
+#include "sys_proc.h"
 #ifdef DEBUG_0
 #include "printf.h"
 
@@ -63,16 +64,16 @@ void proc1(void)
 	env2 = (msgbuf *)request_memory_block();
 	
 	data = "A";
-	env->mtype = DEFAULT;
+	env->mtype = CRT_DISPLAY;
 	strncpy(env->mtext, data, strlen(data));
 	
-	delayed_send(2, env, 200);
+	send_message(CRT_PROC_ID, env);
 	
 	data = "B";
-	env2->mtype = DEFAULT;
+	env2->mtype = CRT_DISPLAY;
 	strncpy(env2->mtext, data, strlen(data));
 	
-	delayed_send(2, env2, 100);
+	send_message(CRT_PROC_ID, env2);
 
 	set_process_priority(2, 1);
 	
@@ -98,11 +99,11 @@ void proc2(void)
 	msgbuf* env;
 	
 	envo = (msgbuf *)request_memory_block();
-	envo = receive_message(&sender_id);
+	//envo = receive_message(&sender_id);
 	strncpy(data, envo->mtext, 5);
 
 	envo2 = (msgbuf *)request_memory_block();
-	envo2 = receive_message(&sender_id);
+	//envo2 = receive_message(&sender_id);
 	strncpy(data, envo2->mtext, 5);
 	
 	env = (msgbuf *)request_memory_block();

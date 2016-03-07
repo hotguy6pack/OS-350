@@ -145,6 +145,7 @@ PCB *scheduler(void)
 	
 	 for ( i = 0; i < 4; i++ ) {
 		 nextProc = (PCB*)p_findproc(&priority_q[i]);
+
 		 if(nextProc != NULL && nextProc != gp_current_process){
 			  gp_current_process = nextProc;
 			 return gp_current_process;
