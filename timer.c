@@ -120,20 +120,58 @@ int timer_init(int n_timer)
 }
 
 // Value of sec in hh:mm:ss format
-void time_to_string(char *time){
-	time = "12:34:56";
+char* time_to_string(){
+	int sec_to_display;
+	int hour;
+	int min;
+	int sec;
+	char temp;
+	char buffer[8];
+	int i;
+	
+	i = 0;
+	
+	sec_to_display = g_second_count;
+	
+	hour = sec_to_display / (60 * 60);
+	sec_to_display -= hour * (60 * 60);
+	min = sec_to_display / 60;
+	sec_to_display -= min * 60;
+	sec = sec_to_display / 60;
+	
+	temp = (hour / 10) + '0';
+	buffer[i++] = temp;
+	temp = (hour % 10) + '0';
+	buffer[i++] = temp;
+	
+	buffer[i++] = ':';
+	
+	temp = (min / 10) + '0';
+	buffer[i++] = temp;
+	temp = (min % 10) + '0';
+	buffer[i++] = temp;
+	
+	buffer[i++] = ':';
+	
+	temp = (sec / 10) + '0';
+	buffer[i++] = temp;
+	temp = (sec % 10) + '0';
+	buffer[i++] = temp;
+	
+	return buffer;
 }
 
 void update_clock(){
 	msgbuf* msg;
 	char *time;
+	int debug = 0;
 	
-	if ( terminated == 0 && g_timer_count / 1000 > g_second_count ){
+	if ( terminated == 0 && (debug == 1 || g_timer_count / 1000 > g_second_count) ){
 		g_second_count = g_timer_count / 1000; // convert from ms to s
 		msg = (msgbuf *) k_request_memory_block_i();
 		if (msg != NULL){
-			time_to_string(time);
-			msg->mtype = DEFAULT;
+			msg->mtype = CRT_DISPLAY;
+			time = time_to_string();
 			strncpy(msg->mtext, time, strlen(time));
 			k_send_message_i(CRT_PROC_ID, msg);
 		}

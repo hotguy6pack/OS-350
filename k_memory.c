@@ -7,6 +7,8 @@
 
 #include "k_memory.h"
 #include "k_process.h"
+#include "sys_proc.h"
+#include "k_rtx.h"
 
 #ifdef DEBUG_0
 #include "printf.h"
@@ -56,10 +58,12 @@ void memory_init(void)
 	int i;
 	mem_block* current;
 	mem_block* m;
-  
+
 	/* 4 bytes padding */
 	p_end += 4;
-	
+
+
+	command_head = (command_registry*) p_end;
 	
 	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
 	free_mem = (mem_block*) (start_addr - MEM_BLK_SZ);
@@ -73,6 +77,7 @@ void memory_init(void)
 		current = m;
 	}
 	
+	p_end = p_end + (COMMAND_REG_SIZE * COMMAND_REG_NUM);
 	
 	/* allocate memory for pcb pointers   */
 	gp_pcbs = (PCB **)p_end;

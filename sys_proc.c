@@ -7,31 +7,32 @@
 #include "i_proc.h"
 #include <LPC17xx.h>
 #include <string.h>
+#include "k_rtx.h"
 #ifdef DEBUG_0
 #include "printf.h"
 
 #endif /* DEBUG_0 */
 
-
-typedef struct command_registry{
-	char* val;
-	int proc_id;
-	struct command_registry* next;
-} command_registry;
-
 PROC_INIT g_sys_procs[NUM_SYS_PROCS];
 int CRT_PROC_ID;
 int KCD_PROC_ID;
+int CLK_PROC_ID;
 int current_sys_proc_count;
 command_registry *command_head;
+int command_registry_current_count;
 
 void insert_to_head(command_registry* head, char * val, int proc_id){
+	command_registry* lastNode;
+	
+	lastNode = (command_registry*) head + COMMAND_REG_SIZE * command_registry_current_count;
+	
 	if (exists(head, val) == 0){
 		command_registry* newNode;
-		newNode = (command_registry*) request_memory_block();
-		newNode->next = head;
+		command_registry_current_count++;
+		newNode = (command_registry*) head + COMMAND_REG_SIZE * command_registry_current_count;
+		newNode->next = NULL;
 		newNode->proc_id = proc_id;
-		head = newNode;
+		lastNode->next = newNode;
 	}
 }
 
@@ -39,6 +40,7 @@ void set_sys_procs() {
 	int i;
 	
 	current_sys_proc_count = 2;
+	command_registry_current_count = 0;
 	
 	for( i = 0; i < NUM_SYS_PROCS; i++ ) {
 		g_sys_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
@@ -49,13 +51,15 @@ void set_sys_procs() {
 	g_sys_procs[0].mpf_start_pc = &nullproc;
 	g_sys_procs[1].mpf_start_pc = &kcd;
 	g_sys_procs[2].mpf_start_pc = &crt;
+	g_sys_procs[3].mpf_start_pc = &clock_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
 	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[2].m_priority=HIGH;
 	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	g_sys_procs[3].m_priority=HIGH;
+	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
 	
-	command_head = (command_registry *)request_memory_block();
 	command_head->val = "WR";
 	command_head->next = NULL;
 	command_head->proc_id = NUM_TEST_PROCS + current_sys_proc_count;
@@ -74,8 +78,8 @@ int exists(command_registry* head, char * val){
 	current = head;
 	
 	while (current != NULL){
-		if (current->val == val){ 
-			return 1;
+		if (strcmp(current->val,val) == 0){ 
+			return current->proc_id;
 		}
 		current = current->next;
 	}
@@ -84,16 +88,12 @@ int exists(command_registry* head, char * val){
 }
 
 int get_proc_id(command_registry* head, char * val){
+	int id;
 	command_registry* current;
 	
-	if (exists(head, val) == 1){
-		current = head;
-		while (current != NULL){
-			if (current->val == val){
-				return current->proc_id;
-			}
-			current = current->next;
-		}
+	id = exists(head, val);
+	if ( id != 0 ){
+		return id;
 	}
 	
 	return -1;
@@ -112,22 +112,27 @@ void clock_proc(){
 	msgbuf* env;
 	char *data;
 	char *code;
+	const char delim[2] = " ";
+	char *token;
+	char *wr = "WR";
+	char *ws = "WS";
+	char *wt = "WT";
 	
 	env = receive_message(&sender_id);
-	strncpy(data, env->mtext, strlen(env->mtext));
-	code = &data[1]; // get the code minus the % character
+	token = strtok(env->mtext, delim);
+	code = &token[1]; // get the code minus the % character
 	
-	if(code == "WR"){
+	if(strcmp(code, wr) == 0){
 		printf("Command - Reset Clock\r\n");
 		g_second_count = 0;
 		g_timer_count = 0;
 		terminated = 0;
-	}else if (code == "WS"){
+	}else if (strcmp(code, ws) == 0){
 		printf("Command - Set Clock\r\n");
 		g_second_count = string_to_time(&data[4]);
 		g_timer_count = g_second_count * 1000;
 		terminated = 0;
-	}else if (code == "WT"){
+	}else if (strcmp(code, wt) == 0){
 		printf("Command - Terminate Clock\r\n");
 		terminated = 1;
 	}
@@ -149,23 +154,19 @@ void kcd(void) {
 	char *token;
 	
 	msgbuf* env;
-	msgbuf* env_send;
 	
 	printf("kcd started\r\n");
 
 	while(1) {
 		env = receive_message(&sender_id);
-		strncpy(data, env->mtext, strlen(env->mtext));
-		token = strtok(data, delim);
+		token = strtok(env->mtext, delim);
 		
 		if (env->mtype == KCD_REG){
 			insert_to_head( command_head, &token[1], env->m_send_pid );
 		}else{
 			receiver_id = get_proc_id( command_head, &token[1] );
-			env_send = (msgbuf *) request_memory_block();
-			env_send->mtype = DEFAULT;
-			strncpy(env_send->mtext, data, strlen(data));
-			k_send_message_i(receiver_id, env_send);
+			env->mtype = DEFAULT;
+			k_send_message_i(receiver_id, env);
 		}
 		release_memory_block(env);
 	}

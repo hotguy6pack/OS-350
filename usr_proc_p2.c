@@ -63,17 +63,17 @@ void proc1(void)
 	env = (msgbuf *)request_memory_block();
 	env2 = (msgbuf *)request_memory_block();
 	
-	data = "A";
+	data = "All";
 	env->mtype = CRT_DISPLAY;
 	strncpy(env->mtext, data, strlen(data));
 	
-	send_message(CRT_PROC_ID, env);
+	//delayed_send(CRT_PROC_ID, env, 150);
 	
-	data = "B";
+	data = "Bee";
 	env2->mtype = CRT_DISPLAY;
 	strncpy(env2->mtext, data, strlen(data));
 	
-	send_message(CRT_PROC_ID, env2);
+	//delayed_send(CRT_PROC_ID, env2, 100);
 
 	set_process_priority(2, 1);
 	

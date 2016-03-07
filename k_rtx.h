@@ -18,7 +18,7 @@
 
 #define NULL 0
 #define NUM_TEST_PROCS 6
-#define NUM_SYS_PROCS 3
+#define NUM_SYS_PROCS 4
 #define NUM_I_PROCS 2
 #define NUM_MEM_BLKS 20
 
@@ -29,6 +29,9 @@
 
 #define MEM_BLK_SZ 0x80
 #define PCB_SZ 0x48
+
+#define COMMAND_REG_SIZE 0xc
+#define COMMAND_REG_NUM 0xf
 
 #ifdef DEBUG_0
 #define USR_SZ_STACK 0x200         /* user proc stack size 512B   */
@@ -61,6 +64,12 @@ typedef struct PCB
 	void * first_msg;
 	void * last_msg;
 } PCB;
+
+typedef struct command_registry{
+	char* val;
+	int proc_id;
+	struct command_registry* next;
+} command_registry;
 
 /* initialization table item */
 typedef struct proc_init2

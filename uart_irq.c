@@ -307,7 +307,7 @@ void send_KCD_message(){
 		//scrap message
 		return;
 	}
-	kcd_message->mtype=KCD_REG;
+	kcd_message->mtype=DEFAULT;
 	strncpy(kcd_message->mtext, (char*)g_buffer, g_buffer_index);
 	
 	// set current process to this process

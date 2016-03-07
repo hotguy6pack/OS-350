@@ -6,9 +6,10 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#define timer_i_pcb gp_pcbs[10]
+#define timer_i_pcb gp_pcbs[TIME_PROC_ID-1]
 
 #include "k_rtx.h"
+#include "i_proc.h"
 
 extern int timer_init ( int n_timer );  /* initialize timer n_timer */
 extern int g_timer_count; // increment every 1 ms
