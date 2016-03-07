@@ -38,7 +38,7 @@ void insert_to_head(command_registry* head, char * val, int proc_id){
 void set_sys_procs() {
 	int i;
 	
-	current_sys_proc_count = 1;
+	current_sys_proc_count = 2;
 	
 	for( i = 0; i < NUM_SYS_PROCS; i++ ) {
 		g_sys_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
