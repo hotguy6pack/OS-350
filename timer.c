@@ -9,13 +9,17 @@
 #include <LPC17xx.h>
 #include "timer.h"
 #include "k_message.h"
+#include "k_memory.h"
+#include "sys_proc.h"
 #include "i_proc.h"
 
 
 #define BIT(X) (1<<X)
 
 int g_timer_count; // increment every 1 ms
-PCB **timer_i_pcb_holder;
+int g_second_count;
+int terminated;
+
 msgbuf* timer_q;
 int release_flag;
 
@@ -94,13 +98,46 @@ int timer_init(int n_timer)
 
 	/* Step 4.5: Enable the TCR. See table 427 on pg494 of LPC17xx_UM. */
 	pTimer->TCR = 1;
-
+/*
+	timer_i_pcb->mp_sp = NULL;	
+	timer_i_pcb->m_priority = 0; 
+	timer_i_pcb->m_pid = 0;		
+	timer_i_pcb->m_state = RUN;   
+	timer_i_pcb->m_pc = NULL; 
+	timer_i_pcb->next = NULL; 
+	timer_i_pcb->prev = NULL; 
+	timer_i_pcb->first_msg = NULL;
+	timer_i_pcb->last_msg = NULL;
+	*/
 	timer_q = NULL;
 	g_timer_count = 0;
+	g_second_count = 0;
+	terminated = 0;
 	release_flag = 0;
 
 	return 0;
 
+}
+
+// Value of sec in hh:mm:ss format
+void time_to_string(char *time){
+	time = "12:34:56";
+}
+
+void update_clock(){
+	msgbuf* msg;
+	char *time;
+	
+	if ( terminated == 0 && g_timer_count / 1000 > g_second_count ){
+		g_second_count = g_timer_count / 1000; // convert from ms to s
+		msg = (msgbuf *) k_request_memory_block_i();
+		if (msg != NULL){
+			time_to_string(time);
+			msg->mtype = DEFAULT;
+			strncpy(msg->mtext, time, strlen(time));
+			k_send_message_i(CRT_PROC_ID, msg);
+		}
+	}
 }
 
 /**
@@ -142,7 +179,36 @@ void c_TIMER0_IRQHandler(void)
 	LPC_TIM0->IR = BIT(0);  
 	g_timer_count++ ;
 	
+	update_clock();
 	timer_i_process();
+}
+
+// Value of hh:mm:ss in sec
+int string_to_time(char *time){
+	int sec;
+	int temp;
+	
+	sec = 0;
+	
+	// hh
+	temp = time[0] - '0';
+	temp *= 10;
+	sec += temp * 3600;
+	temp = time[1] - '0';
+	sec += temp * 3600;
+	
+	// mm
+	temp = time[3] - '0';
+	temp *= 10;
+	sec += temp * 60;
+	temp *= time[4] - '0';
+	sec += temp * 60;
+	
+	// ss
+	sec += (time[6] - '0') * 10;
+	sec += (time[6] - '0');
+	
+	return sec;
 }
 
 void timer_i_process(void) {
