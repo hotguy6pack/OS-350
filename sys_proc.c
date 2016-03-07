@@ -250,9 +250,8 @@ void priority_change_proc(){
       priority = substring_toi(&message[5], 1);
 		}
 		
-		if (proc_id >= 1 && proc_id <= 13 && priority >= 0 && priority <= 3){
 			// TODO: set priority to proc_id, priority
-		}
+			set_process_priority(proc_id,priority);
 	}
 	
 }
