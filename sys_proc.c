@@ -22,6 +22,18 @@ int current_sys_proc_count;
 command_registry *command_head;
 int command_registry_current_count;
 
+int substring_toi(char* s, int32_t n) {
+    int base  = 1;
+    int value  = 0;
+
+    while (--n >= 0) {
+        value += base * (s[n] - '0');
+        base  *= 10;
+    }
+
+    return value;
+}
+
 void insert_to_head(command_registry* head, char * val, int proc_id){
 	command_registry* lastNode;
 	
@@ -150,10 +162,45 @@ void clock_proc(){
 
 void priority_change_proc(){
 	
+	int sender_id;
+	msgbuf* env;
+	char *data;
+	char *code;
+	int proc_id;
+	int priority;
+  const int message_size = 10;
+	char message[message_size];
+	int i = 0;
+	
 	printf ("priority change process started\r\n");
 	
+	// TODO: set priority for proc with id = proc_id to the new priority
 	while(1) {
-		release_processor();
+		env = receive_message(&sender_id);
+		
+		for (i = 0; i < message_size; ++i){
+			message[i] = '/0';
+		}
+
+		strncpy(message, env->mtext, message_size);
+		release_memory_block(env);
+		
+		if (strlen(message) < strlen("%C ") || message[2] != ' '){
+			// ERROR
+			return;
+		}
+		
+		if (strlen(message) == strlen("%C 00 0\r\n")) {
+			proc_id = substring_toi(&message[3], 2);
+      priority = substring_toi(&message[6], 1);
+		}else if (strlen(message) == strlen("%C 0 0\r\n")){
+			proc_id = substring_toi(&message[3], 1);
+      priority = substring_toi(&message[5], 1);
+		}
+		
+		if (proc_id >= 1 && proc_id <= 13 && priority >= 0 && priority <= 3){
+			// TODO: set priority to proc_id, priority
+		}
 	}
 	
 }
