@@ -4,23 +4,36 @@
 #include "k_process.h"
 #include "k_message.h"
 #include "timer.h"
+#include "i_proc.h"
+#include <LPC17xx.h>
+#include <string.h>
 #ifdef DEBUG_0
 #include "printf.h"
 
 #endif /* DEBUG_0 */
 
 
-struct command_registry{
+typedef struct command_registry{
 	char* val;
 	int proc_id;
-	command_registry* next;
-};
+	struct command_registry* next;
+} command_registry;
 
-PROC_INIT g_sys_procs[NUM_TEST_PROCS];
+PROC_INIT g_sys_procs[NUM_SYS_PROCS];
 int CRT_PROC_ID;
 int KCD_PROC_ID;
 int current_sys_proc_count;
 command_registry *command_head;
+
+void insert_to_head(command_registry* head, char * val, int proc_id){
+	if (exists(head, val) == 0){
+		command_registry* newNode;
+		newNode = (command_registry*) request_memory_block();
+		newNode->next = head;
+		newNode->proc_id = proc_id;
+		head = newNode;
+	}
+}
 
 void set_sys_procs() {
 	int i;
@@ -70,16 +83,6 @@ int exists(command_registry* head, char * val){
 	return 0;
 }
 
-void insert_to_head(command_registry* head, char * val, int proc_id){
-	if (exists(head, val) == 0){
-		command_registry* newNode;
-		newNode = (command_registry*) request_memory_block();
-		newNode->next = head;
-		newNode->proc_id = proc_id;
-		head = newNode;
-	}
-}
-
 int get_proc_id(command_registry* head, char * val){
 	command_registry* current;
 	
@@ -94,6 +97,7 @@ int get_proc_id(command_registry* head, char * val){
 	}
 	
 	return -1;
+}
 
 void nullproc(void) {
 	printf ("nullproc started\r\n");
