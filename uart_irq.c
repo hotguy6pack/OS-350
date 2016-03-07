@@ -13,10 +13,13 @@
 #include "k_memory.h"
 #include "k_rtx.h"
 #include "sys_proc.h"
+#include "i_proc.h"
+#include "k_process.h"
+
 
 int g_buffer_size = MEM_BLK_SZ - 0x28;			//fix
 uint8_t g_buffer[MEM_BLK_SZ - 0x28];
-uint8_t *gp_buffer = '\0';
+uint8_t *gp_buffer = g_buffer;
 uint32_t g_buffer_index =0;
 uint8_t g_send_char = 0;
 uint8_t g_char_in;
@@ -34,7 +37,6 @@ extern int k_release_processor(void);
 int uart_irq_init(int n_uart) {
 
 	LPC_UART_TypeDef *pUart;
-
 	if ( n_uart ==0 ) {
 		/*
 		Steps 1 & 2: system control configuration.
@@ -190,6 +192,10 @@ void c_UART0_IRQHandler(void){
 input_char(){
 	uint8_t IIR_IntId;	    // Interrupt ID from IIR 		 
 	LPC_UART_TypeDef *pUart = (LPC_UART_TypeDef *)LPC_UART0;
+	msgbuf* message= NULL;
+	PCB* orig_proc;
+	int sender_id;
+	int i;
 	
 //	uart1_put_string("Entering c_UART0_IRQHandler\n\r");
 
@@ -218,8 +224,8 @@ input_char(){
 		
 		//hot key interrupts
 		if ( g_char_in == 'q' || g_char_in =='w' || g_char_in=='e' ) {
+			uart0_put_string("Current Process ");
 			switch(g_char_in){
-				printf("Current Process");
 				//ready
 				case 'q' :
 					print_RDY_PROC();
@@ -243,22 +249,50 @@ input_char(){
 	/* THRE Interrupt, transmit holding register becomes empty */
 
 		if (*gp_buffer != '\0' ) {
+		
 			g_char_out = *gp_buffer;
 			//uart1_put_string("Writing a char = ");
 			//uart0_put_char(g_char_out);
 			//uart1_put_string("\n\r");
 			
-			printf("Writing a char = %c \n\r", g_char_out);		
+			//g_char_out = *gp_buffer;
 			pUart->THR = g_char_out;
 			gp_buffer++;
 			
+			//printf("Writing a char = %c \n\r", g_char_out);		
+			//pUart->THR = g_char_out;
+			//gp_buffer++;
+			
 		} else {
-			uart1_put_string("Finish writing. Turning off IER_THRE\n\r");
-			pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
-			pUart->THR = '\0';
-			g_send_char = 0;
-			gp_buffer = g_buffer;		
+			k_release_memory_block(message);
+			gp_buffer=g_buffer;
+			
+			if(!is_message_empty(UART_PROC_ID)){
+				orig_proc = gp_current_process;
+				gp_current_process = gp_pcbs[UART_PROC_ID-1];
+				message = k_receive_message(&sender_id);
+				gp_current_process=orig_proc;
+				
+				gp_buffer=message->mtext;
+				
+				//for(i=0;i<strlen(gp_buffer);i++){
+				//	pUart->THR = gp_buffer[i];
+				//}
+				
+				
+				g_char_out = *gp_buffer;
+				pUart->THR = g_char_out;
+				gp_buffer++;
+				
+			}else{
+				//uart1_put_string("Finish writing. Turning off IER_THRE\n\r");
+			//}		
+				pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
+				pUart->THR = '\0';
+				g_send_char = 0;
+				gp_buffer = g_buffer;			
 		}
+	}
 	      
 	} else {  /* not implemented yet */
 			uart1_put_string("Should not get here!\n\r");
