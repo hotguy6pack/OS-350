@@ -124,7 +124,9 @@ void nullproc(void) {
 
 void clock_proc(){
 	int sender_id;
+	int i;
 	msgbuf* env;
+	msgbuf* env1;
 	char *data;
 	char *code;
 	const char delim[2] = " ";
@@ -132,31 +134,81 @@ void clock_proc(){
 	char *wr = "WR";
 	char *ws = "WS";
 	char *wt = "WT";
+	const int message_size = 15;
+	char message[message_size];
 	
 	printf ("clock process started\r\n");
-
-	env = receive_message(&sender_id);
-	token = strtok(env->mtext, delim);
-	code = &token[1]; // get the code minus the % character
-
-	if(strcmp(code, wr) == 0){
-		printf("Command - Reset Clock\r\n");
-		g_second_count = 0;
-		g_timer_count = 0;
-		terminated = 0;
-	}else if (strcmp(code, ws) == 0){
-		printf("Command - Set Clock\r\n");
-		g_second_count = string_to_time(&data[4]);
-		g_timer_count = g_second_count * 1000;
-		terminated = 0;
-	}else if (strcmp(code, wt) == 0){
-		printf("Command - Terminate Clock\r\n");
-		terminated = 1;
-	}
-	release_memory_block(env);
 	
 	while(1) {
-		release_processor();
+		env = receive_message(&sender_id);
+		
+		for (i = 0; i < message_size; ++i){
+			message[i] = '\0';
+		}
+		
+		if (sender_id == CLK_PROC_ID && terminated == 0){
+			env->mtype = DEFAULT;
+			// TODO: send delayed message by 1000
+			k_delayed_send(CLK_PROC_ID, env, 1000);
+			
+			env1 = (msgbuf*) request_memory_block();
+			env1->mtype = CRT_DISPLAY;
+			sprintf(message, "\033[s\033[1;69H%02d:%02d:%02d\n\033[u", (g_second_count / 3600) % 24, (g_second_count / 60) % 60, (g_second_count % 60));
+			strncpy(env1->mtext, message, strlen(message));
+			send_message(CRT_PROC_ID, env1);
+			
+			g_second_count++;
+			g_second_count = g_second_count % (60 * 60 * 24);
+			g_timer_count = g_second_count * 1000;
+			
+		}else{
+			token = strtok(env->mtext, delim);
+			code = &token[1]; // get the code minus the % character
+			strncpy(message, env->mtext, message_size);
+			release_memory_block(env);
+			
+			if(strcmp(code, wr) == 0){
+				printf("Command - Reset Clock\r\n");
+				g_second_count = 0;
+				g_timer_count = 0;
+				
+				if (terminated == 1){
+					env1 = (msgbuf*) request_memory_block();
+					env1->mtype = DEFAULT;
+					send_message(CLK_PROC_ID, env1);
+				}
+				
+				terminated = 0;
+				break;
+			}else if (strcmp(code, ws) == 0){
+				printf("Command - Set Clock\r\n");
+				
+				if (strlen(message) != strlen("%WS HH:MM:SS\r\n")){
+					// ERROR
+				}
+				
+				g_second_count = 0;
+				g_second_count += substring_toi(&message[4], 2) *3600;
+				g_second_count += substring_toi(&message[7], 2) *60;
+				g_second_count += substring_toi(&message[10], 2);
+				
+				if (terminated == 1){
+					env1 = (msgbuf*) request_memory_block();
+					env1->mtype = DEFAULT;
+					send_message(CLK_PROC_ID, env1);
+				}
+				
+				g_second_count = string_to_time(&data[4]);
+				g_timer_count = g_second_count * 1000;
+				
+				terminated = 0;
+			}else if (strcmp(code, wt) == 0){
+				// TODO:
+				printf("Command - Terminate Clock\r\n");
+				terminated = 1;
+			}
+		}
+		
 	}
 }
 
