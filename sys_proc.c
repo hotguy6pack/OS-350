@@ -17,6 +17,7 @@ PROC_INIT g_sys_procs[NUM_SYS_PROCS];
 int CRT_PROC_ID;
 int KCD_PROC_ID;
 int CLK_PROC_ID;
+int PRIORITY_CHANGE_PROC_ID;
 int current_sys_proc_count;
 command_registry *command_head;
 int command_registry_current_count;
@@ -52,6 +53,7 @@ void set_sys_procs() {
 	g_sys_procs[1].mpf_start_pc = &kcd;
 	g_sys_procs[2].mpf_start_pc = &crt;
 	g_sys_procs[3].mpf_start_pc = &clock_proc;
+	g_sys_procs[4].mpf_start_pc = &priority_change_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
 	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
@@ -59,6 +61,8 @@ void set_sys_procs() {
 	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[3].m_priority=HIGH;
 	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
+	g_sys_procs[4].m_priority=HIGH;
+	PRIORITY_CHANGE_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
 	
 	command_head->val = "WR";
 	command_head->next = NULL;
@@ -107,7 +111,6 @@ void nullproc(void) {
 }
 
 void clock_proc(){
-	
 	int sender_id;
 	msgbuf* env;
 	char *data;
@@ -118,10 +121,12 @@ void clock_proc(){
 	char *ws = "WS";
 	char *wt = "WT";
 	
+	printf ("clock process started\r\n");
+
 	env = receive_message(&sender_id);
 	token = strtok(env->mtext, delim);
 	code = &token[1]; // get the code minus the % character
-	
+
 	if(strcmp(code, wr) == 0){
 		printf("Command - Reset Clock\r\n");
 		g_second_count = 0;
@@ -136,12 +141,21 @@ void clock_proc(){
 		printf("Command - Terminate Clock\r\n");
 		terminated = 1;
 	}
-	
-	printf ("clock process started\r\n");
+	release_memory_block(env);
 	
 	while(1) {
 		release_processor();
 	}
+}
+
+void priority_change_proc(){
+	
+	printf ("priority change process started\r\n");
+	
+	while(1) {
+		release_processor();
+	}
+	
 }
 
 void kcd(void) {

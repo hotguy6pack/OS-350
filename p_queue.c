@@ -58,7 +58,7 @@ PCB* p_findAllproc(p_queue* queue){
     
     cur_node = queue->first;
     
-	count = 0;
+		count = 0;
     while(count < queue->size)
     {
 			//This needs to be changed for later parts
