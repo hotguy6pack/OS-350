@@ -19,6 +19,7 @@
 int g_timer_count; // increment every 1 ms
 int g_second_count;
 int terminated;
+int g_clock_display_force = 1;
 
 msgbuf* timer_q;
 int release_flag;
@@ -127,7 +128,7 @@ char* time_to_string(){
 	int sec;
 	
 	char temp;
-	char buffer[8];
+	char buffer[10];
 	int i;
 	
 	i = 0;
@@ -157,6 +158,10 @@ char* time_to_string(){
 	temp = (sec % 10) + '0';
 	buffer[i++] = temp;
 	
+	buffer[i++] = '\r';
+	buffer[i++] = '\n';
+	//buffer[i++] = '\0';
+	
 	return buffer;
 }
 
@@ -165,7 +170,8 @@ void update_clock(){
 	char *time;
 	int debug = 0;
 	
-	if ( terminated == 0 && (debug == 1 || g_timer_count / 1000 > g_second_count) ){
+	if ( g_clock_display_force == 1 || (terminated == 0 && (debug == 1 || g_timer_count / 1000 > g_second_count)) ){
+		g_clock_display_force = 0;
 		g_second_count = g_timer_count / 1000; // convert from ms to s
 		msg = (msgbuf *) k_request_memory_block_i();
 		if (msg != NULL){
@@ -214,8 +220,7 @@ void c_TIMER0_IRQHandler(void)
 	
 	/* ack inttrupt, see section  21.6.1 on pg 493 of LPC17XX_UM */
 	LPC_TIM0->IR = BIT(0);  
-	g_timer_count++ ;
-	
+	g_timer_count++;
 	update_clock();
 	timer_i_process();
 }

@@ -22,6 +22,18 @@ int current_sys_proc_count;
 command_registry *command_head;
 int command_registry_current_count;
 
+int substring_toi(char* s, int32_t n) {
+    int base  = 1;
+    int value  = 0;
+
+    while (--n >= 0) {
+        value += base * (s[n] - '0');
+        base  *= 10;
+    }
+
+    return value;
+}
+
 void insert_to_head(command_registry* head, char * val, int proc_id){
 	command_registry* lastNode;
 	
@@ -32,6 +44,7 @@ void insert_to_head(command_registry* head, char * val, int proc_id){
 		command_registry_current_count++;
 		newNode = (command_registry*) head + COMMAND_REG_SIZE * command_registry_current_count;
 		newNode->next = NULL;
+		newNode->val = val;
 		newNode->proc_id = proc_id;
 		lastNode->next = newNode;
 	}
@@ -53,26 +66,23 @@ void set_sys_procs() {
 	g_sys_procs[1].mpf_start_pc = &kcd;
 	g_sys_procs[2].mpf_start_pc = &crt;
 	g_sys_procs[3].mpf_start_pc = &clock_proc;
-	g_sys_procs[4].mpf_start_pc = &priority_change_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
 	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[2].m_priority=HIGH;
 	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[3].m_priority=HIGH;
-	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
-	g_sys_procs[4].m_priority=HIGH;
-	PRIORITY_CHANGE_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
+	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	
 	command_head->val = "WR";
 	command_head->next = NULL;
-	command_head->proc_id = NUM_TEST_PROCS + current_sys_proc_count;
+	command_head->proc_id = CLK_PROC_ID;
 	
-	insert_to_head(command_head, "WS", NUM_TEST_PROCS + current_sys_proc_count);
-	insert_to_head(command_head, "WT", NUM_TEST_PROCS + current_sys_proc_count);
+	insert_to_head(command_head, "WS", CLK_PROC_ID);
+	insert_to_head(command_head, "WT", CLK_PROC_ID);
 	
-	current_sys_proc_count++;
-	insert_to_head(command_head, "C", NUM_TEST_PROCS + current_sys_proc_count);
+	//current_sys_proc_count++;
+	//insert_to_head(command_head, "C", PRIORITY_CHANGE_PROC_ID);
 	
 }
 
@@ -110,52 +120,76 @@ void nullproc(void) {
 	}
 }
 
-void clock_proc(){
+void clock_proc(void){
 	int sender_id;
+	int i;
 	msgbuf* env;
+	msgbuf* env1;
 	char *data;
 	char *code;
 	const char delim[2] = " ";
 	char *token;
-	char *wr = "WR";
-	char *ws = "WS";
-	char *wt = "WT";
+	int temp;
+	const int message_size = 15;
+	char message[message_size];
 	
 	printf ("clock process started\r\n");
-
-	env = receive_message(&sender_id);
-	token = strtok(env->mtext, delim);
-	code = &token[1]; // get the code minus the % character
-
-	if(strcmp(code, wr) == 0){
-		printf("Command - Reset Clock\r\n");
-		g_second_count = 0;
-		g_timer_count = 0;
-		terminated = 0;
-	}else if (strcmp(code, ws) == 0){
-		printf("Command - Set Clock\r\n");
-		g_second_count = string_to_time(&data[4]);
-		g_timer_count = g_second_count * 1000;
-		terminated = 0;
-	}else if (strcmp(code, wt) == 0){
-		printf("Command - Terminate Clock\r\n");
-		terminated = 1;
-	}
-	release_memory_block(env);
 	
 	while(1) {
-		release_processor();
-	}
-}
+		env = receive_message(&sender_id);
+		
+		for (i = 0; i < message_size; ++i){
+			message[i] = '\0';
+		}
+		
+		if (sender_id == CLK_PROC_ID && terminated == 0){
+			env->mtype = DEFAULT;
+			// TODO: send delayed message by 1000
+			k_delayed_send(CLK_PROC_ID, env, 1000);
+			
+			env1 = (msgbuf*) request_memory_block();
+			env1->mtype = CRT_DISPLAY;
+			sprintf(message, "\033[s\033[1;69H%02d:%02d:%02d\n\033[u", (g_second_count / 3600) % 24, (g_second_count / 60) % 60, (g_second_count % 60));
+			strncpy(env1->mtext, message, strlen(message));
+			
+			
+			g_second_count++;
+			g_second_count = g_second_count % (60 * 60 * 24);
+			
+		}else{
+			if(env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'R'){
+				printf("Command - Reset Clock\r\n");
+				g_second_count = 0;
+				g_timer_count = 0;
+				g_clock_display_force = 1;
+				
+				terminated = 0;
 
-void priority_change_proc(){
-	
-	printf ("priority change process started\r\n");
-	
-	while(1) {
-		release_processor();
+			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
+				printf("Command - Set Clock\r\n");
+
+				g_second_count = 0;
+				
+				temp = substring_toi(&env->mtext[4], 2);
+				g_second_count += temp *3600;
+				
+				temp = substring_toi(&env->mtext[7], 2) *60;
+				g_second_count += temp ;
+				
+				temp = substring_toi(&env->mtext[10], 2);
+				g_second_count += temp;
+				
+				g_clock_display_force = 1;
+				g_timer_count = g_second_count * 1000;
+				
+				terminated = 0;
+			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
+				printf("Command - Terminate Clock\r\n");
+				terminated = 1;
+				send_message(CRT_PROC_ID, env);
+			}
+		}
 	}
-	
 }
 
 void kcd(void) {
@@ -177,12 +211,21 @@ void kcd(void) {
 		
 		if (env->mtype == KCD_REG){
 			insert_to_head( command_head, &token[1], env->m_send_pid );
+			release_memory_block(env);
 		}else{
+			
+	//		if (strlen(env->mtext) >= 2 && env->mtext[1] == 'C'){
+				
+		//	}else{
+				
+			//}
+			
 			receiver_id = get_proc_id( command_head, &token[1] );
 			env->mtype = DEFAULT;
 			k_send_message_i(receiver_id, env);
+			env->mtype = CRT_DISPLAY;
+			k_send_message_i(CRT_PROC_ID, env);
 		}
-		release_memory_block(env);
 	}
 }
 

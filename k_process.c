@@ -214,6 +214,7 @@ int process_switch(PCB *p_pcb_old)
  */
 int k_release_processor(void)
 {
+	
 	PCB *p_pcb_old = NULL;
 	
 	p_pcb_old = gp_current_process;
@@ -226,7 +227,9 @@ int k_release_processor(void)
         if ( p_pcb_old == NULL ) {
 		p_pcb_old = gp_current_process;
 	}
+	
 	process_switch(p_pcb_old);
+	
 	return RTX_OK;
 }
 
@@ -240,8 +243,12 @@ int set_process_priority(int process_id, int priority)
 		int i;
 		int id;
 		id = process_id - 1;
-
-		
+	
+		if (process_id < 1 || process_id > (NUM_TEST_PROCS+NUM_SYS_PROCS+NUM_I_PROCS+1) || priority < 0 || priority > 3){
+			//invalid proc_id or invalid priority
+			return 1;
+		}
+	
     proc = gp_pcbs[id];
     old_priority = proc->m_priority;
 

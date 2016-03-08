@@ -168,6 +168,7 @@ int uart_irq_init(int n_uart) {
  */
 __asm void UART0_IRQHandler(void)
 {
+	CPSID I; //disable irq
 	PRESERVE8
 	IMPORT c_UART0_IRQHandler
 	IMPORT k_release_processor
@@ -177,6 +178,7 @@ __asm void UART0_IRQHandler(void)
 	LDR R4, [R4]
 	MOV R5, #0     
 	CMP R4, R5
+	CPSIE I; //enable irq
 	BEQ  RESTORE    ; if g_switch_flag == 0, then restore the process that was interrupted
 	BL k_release_processor  ; otherwise (i.e g_switch_flag == 1, then switch to the other process)
 RESTORE
@@ -209,22 +211,27 @@ input_char(){
 		if(g_char_in =='\n'||g_char_in =='\r'){
 				//g_buffer_index=0;
 				send_KCD_message();
+				
+		}else{
+			g_buffer[g_buffer_index] = g_char_in;
+			g_buffer_index++;
 		}
 		
 		//send message to CRT
 		
 		//uart1_put_string("Reading a char = ");
 		
-		uart0_put_char(g_char_in);
-		g_buffer[g_buffer_index] = g_char_in;
-		g_buffer_index++;
+		//uart0_put_char(g_char_in);
 		
-		g_buffer[12] = g_char_in; // nasty hack
-		g_send_char = 1;
 		
+		//g_buffer[12] = g_char_in; // nasty hack
+		//g_send_char = 1;
+		
+		#ifdef _DEBUG_HOTKEYS
+	
 		//hot key interrupts
 		if ( g_char_in == 'q' || g_char_in =='w' || g_char_in=='e' ) {
-			uart0_put_string("Current Process ");
+			printf("Current Process %d\r\n", gp_current_process->m_pid);
 			switch(g_char_in){
 				//ready
 				case 'q' :
@@ -242,6 +249,8 @@ input_char(){
 					break;
 			}
 		}
+		
+		#endif
 		
 		
 		
@@ -325,11 +334,32 @@ void clear_g_buffer(){
 }
 
 void print_RDY_PROC(){
-	
+		int j;
+		printf("Ready Process:");
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+			if(gp_pcbs[j]->m_state==RDY||gp_pcbs[j]->m_state==NEW){
+				printf(" %d",gp_pcbs[j]->m_pid);
+			}
+		}
+		printf("\r\n");
 }
 void print_BLK_PROC(){
-	
+	int j;
+		printf("Memory Blocked Process:");
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+			if(gp_pcbs[j]->m_state==BLK){
+				printf(" %d",gp_pcbs[j]->m_pid);
+			}
+		}
+		printf("\r\n");
 }
 void print_BLK_MSG_PROC(){
-
+int j;
+		printf("Message Blocked Process:");
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+			if(gp_pcbs[j]->m_state==MSG_BLK){
+				printf(" %d",gp_pcbs[j]->m_pid);
+			}
+		}
+		printf("\r\n");
 }
