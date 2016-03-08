@@ -7,7 +7,7 @@
 #ifndef UART_IRQ_H_
 #define UART_IRQ_H_
 
-//#define _DEBUG_HOTKEYS
+#define _DEBUG_HOTKEYS
 
 /* typedefs */
 #include <stdint.h>	

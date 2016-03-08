@@ -56,18 +56,30 @@ void proc0(void) {
  */
 void proc1(void)
 {
+	
 	msgbuf* env;
 	msgbuf* env2;
 	char* data;
-
+	printf("G005_test: START\r\n");
+	printf("G005_test: total 5 tests\r\n");
+	printf("proc1 started\r\n");
 	env = (msgbuf *)request_memory_block();
 	env2 = (msgbuf *)request_memory_block();
 	
 	data = "All";
-	env->mtype = CRT_DISPLAY;
+	env->mtype = DEFAULT;
 	strncpy(env->mtext, data, strlen(data));
 	
+	send_message(2, env);
+	if(gp_pcbs[1]->first_msg != NULL){
+		printf("G005_test: test 1 OK\r\n");
+	}
+	else{
+		printf("G005_test: test 1 FAIL\r\n");
+	}
 	//delayed_send(CRT_PROC_ID, env, 150);
+	
+	set_process_priority(2, 1);
 	
 	data = "Bee";
 	env2->mtype = CRT_DISPLAY;
@@ -75,7 +87,7 @@ void proc1(void)
 	
 	//delayed_send(CRT_PROC_ID, env2, 100);
 
-	set_process_priority(2, 1);
+	
 	
 	//send_message(2, env);
 	
@@ -90,6 +102,7 @@ void proc1(void)
  */
 void proc2(void)
 {
+	
 	int sender_id;
 	int sender_id2;
 	char data[5];
@@ -97,16 +110,49 @@ void proc2(void)
 	msgbuf* envo;
 	msgbuf* envo2;
 	msgbuf* env;
+	char* test4all;
+	char* test5all;
+	char* test2all = "All";
+	test4all = "UNBLK";
+	test5all = "DEL";
 	
+	printf("proc2 started\r\n");
 	envo = (msgbuf *)request_memory_block();
-	//envo = receive_message(&sender_id);
-	//strncpy(data, envo->mtext, 5);
-
-	envo2 = (msgbuf *)request_memory_block();
-	//envo2 = receive_message(&sender_id);
-	//strncpy(data, envo2->mtext, 5);
+	envo = receive_message(&sender_id);
+	strncpy(data, envo->mtext, 5);
 	
-	env = (msgbuf *)request_memory_block();
+	if(strcmp(data, test2all) == 0){
+		printf("G005_test: test 2 OK\r\n");
+	}
+	else{
+		printf("G005_test: test 2 FAIL\r\n");
+	}
+
+	set_process_priority(3, 2);
+	envo2 = (msgbuf *)request_memory_block();
+	envo2 = receive_message(&sender_id);
+	strncpy(data, envo2->mtext, 5);
+	
+	if(strcmp(data, test4all) == 0){
+		printf("G005_test: test 4 OK\r\n");
+	}
+	else{
+		printf("G005_test: test 4 FAIL\r\n");
+	}
+	
+	set_process_priority(3, 0);
+	
+	envo2 = receive_message(&sender_id);
+	strncpy(data, envo2->mtext, 5);
+	
+	
+	if(strcmp(data, test5all) == 0){
+		printf("G005_test: test 5 OK\r\n");
+	}
+	else{
+		printf("G005_test: test 5 FAIL\r\n");
+	}
+	//env = (msgbuf *)request_memory_block();
 	//env = receive_message(&sender_id2);
 	//strncpy(data2, envo->mtext, 5);
 	
@@ -117,7 +163,35 @@ void proc2(void)
 
 void proc3(void)
 {
+	msgbuf* env;
+	msgbuf* env2;
+	char* data;
+	char* data2;
+	
 	printf("proc3 started\r\n");
+	
+	if(gp_pcbs[1]->m_state == MSG_BLK){
+		printf("G005_test: test 3 OK\r\n");
+	}
+	else{
+		printf("G005_test: test 3 FAIL\r\n");
+	}
+	
+	env = (msgbuf *)request_memory_block();
+	
+	data = "UNBLK";
+	env->mtype = DEFAULT;
+	strncpy(env->mtext, data, strlen(data));
+	send_message(2, env);
+	
+	env2 = (msgbuf *)request_memory_block();
+	
+	data2 = "DEL";
+	env2->mtype = DEFAULT;
+	strncpy(env2->mtext, data2, strlen(data2));
+	delayed_send(2, env2, 10);
+	set_process_priority(3, 2);
+	
 	while(1){
 		release_processor();
 	}
@@ -133,8 +207,7 @@ void proc4(void)
 
 void proc5(void)
 {
-	int sender_id;
-	int sender_id2;
+	printf("proc5 started\r\n");
 	while(1){
 		release_processor();
 	}
