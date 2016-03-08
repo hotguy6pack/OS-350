@@ -218,13 +218,15 @@ input_char(){
 		
 		//uart1_put_string("Reading a char = ");
 		
-		uart0_put_char(g_char_in);
+		//uart0_put_char(g_char_in);
 		g_buffer[g_buffer_index] = g_char_in;
 		g_buffer_index++;
 		
 		g_buffer[12] = g_char_in; // nasty hack
 		g_send_char = 1;
 		
+		#ifdef _DEBUG_HOTKEYS
+	
 		//hot key interrupts
 		if ( g_char_in == 'q' || g_char_in =='w' || g_char_in=='e' ) {
 			printf("Current Process %d\r\n", gp_current_process->m_pid);
@@ -245,6 +247,8 @@ input_char(){
 					break;
 			}
 		}
+		
+		#endif
 		
 		
 		
