@@ -128,7 +128,7 @@ char* time_to_string(){
 	int sec;
 	
 	char temp;
-	char buffer[8];
+	char buffer[10];
 	int i;
 	
 	i = 0;
@@ -157,6 +157,10 @@ char* time_to_string(){
 	buffer[i++] = temp;
 	temp = (sec % 10) + '0';
 	buffer[i++] = temp;
+	
+	buffer[i++] = '\r';
+	buffer[i++] = '\n';
+	//buffer[i++] = '\0';
 	
 	return buffer;
 }

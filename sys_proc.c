@@ -165,10 +165,6 @@ void clock_proc(void){
 				terminated = 0;
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
 				printf("Command - Set Clock\r\n");
-				
-				if (strlen(message) != strlen("%WS HH:MM:SS\r\n")){
-					// ERROR
-				}
 
 				g_second_count = 0;
 				
@@ -186,10 +182,6 @@ void clock_proc(void){
 				
 				terminated = 0;
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
-				if (strlen(message) != strlen("%WT\r\n")){
-					// ERROR
-					continue;
-				}
 				printf("Command - Terminate Clock\r\n");
 				terminated = 1;
 			}
