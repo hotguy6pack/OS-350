@@ -80,8 +80,8 @@ void set_sys_procs() {
 	insert_to_head(command_head, "WS", CLK_PROC_ID);
 	insert_to_head(command_head, "WT", CLK_PROC_ID);
 	
-	current_sys_proc_count++;
-	insert_to_head(command_head, "C", PRIORITY_CHANGE_PROC_ID);
+	//current_sys_proc_count++;
+	//insert_to_head(command_head, "C", PRIORITY_CHANGE_PROC_ID);
 	
 }
 
@@ -236,6 +236,13 @@ void kcd(void) {
 		if (env->mtype == KCD_REG){
 			insert_to_head( command_head, &token[1], env->m_send_pid );
 		}else{
+			
+	//		if (strlen(env->mtext) >= 2 && env->mtext[1] == 'C'){
+				
+		//	}else{
+				
+			//}
+			
 			receiver_id = get_proc_id( command_head, &token[1] );
 			env->mtype = DEFAULT;
 			k_send_message_i(receiver_id, env);
