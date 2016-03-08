@@ -65,26 +65,23 @@ void set_sys_procs() {
 	g_sys_procs[1].mpf_start_pc = &kcd;
 	g_sys_procs[2].mpf_start_pc = &crt;
 	g_sys_procs[3].mpf_start_pc = &clock_proc;
-	g_sys_procs[4].mpf_start_pc = &priority_change_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
 	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[2].m_priority=HIGH;
 	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[3].m_priority=HIGH;
-	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
-	g_sys_procs[4].m_priority=HIGH;
-	PRIORITY_CHANGE_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count;
+	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	
 	command_head->val = "WR";
 	command_head->next = NULL;
-	command_head->proc_id = NUM_TEST_PROCS + current_sys_proc_count;
+	command_head->proc_id = CLK_PROC_ID;
 	
-	insert_to_head(command_head, "WS", NUM_TEST_PROCS + current_sys_proc_count);
-	insert_to_head(command_head, "WT", NUM_TEST_PROCS + current_sys_proc_count);
+	insert_to_head(command_head, "WS", CLK_PROC_ID);
+	insert_to_head(command_head, "WT", CLK_PROC_ID);
 	
 	current_sys_proc_count++;
-	insert_to_head(command_head, "C", NUM_TEST_PROCS + current_sys_proc_count);
+	insert_to_head(command_head, "C", PRIORITY_CHANGE_PROC_ID);
 	
 }
 
@@ -122,7 +119,7 @@ void nullproc(void) {
 	}
 }
 
-void clock_proc(){
+void clock_proc(void){
 	int sender_id;
 	int i;
 	msgbuf* env;
@@ -159,7 +156,7 @@ void clock_proc(){
 			
 			g_second_count++;
 			g_second_count = g_second_count % (60 * 60 * 24);
-			g_timer_count = g_second_count * 1000;
+			// g_timer_count = g_second_count * 1000;
 			
 		}else{
 			token = strtok(env->mtext, delim);
@@ -199,7 +196,7 @@ void clock_proc(){
 				}
 				
 				g_second_count = string_to_time(&data[4]);
-				g_timer_count = g_second_count * 1000;
+				//g_timer_count = g_second_count * 1000;
 				
 				terminated = 0;
 			}else if (strcmp(code, wt) == 0){
@@ -208,53 +205,7 @@ void clock_proc(){
 				terminated = 1;
 			}
 		}
-		
 	}
-}
-
-void priority_change_proc(){
-	
-	int sender_id;
-	msgbuf* env;
-	char *data;
-	char *code;
-	int proc_id;
-	int priority;
-  const int message_size = 10;
-	char message[message_size];
-	int i = 0;
-	
-	printf ("priority change process started\r\n");
-	
-	// TODO: set priority for proc with id = proc_id to the new priority
-	while(1) {
-		env = receive_message(&sender_id);
-		
-		for (i = 0; i < message_size; ++i){
-			message[i] = '/0';
-		}
-
-		strncpy(message, env->mtext, message_size);
-		release_memory_block(env);
-		
-		if (strlen(message) < strlen("%C ") || message[2] != ' '){
-			// ERROR
-			return;
-		}
-		
-		if (strlen(message) == strlen("%C 00 0\r\n")) {
-			proc_id = substring_toi(&message[3], 2);
-      priority = substring_toi(&message[6], 1);
-		}else if (strlen(message) == strlen("%C 0 0\r\n")){
-			proc_id = substring_toi(&message[3], 1);
-      priority = substring_toi(&message[5], 1);
-		}
-		
-		if (proc_id >= 1 && proc_id <= 13 && priority >= 0 && priority <= 3){
-			// TODO: set priority to proc_id, priority
-		}
-	}
-	
 }
 
 void kcd(void) {

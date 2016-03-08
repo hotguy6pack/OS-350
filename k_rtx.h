@@ -18,7 +18,7 @@
 
 #define NULL 0
 #define NUM_TEST_PROCS 6
-#define NUM_SYS_PROCS 5
+#define NUM_SYS_PROCS 4
 #define NUM_I_PROCS 2
 #define NUM_MEM_BLKS 20
 

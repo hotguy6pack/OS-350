@@ -226,7 +226,9 @@ int k_release_processor(void)
         if ( p_pcb_old == NULL ) {
 		p_pcb_old = gp_current_process;
 	}
+	
 	process_switch(p_pcb_old);
+	
 	return RTX_OK;
 }
 
