@@ -100,15 +100,15 @@ void proc2(void)
 	
 	envo = (msgbuf *)request_memory_block();
 	//envo = receive_message(&sender_id);
-	strncpy(data, envo->mtext, 5);
+	//strncpy(data, envo->mtext, 5);
 
 	envo2 = (msgbuf *)request_memory_block();
 	//envo2 = receive_message(&sender_id);
-	strncpy(data, envo2->mtext, 5);
+	//strncpy(data, envo2->mtext, 5);
 	
 	env = (msgbuf *)request_memory_block();
 	//env = receive_message(&sender_id2);
-	strncpy(data2, envo->mtext, 5);
+	//strncpy(data2, envo->mtext, 5);
 	
 	while(1){
 		release_processor();
