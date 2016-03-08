@@ -242,8 +242,12 @@ int set_process_priority(int process_id, int priority)
 		int i;
 		int id;
 		id = process_id - 1;
-
-		
+	
+		if (process_id < 1 || process_id > (NUM_TEST_PROCS+NUM_SYS_PROCS+NUM_I_PROCS+1) || priority < 0 || priority > 3){
+			//invalid proc_id or invalid priority
+			return 1;
+		}
+	
     proc = gp_pcbs[id];
     old_priority = proc->m_priority;
 

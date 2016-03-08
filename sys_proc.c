@@ -156,7 +156,6 @@ void clock_proc(void){
 			
 			g_second_count++;
 			g_second_count = g_second_count % (60 * 60 * 24);
-			// g_timer_count = g_second_count * 1000;
 			
 		}else{
 			token = strtok(env->mtext, delim);
@@ -200,9 +199,18 @@ void clock_proc(void){
 				
 				terminated = 0;
 			}else if (strcmp(code, wt) == 0){
-				// TODO:
+				if (strlen(message) != strlen("%WT\r\n")){
+					// ERROR
+					continue;
+				}
 				printf("Command - Terminate Clock\r\n");
+				env1 = (msgbuf*) request_memory_block();
+				env1->mtype = CRT_DISPLAY; 
+				sprintf(message, "\033[s\033[1;69H%11s\n\033[u", ' ');
+				strncpy(env1->mtext, message, strlen(message));
+				send_message(CRT_PROC_ID, env1);
 				terminated = 1;
+				break;
 			}
 		}
 	}
