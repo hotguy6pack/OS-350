@@ -142,21 +142,7 @@ void clock_proc(void){
 			message[i] = '\0';
 		}
 		
-		if (sender_id == CLK_PROC_ID && terminated == 0){
-			env->mtype = DEFAULT;
-			// TODO: send delayed message by 1000
-			k_delayed_send(CLK_PROC_ID, env, 1000);
-			
-			env1 = (msgbuf*) request_memory_block();
-			env1->mtype = CRT_DISPLAY;
-			sprintf(message, "\033[s\033[1;69H%02d:%02d:%02d\n\033[u", (g_second_count / 3600) % 24, (g_second_count / 60) % 60, (g_second_count % 60));
-			strncpy(env1->mtext, message, strlen(message));
-			
-			
-			g_second_count++;
-			g_second_count = g_second_count % (60 * 60 * 24);
-			
-		}else{
+		
 			if(env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'R'){
 				printf("Command - Reset Clock\r\n");
 				g_second_count = 0;
@@ -164,7 +150,7 @@ void clock_proc(void){
 				g_clock_display_force = 1;
 				
 				terminated = 0;
-
+				//release_memory_block(env);
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
 				printf("Command - Set Clock\r\n");
 
@@ -183,12 +169,12 @@ void clock_proc(void){
 				g_timer_count = g_second_count * 1000;
 				
 				terminated = 0;
+				//release_memory_block(env);
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
 				printf("Command - Terminate Clock\r\n");
 				terminated = 1;
 				send_message(CRT_PROC_ID, env);
 			}
-		}
 	}
 }
 

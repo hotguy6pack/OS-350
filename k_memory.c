@@ -134,7 +134,7 @@ void *k_request_memory_block(void) {
 	
 	while(free_mem == NULL)
 	{
-		printf("BLOCK HERE\r\n");
+		printf("MEM BLOCK HERE\r\n");
 		// assign PCB to the linked list of blocked processes
 		
 		//block_current_process();

@@ -24,6 +24,7 @@ uint32_t g_buffer_index =0;
 uint8_t g_send_char = 0;
 uint8_t g_char_in;
 uint8_t g_char_out;
+msgbuf* message= NULL;
 
 extern uint32_t g_switch_flag;
 
@@ -194,7 +195,6 @@ void c_UART0_IRQHandler(void){
 input_char(){
 	uint8_t IIR_IntId;	    // Interrupt ID from IIR 		 
 	LPC_UART_TypeDef *pUart = (LPC_UART_TypeDef *)LPC_UART0;
-	msgbuf* message= NULL;
 	PCB* orig_proc;
 	int sender_id;
 	int i;
