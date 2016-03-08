@@ -44,6 +44,7 @@ void insert_to_head(command_registry* head, char * val, int proc_id){
 		command_registry_current_count++;
 		newNode = (command_registry*) head + COMMAND_REG_SIZE * command_registry_current_count;
 		newNode->next = NULL;
+		newNode->val = val;
 		newNode->proc_id = proc_id;
 		lastNode->next = newNode;
 	}
@@ -128,10 +129,7 @@ void clock_proc(void){
 	char *code;
 	const char delim[2] = " ";
 	char *token;
-	char *wr = "WR";
-	char *ws = "WS";
-	char *wt = "WT";
-	char *tempc = "00:00:00";
+	int temp;
 	const int message_size = 15;
 	char message[message_size];
 	
@@ -159,57 +157,40 @@ void clock_proc(void){
 			g_second_count = g_second_count % (60 * 60 * 24);
 			
 		}else{
-			token = strtok(env->mtext, delim);
-			code = &token[1]; // get the code minus the % character
-			strncpy(message, env->mtext, message_size);
-			release_memory_block(env);
-			
-			if(strcmp(code, wr) == 0){
+			if(env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'R'){
 				printf("Command - Reset Clock\r\n");
 				g_second_count = 0;
 				g_timer_count = 0;
 				g_clock_display_force = 1;
-				if (terminated == 1){
-					env1 = (msgbuf*) request_memory_block();
-					env1->mtype = DEFAULT;
-					strncpy(env1->mtext, tempc, strlen(tempc));
-					send_message(CRT_PROC_ID, env1);
-				}
-				
 				terminated = 0;
-			}else if (strcmp(code, ws) == 0){
+			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
 				printf("Command - Set Clock\r\n");
 				
 				if (strlen(message) != strlen("%WS HH:MM:SS\r\n")){
 					// ERROR
 				}
-				
+
 				g_second_count = 0;
-				g_second_count += substring_toi(&message[4], 2) *3600;
-				g_second_count += substring_toi(&message[7], 2) *60;
-				g_second_count += substring_toi(&message[10], 2);
 				
-				if (terminated == 1){
-					env1 = (msgbuf*) request_memory_block();
-					env1->mtype = DEFAULT;
-					send_message(CLK_PROC_ID, env1);
-				}
+				temp = substring_toi(&env->mtext[4], 2);
+				g_second_count += temp *3600;
 				
-				g_second_count = string_to_time(&data[4]);
-				//g_timer_count = g_second_count * 1000;
+				temp = substring_toi(&env->mtext[7], 2) *60;
+				g_second_count += temp ;
+				
+				temp = substring_toi(&env->mtext[10], 2);
+				g_second_count += temp;
+				
+				g_clock_display_force = 1;
+				g_timer_count = g_second_count * 1000;
 				
 				terminated = 0;
-			}else if (strcmp(code, wt) == 0){
+			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
 				if (strlen(message) != strlen("%WT\r\n")){
 					// ERROR
 					continue;
 				}
 				printf("Command - Terminate Clock\r\n");
-				env1 = (msgbuf*) request_memory_block();
-				env1->mtype = CRT_DISPLAY; 
-				sprintf(message, "\033[s\033[1;69H%11s\n\033[u", ' ');
-				strncpy(env1->mtext, message, strlen(message));
-				send_message(CRT_PROC_ID, env1);
 				terminated = 1;
 			}
 		}
