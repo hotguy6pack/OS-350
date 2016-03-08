@@ -212,19 +212,23 @@ input_char(){
 				//g_buffer_index=0;
 				send_KCD_message();
 				
+		}else{
+			g_buffer[g_buffer_index] = g_char_in;
+			g_buffer_index++;
 		}
 		
 		//send message to CRT
 		
 		//uart1_put_string("Reading a char = ");
 		
-		uart0_put_char(g_char_in);
-		g_buffer[g_buffer_index] = g_char_in;
-		g_buffer_index++;
+		//uart0_put_char(g_char_in);
 		
-		g_buffer[12] = g_char_in; // nasty hack
-		g_send_char = 1;
 		
+		//g_buffer[12] = g_char_in; // nasty hack
+		//g_send_char = 1;
+		
+		#ifdef _DEBUG_HOTKEYS
+	
 		//hot key interrupts
 		if ( g_char_in == 'q' || g_char_in =='w' || g_char_in=='e' ) {
 			printf("Current Process %d\r\n", gp_current_process->m_pid);
@@ -245,6 +249,8 @@ input_char(){
 					break;
 			}
 		}
+		
+		#endif
 		
 		
 		
@@ -291,7 +297,7 @@ input_char(){
 				//uart1_put_string("Finish writing. Turning off IER_THRE\n\r");
 			//}		
 				pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
-				pUart->THR = '\n';
+				pUart->THR = '\0';
 				g_send_char = 0;
 				gp_buffer = g_buffer;			
 		}
@@ -322,7 +328,7 @@ void send_KCD_message(){
 void clear_g_buffer(){
 	int i;
 	for(i=0;i<g_buffer_size;i++){
-		g_buffer[i]='\r';
+		g_buffer[i]='\0';
 	}
 	g_buffer_index =0;
 }
