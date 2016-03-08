@@ -131,6 +131,7 @@ void clock_proc(void){
 	char *wr = "WR";
 	char *ws = "WS";
 	char *wt = "WT";
+	char *tempc = "00:00:00";
 	const int message_size = 15;
 	char message[message_size];
 	
@@ -167,15 +168,15 @@ void clock_proc(void){
 				printf("Command - Reset Clock\r\n");
 				g_second_count = 0;
 				g_timer_count = 0;
-				
+				g_clock_display_force = 1;
 				if (terminated == 1){
 					env1 = (msgbuf*) request_memory_block();
 					env1->mtype = DEFAULT;
-					send_message(CLK_PROC_ID, env1);
+					strncpy(env1->mtext, tempc, strlen(tempc));
+					send_message(CRT_PROC_ID, env1);
 				}
 				
 				terminated = 0;
-				break;
 			}else if (strcmp(code, ws) == 0){
 				printf("Command - Set Clock\r\n");
 				
@@ -210,7 +211,6 @@ void clock_proc(void){
 				strncpy(env1->mtext, message, strlen(message));
 				send_message(CRT_PROC_ID, env1);
 				terminated = 1;
-				break;
 			}
 		}
 	}
@@ -235,6 +235,7 @@ void kcd(void) {
 		
 		if (env->mtype == KCD_REG){
 			insert_to_head( command_head, &token[1], env->m_send_pid );
+			release_memory_block(env);
 		}else{
 			
 	//		if (strlen(env->mtext) >= 2 && env->mtext[1] == 'C'){
@@ -247,7 +248,7 @@ void kcd(void) {
 			env->mtype = DEFAULT;
 			k_send_message_i(receiver_id, env);
 		}
-		release_memory_block(env);
+		
 	}
 }
 
