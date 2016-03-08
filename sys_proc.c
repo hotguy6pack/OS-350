@@ -159,7 +159,6 @@ void clock_proc(){
 			
 			g_second_count++;
 			g_second_count = g_second_count % (60 * 60 * 24);
-			g_timer_count = g_second_count * 1000;
 			
 		}else{
 			token = strtok(env->mtext, delim);
@@ -250,8 +249,8 @@ void priority_change_proc(){
       priority = substring_toi(&message[5], 1);
 		}
 		
-			// TODO: set priority to proc_id, priority
-			set_process_priority(proc_id,priority);
+		// TODO: set priority to proc_id, priority
+		set_process_priority(proc_id,priority);
 	}
 	
 }
