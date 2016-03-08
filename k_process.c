@@ -214,6 +214,7 @@ int process_switch(PCB *p_pcb_old)
  */
 int k_release_processor(void)
 {
+	
 	PCB *p_pcb_old = NULL;
 	
 	p_pcb_old = gp_current_process;
