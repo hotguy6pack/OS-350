@@ -122,7 +122,7 @@ void nullproc(void) {
 	}
 }
 
-void clock_proc(){
+void clock_proc(void){
 	int sender_id;
 	int i;
 	msgbuf* env;
@@ -202,12 +202,20 @@ void clock_proc(){
 				
 				terminated = 0;
 			}else if (strcmp(code, wt) == 0){
-				// TODO:
+				if (strlen(message) != strlen("%WT\r\n")){
+					// ERROR
+					continue;
+				}
 				printf("Command - Terminate Clock\r\n");
+				env1 = (msgbuf*) request_memory_block();
+				env1->mtype = CRT_DISPLAY; 
+				sprintf(message, "\033[s\033[1;69H%11s\n\033[u", ' ');
+				strncpy(env1->mtext, message, strlen(message));
+				send_message(CRT_PROC_ID, env1);
 				terminated = 1;
+				break;
 			}
 		}
-		
 	}
 }
 
