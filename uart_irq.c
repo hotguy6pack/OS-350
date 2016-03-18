@@ -19,11 +19,12 @@
 
 int g_buffer_size = MEM_BLK_SZ - 0x28;			//fix
 uint8_t g_buffer[MEM_BLK_SZ - 0x28];
-uint8_t *gp_buffer = g_buffer;
+uint8_t *gp_buffer = '\0';
 uint32_t g_buffer_index =0;
 uint8_t g_send_char = 0;
 uint8_t g_char_in;
 uint8_t g_char_out;
+msgbuf* message= NULL;
 
 extern uint32_t g_switch_flag;
 
@@ -194,7 +195,7 @@ void c_UART0_IRQHandler(void){
 input_char(){
 	uint8_t IIR_IntId;	    // Interrupt ID from IIR 		 
 	LPC_UART_TypeDef *pUart = (LPC_UART_TypeDef *)LPC_UART0;
-	msgbuf* message= NULL;
+	
 	PCB* orig_proc;
 	int sender_id;
 	int i;
@@ -204,14 +205,16 @@ input_char(){
 	/* Reading IIR automatically acknowledges the interrupt */
 	IIR_IntId = (pUart->IIR) >> 1 ; // skip pending bit in IIR 
 	if (IIR_IntId & IIR_RDA) { // Receive Data Avaialbe
+		
 		/* read UART. Read RBR will clear the interrupt */
 		g_char_in = pUart->RBR;
 		
 		//if(g_index)
 		if(g_char_in =='\n'||g_char_in =='\r'){
 				//g_buffer_index=0;
+			g_buffer[g_buffer_index] = '\0';
+			g_buffer_index++;
 				send_KCD_message();
-				
 		}else{
 			g_buffer[g_buffer_index] = g_char_in;
 			g_buffer_index++;
@@ -274,7 +277,7 @@ input_char(){
 			
 		} else {
 			k_release_memory_block(message);
-			gp_buffer=g_buffer;
+			gp_buffer="\0";
 			
 			if(!is_message_empty(UART_PROC_ID)){
 				orig_proc = gp_current_process;
@@ -288,7 +291,6 @@ input_char(){
 				//	pUart->THR = gp_buffer[i];
 				//}
 				
-				
 				g_char_out = *gp_buffer;
 				pUart->THR = g_char_out;
 				gp_buffer++;
@@ -299,7 +301,7 @@ input_char(){
 				pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
 				pUart->THR = '\0';
 				g_send_char = 0;
-				gp_buffer = g_buffer;			
+				//gp_buffer = g_buffer;			
 		}
 	}
 	      
