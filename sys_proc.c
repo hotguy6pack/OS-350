@@ -78,12 +78,13 @@ void set_sys_procs() {
 	command_head->next = NULL;
 	command_head->proc_id = CLK_PROC_ID;
 	
-	insert_to_head(command_head, "WS", CLK_PROC_ID);
-	insert_to_head(command_head, "WT", CLK_PROC_ID);
-	
-	//current_sys_proc_count++;
-	//insert_to_head(command_head, "C", PRIORITY_CHANGE_PROC_ID);
-	
+	reg_cmd("WS", CLK_PROC_ID);
+	reg_cmd("WT", CLK_PROC_ID);
+}
+
+void reg_cmd(char* val, int proc_id){
+	current_sys_proc_count++;
+	insert_to_head(command_head, val, proc_id);
 }
 
 int exists(command_registry* head, char * val){
@@ -172,7 +173,12 @@ void clock_proc(void){
 
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
 				printf("Command - Set Clock\r\n");
-
+				
+				if (env->mtext[6] != ':' && env->mtext[9] != ':'){
+					g_second_count = 0;
+					return;
+				}
+				
 				g_second_count = 0;
 				
 				temp = substring_toi(&env->mtext[4], 2);
@@ -218,13 +224,6 @@ void kcd(void) {
 			insert_to_head( command_head, &token[1], env->m_send_pid );
 			release_memory_block(env);
 		}else{
-			
-	//		if (strlen(env->mtext) >= 2 && env->mtext[1] == 'C'){
-				
-		//	}else{
-				
-			//}
-			
 			receiver_id = get_proc_id( command_head, &token[1] );
 			env->mtype = DEFAULT;
 			k_send_message_i(receiver_id, env);

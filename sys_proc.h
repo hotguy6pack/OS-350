@@ -12,6 +12,7 @@ extern int command_registry_current_count;
 
 void set_sys_procs(void);
 void nullproc(void);
+void reg_cmd(char* val, int proc_id);
 void kcd(void);
 void crt(void);
 void clock_proc(void);
