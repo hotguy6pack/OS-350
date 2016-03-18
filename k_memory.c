@@ -134,7 +134,7 @@ void *k_request_memory_block(void) {
 	
 	while(free_mem == NULL)
 	{
-		printf("BLOCK HERE\r\n");
+		//printf("BLOCK HERE\r\n");
 		// assign PCB to the linked list of blocked processes
 		
 		//block_current_process();
@@ -206,7 +206,7 @@ int k_release_memory_block(void *p_mem_blk) {
 		temp->next = (mem_block *)free_mem;
 		free_mem = temp;
 		
-		printf("k_release_memory_block: releasing block @ 0x%x\n", p_mem_blk);
+		//printf("k_release_memory_block: releasing block @ 0x%x\n", p_mem_blk);
 		ret = 0;
 		
 

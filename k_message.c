@@ -88,7 +88,7 @@ void* k_receive_message(int * sender_id){
 	
 	msgbuf* envo;
 	while(gp_current_process->first_msg==NULL){
-		printf("BLOCK HERE\r\n");
+		//printf("BLOCK HERE\r\n");
 		gp_current_process->m_state = MSG_BLK;
 		k_release_processor();
 	}

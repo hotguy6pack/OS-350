@@ -214,11 +214,15 @@ int process_switch(PCB *p_pcb_old)
  */
 int k_release_processor(void)
 {
-	
+	int priority;
 	PCB *p_pcb_old = NULL;
 	
 	p_pcb_old = gp_current_process;
 	gp_current_process = scheduler();
+	
+	//Move the previous process to back of queue
+	p_queue_remove(&priority_q[p_pcb_old->m_priority], p_pcb_old->m_pid);
+	p_enqueue(&priority_q[p_pcb_old->m_priority], p_pcb_old);
 	
 	if ( gp_current_process == NULL  ) {
 		gp_current_process = p_pcb_old; // revert back to the old process
