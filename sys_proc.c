@@ -168,17 +168,11 @@ void clock_proc(void){
 				g_second_count = 0;
 				g_timer_count = 0;
 				g_clock_display_force = 1;
-				
 				terminated = 0;
 
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
 				printf("Command - Set Clock\r\n");
-				
-				if (env->mtext[6] != ':' && env->mtext[9] != ':'){
-					g_second_count = 0;
-					return;
-				}
-				
+
 				g_second_count = 0;
 				
 				temp = substring_toi(&env->mtext[4], 2);
@@ -194,6 +188,12 @@ void clock_proc(void){
 				g_timer_count = g_second_count * 1000;
 				
 				terminated = 0;
+				
+				if (env->mtext[6] != ':' && env->mtext[9] != ':'){
+					g_second_count = 0;
+					g_timer_count = 0;
+				}
+				
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
 				printf("Command - Terminate Clock\r\n");
 				terminated = 1;
