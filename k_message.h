@@ -8,6 +8,8 @@
 #define DEFAULT 0
 #define KCD_REG 1
 #define CRT_DISPLAY 2
+#define COUNT_REPORT 3
+#define WAKEUP10 4
 
 #define MSG_BUF_HEADER_SZ = 0x28;
 
