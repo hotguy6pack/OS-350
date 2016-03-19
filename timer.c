@@ -220,7 +220,7 @@ void c_TIMER0_IRQHandler(void)
 	
 	/* ack inttrupt, see section  21.6.1 on pg 493 of LPC17XX_UM */
 	LPC_TIM0->IR = BIT(0);  
-	g_timer_count+= 1;
+	g_timer_count+= 30;
 	update_clock();
 	timer_i_process();
 }

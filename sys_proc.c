@@ -110,7 +110,6 @@ int exists(command_registry* head, char * val){
 
 int get_proc_id(command_registry* head, char * val){
 	int id;
-	command_registry* current;
 	
 	id = exists(head, val);
 	
@@ -133,10 +132,6 @@ void clock_proc(void){
 	int i;
 	msgbuf* env;
 	msgbuf* env1;
-	char *data;
-	char *code;
-	const char delim[2] = " ";
-	char *token;
 	int temp;
 	const int message_size = 15;
 	char message[message_size];
@@ -212,38 +207,44 @@ void set_priority_proc(void){
 	int i;
 	int process_id;
 	int new_priority;
-	char *data;
+	int current_token_index = 0;
 	char* token;
+	int delim_len = 1;
 	msgbuf* env;
+  char *token_array[3];
+	char* temp;
+	char *buf;
 	
 	while(1) {
 		env = receive_message(&sender_id);
-		if (env->mtext[0] == '%' && env->mtext[1] == 'C'){
-			
-			token = strtok(env->mtext, " ");
-			token = strtok(env->mtext, " ");
-			
-			if (token){
-				printf("%s\n", token);
-			}
-			
-			token = strtok(env->mtext, " ");
-			if(token){
-				printf("%s\n", token);
-			}	
+		buf = env->mtext;
+		i = 0;
+		current_token_index = 0;
+		
+		token = strtok(&buf[current_token_index], " ");
+		
+		while (token != NULL){
+			token_array[i++] = token;
+			current_token_index += strlen(token) + delim_len;
+			token = strtok(&buf[current_token_index], " ");
+		}
+		
+		if (strcmp(token_array[0], "%C") == 0 && token_array[1] && token_array[2]){
+			temp = token_array[1];
+			process_id = substring_toi(temp, strlen(temp));
+			temp = token_array[2];
+			new_priority = substring_toi(temp, strlen(temp));
+			set_process_priority(process_id, new_priority);
 		}
 		
 		release_memory_block(env);
 	}
-	
 }
 
 void kcd(void) {
 	int sender_id;
 	int receiver_id;
 	int i;
-	char *data;
-	char *time;
 	const char delim[2] = " ";
 	char *token;
 	

@@ -37,7 +37,7 @@ PCB* p_findproc(p_queue* queue){
     while(count < queue->size)
     {
 			//This needs to be changed for later parts
-        if (cur_node->m_state == RDY || cur_node->m_state == NEW)
+        if (cur_node->m_state == RDY || cur_node->m_state == NEW || cur_node->m_state == RUN)
         {
             retNode = cur_node;
             return retNode;

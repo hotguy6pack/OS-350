@@ -34,9 +34,9 @@ void set_test_procs() {
 		g_test_procs[i].m_stack_size=0x100;
 	}
 	
-	g_test_procs[0].m_priority=LOW;
-	g_test_procs[1].m_priority=LOW;
-	g_test_procs[2].m_priority=LOW;
+	g_test_procs[0].m_priority=2;
+	//g_test_procs[1].m_priority=2;
+	//g_test_procs[2].m_priority=2;
 	
 	g_test_procs[0].mpf_start_pc = &proc1;
 	g_test_procs[1].mpf_start_pc = &proc2;
@@ -60,10 +60,16 @@ void proc0(void) {
  */
 void proc1(void)
 {
+	int i = 0;
 	printf("proc1 started\r\n");
 	while(1){
-		printf("proc1 started\r\n");
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc1 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
 
@@ -73,41 +79,70 @@ void proc1(void)
  */
 void proc2(void)
 {
+	int i = 0;
 	while(1){
-		printf("proc2 started\r\n");
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc2 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
 
 void proc3(void)
 {
+	int i = 0;
 	while(1){
-		printf("proc3 started\r\n");
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc3 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
 
 void proc4(void)
 {
+	int i = 0;
 	while(1){
-		printf("proc1 started\r\n");
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc4 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
 
 void proc5(void)
 {
-	int sender_id;
-	int sender_id2;
+	int i = 0;
 	while(1){
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc5 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
 
 void proc6(void)
 {
-	printf("proc6 started\r\n");
+	int i = 0;
 	while(1){
-		release_processor();
+		if(i % 10000 == 0){
+			i = 0;
+			printf("proc6 started\r\n");
+			release_processor();
+		}
+		i++;
+		
 	}
 }
