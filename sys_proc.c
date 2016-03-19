@@ -106,9 +106,9 @@ int get_proc_id(command_registry* head, char * val){
 	int id;
 	command_registry* current;
 	
-	if (strcmp(val, "WT") == 0){
-		return CLK_PROC_ID;
-	}
+	//if (strcmp(val, "WT") == 0){
+	//	return CLK_PROC_ID;
+	//}
 	
 	id = exists(head, val);
 	
