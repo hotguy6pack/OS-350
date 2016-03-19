@@ -112,7 +112,7 @@ void proc3(void)
 	
 	msgbuf* temp_msg_ptr;
 	
-	data = "Process C";
+	data = "Process C\r\n"; //////////////////////
 	msg_q = NULL;
 	
 	while(1){
@@ -125,7 +125,7 @@ void proc3(void)
 		}
 		
 		if (p->mtype == COUNT_REPORT) {
-			if (p->m_kdata[0] % 1 == 0) {
+			if (p->m_kdata[0] % 20 == 0) {
 				//send "Process C" to CRT display using msg envelope p
 				p->mtype = CRT_DISPLAY;
 				strcpy(p->mtext, data, strlen(data));
@@ -160,7 +160,7 @@ void proc3(void)
 void proc4(void)
 {
 	while(1){
-		printf("inside proc4\r\n");
+		//printf("inside proc4\r\n");
 		release_processor();
 	}
 }
@@ -168,7 +168,7 @@ void proc4(void)
 void proc5(void)
 {
 	while(1){
-		printf("inside proc5\r\n");
+		//printf("inside proc5\r\n");
 		release_processor();
 	}
 }
@@ -176,7 +176,7 @@ void proc5(void)
 void proc6(void)
 {
 	while(1){
-		printf("inside proc6\r\n");
+		//printf("inside proc6\r\n");
 		release_processor();
 	}
 }
