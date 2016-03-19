@@ -26,6 +26,8 @@ uint8_t g_char_in;
 uint8_t g_char_out;
 msgbuf* message= NULL;
 
+int is_printing =0;
+
 extern uint32_t g_switch_flag;
 
 extern int k_release_processor(void);
@@ -276,10 +278,12 @@ input_char(){
 			//gp_buffer++;
 			
 		} else {
-			k_release_memory_block(message);
+			
 			gp_buffer="\0";
 			
-			if(!is_message_empty(UART_PROC_ID)){
+			if(!is_message_empty(UART_PROC_ID)){\
+				
+				is_printing=1;
 				orig_proc = gp_current_process;
 				gp_current_process = gp_pcbs[UART_PROC_ID-1];
 				message = k_receive_message(&sender_id);
@@ -296,12 +300,14 @@ input_char(){
 				gp_buffer++;
 				
 			}else{
+				is_printing=0;
 				//uart1_put_string("Finish writing. Turning off IER_THRE\n\r");
 			//}		
 				pUart->IER ^= IER_THRE; // toggle the IER_THRE bit 
 				pUart->THR = '\0';
 				g_send_char = 0;
 				//gp_buffer = g_buffer;			
+				k_release_memory_block(message);
 		}
 	}
 	      

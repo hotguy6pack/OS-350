@@ -23,6 +23,8 @@ int current_sys_proc_count;
 command_registry *command_head;
 int command_registry_current_count;
 
+extern int is_printing;
+
 int substring_toi(char* s, int32_t n) {
     int base  = 1;
     int value  = 0;
@@ -246,6 +248,7 @@ void kcd(void) {
 	char *token;
 	
 	msgbuf* env;
+	msgbuf* env2;
 	
 	printf("kcd started\r\n");
 
@@ -259,17 +262,21 @@ void kcd(void) {
 		}else{
 			receiver_id = get_proc_id( command_head, &token[1] );
 			env->mtype = DEFAULT;
-			k_send_message_i(receiver_id, env);
+			
+			env2 = request_memory_block();
+			strcpy(env2->mtext, env->mtext);
 			
 			i = 0;
-			while(env->mtext[i] != '\0'){		
+			while(env2->mtext[i] != '\0'){		
 					i++;
 			}
-			env->mtext[i] = '\r';
-			env->mtext[i+1] = '\n';
-			env->mtext[i+2] = '\0';
-			env->mtype = CRT_DISPLAY;
-			k_send_message_i(CRT_PROC_ID, env);
+			env2->mtext[i] = '\r';
+			env2->mtext[i+1] = '\n';
+			env2->mtext[i+2] = '\0';
+			env2->mtype = CRT_DISPLAY;
+			
+			k_send_message_i(receiver_id, env);
+			k_send_message_i(CRT_PROC_ID, env2);
 		}
 	}
 }
@@ -282,6 +289,9 @@ void crt(void) {
 	
 	printf("crt started\r\n");
 	while(1) {
+		while(is_printing){
+			release_processor();
+		}
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
 			send_message(UART_PROC_ID, env);
