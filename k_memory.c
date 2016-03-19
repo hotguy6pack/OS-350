@@ -63,7 +63,6 @@ void memory_init(void)
 	p_end += 4;
 
 
-	command_head = (command_registry*) p_end;
 	
 	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
 	free_mem = (mem_block*) (start_addr - MEM_BLK_SZ);
@@ -87,6 +86,10 @@ void memory_init(void)
 		gp_pcbs[i] = (PCB *)p_end;
 		p_end += sizeof(PCB); 
 	}
+	
+	
+	command_head = (command_registry*) p_end;
+	
 #ifdef DEBUG_0  
 	printf("gp_pcbs[0] = 0x%x \n", gp_pcbs[0]);
 	printf("gp_pcbs[1] = 0x%x \n", gp_pcbs[1]);

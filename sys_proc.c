@@ -83,7 +83,6 @@ void set_sys_procs() {
 }
 
 void reg_cmd(char* val, int proc_id){
-	current_sys_proc_count++;
 	insert_to_head(command_head, val, proc_id);
 }
 
@@ -105,10 +104,6 @@ int exists(command_registry* head, char * val){
 int get_proc_id(command_registry* head, char * val){
 	int id;
 	command_registry* current;
-	
-	//if (strcmp(val, "WT") == 0){
-	//	return CLK_PROC_ID;
-	//}
 	
 	id = exists(head, val);
 	
@@ -171,6 +166,8 @@ void clock_proc(void){
 				terminated = 0;
 
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
+				int leng = strlen(env->mtext);
+				
 				printf("Command - Set Clock\r\n");
 
 				g_second_count = 0;
@@ -189,7 +186,7 @@ void clock_proc(void){
 				
 				terminated = 0;
 				
-				if (env->mtext[6] != ':' && env->mtext[9] != ':'){
+				if (env->mtext[14] != '\0' || env->mtext[6] != ':' || env->mtext[9] != ':'){
 					g_second_count = 0;
 					g_timer_count = 0;
 				}
