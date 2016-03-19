@@ -171,6 +171,8 @@ void clock_proc(void){
 				terminated = 0;
 
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'S'){ // TODO: Add strlen check
+				int leng = strlen(env->mtext);
+				
 				printf("Command - Set Clock\r\n");
 
 				g_second_count = 0;
@@ -189,7 +191,7 @@ void clock_proc(void){
 				
 				terminated = 0;
 				
-				if (env->mtext[6] != ':' && env->mtext[9] != ':'){
+				if (env->mtext[14] != '\0' || env->mtext[6] != ':' || env->mtext[9] != ':'){
 					g_second_count = 0;
 					g_timer_count = 0;
 				}
