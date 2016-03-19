@@ -152,6 +152,12 @@ void p_queue_remove(p_queue* queue, int id)
                 queue->first = next;
                 return;
             }
+						else if (cur_node == queue->last){
+						     	prev = cur_node->prev;
+									prev->next = NULL;
+									queue->last = prev;
+									return;
+						}
             
             prev = cur_node->prev;
             prev->next = cur_node->next;
