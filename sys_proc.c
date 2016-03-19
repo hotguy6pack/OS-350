@@ -216,16 +216,16 @@ void set_priority_proc(void){
 	
 	while(1) {
 		env = receive_message(&sender_id);
-		if (env->mtext[0] == '%' && env->mtext[1] == 'C' && env->mtext[2] == ' '){
+		if (env->mtext[0] == '%' && env->mtext[1] == 'C'){
 			
 			token = strtok(env->mtext, " ");
-			token = strtok(NULL, " ");
+			token = strtok(env->mtext, " ");
 			
 			if (token){
 				printf("%s\n", token);
 			}
 			
-			token = strtok(NULL, " ");
+			token = strtok(env->mtext, " ");
 			if(token){
 				printf("%s\n", token);
 			}	
