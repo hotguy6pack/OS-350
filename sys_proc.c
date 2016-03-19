@@ -83,7 +83,6 @@ void set_sys_procs() {
 }
 
 void reg_cmd(char* val, int proc_id){
-	current_sys_proc_count++;
 	insert_to_head(command_head, val, proc_id);
 }
 
