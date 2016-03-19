@@ -63,7 +63,7 @@ void proc1(void)
 	p = (msgbuf*) request_memory_block();
 	
 	// register the %Z command
-	// reg_cmd("Z", 1);
+	reg_cmd("Z", 1);
 	
 	while(1) {
 		p = receive_message(&sender_id);
