@@ -266,13 +266,15 @@ void kcd(void) {
 			env2 = request_memory_block();
 			strcpy(env2->mtext, env->mtext);
 			
-			i = 0;
-			while(env2->mtext[i] != '\0'){		
-					i++;
+			
+			if(receiver_id != -1){
+				i = strlen(env2->mtext);
+				env2->mtext[i] = '\r';
+				env2->mtext[i+1] = '\n';
+				env2->mtext[i+2] = '\0';
 			}
-			env2->mtext[i] = '\r';
-			env2->mtext[i+1] = '\n';
-			env2->mtext[i+2] = '\0';
+			
+			
 			env2->mtype = CRT_DISPLAY;
 			
 			k_send_message_i(receiver_id, env);
