@@ -156,6 +156,7 @@ void *k_request_memory_block(void) {
 }
 
 void *k_request_memory_block_i(void) {
+	int i;
 	unsigned int end_addr = (unsigned int) &Image$$RW_IRAM1$$ZI$$Limit;	
 	mem_block* req_block = NULL;
 	//mem_block* temp_block = used_mem;
@@ -167,6 +168,10 @@ void *k_request_memory_block_i(void) {
 	req_block = free_mem;
 
 	free_mem = (mem_block*)free_mem->next;
+	
+	for(i = (int)req_block; i < (int)req_block + MEM_BLK_SZ; i += 4){
+		*((int*)i) = 0;
+	}
 	
 	//printf("assigned mem_block: 0x%08x\r\n", (int)req_block);
 	return req_block;

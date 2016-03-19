@@ -186,7 +186,7 @@ void clock_proc(void){
 				
 				terminated = 0;
 				
-				if (env->mtext[14] != '\0' || env->mtext[6] != ':' || env->mtext[9] != ':'){
+				if (env->mtext[12] != '\0' || env->mtext[6] != ':' || env->mtext[9] != ':'){
 					g_second_count = 0;
 					g_timer_count = 0;
 				}
