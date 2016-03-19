@@ -221,8 +221,11 @@ int k_release_processor(void)
 	gp_current_process = scheduler();
 	
 	//Move the previous process to back of queue
-	p_queue_remove(&priority_q[p_pcb_old->m_priority], p_pcb_old->m_pid);
-	p_enqueue(&priority_q[p_pcb_old->m_priority], p_pcb_old);
+	if(p_pcb_old != NULL){
+		p_queue_remove(&priority_q[p_pcb_old->m_priority], p_pcb_old->m_pid);
+		p_enqueue(&priority_q[p_pcb_old->m_priority], p_pcb_old);
+	}
+	
 	
 	if ( gp_current_process == NULL  ) {
 		gp_current_process = p_pcb_old; // revert back to the old process
