@@ -267,7 +267,7 @@ void kcd(void) {
 			strcpy(env2->mtext, env->mtext);
 			
 			
-			if(receiver_id != -1){
+			if(receiver_id == -1){
 				i = strlen(env2->mtext);
 				env2->mtext[i] = '\r';
 				env2->mtext[i+1] = '\n';
