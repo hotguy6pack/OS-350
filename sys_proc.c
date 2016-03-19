@@ -224,6 +224,14 @@ void kcd(void) {
 			receiver_id = get_proc_id( command_head, &token[1] );
 			env->mtype = DEFAULT;
 			k_send_message_i(receiver_id, env);
+			
+			i = 0;
+			while(env->mtext[i] != '\0'){		
+					i++;
+			}
+			env->mtext[i] = '\r';
+			env->mtext[i+1] = '\n';
+			env->mtext[i+2] = '\0';
 			env->mtype = CRT_DISPLAY;
 			k_send_message_i(CRT_PROC_ID, env);
 		}
