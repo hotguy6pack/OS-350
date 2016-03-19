@@ -137,7 +137,7 @@ char* time_to_string(){
 	
 	sec = sec_to_display % 60;
 	min = (sec_to_display / 60) % 60;
-	hour = (sec_to_display / 3600);
+	hour = (sec_to_display / 3600) % 24;
 	
 	temp = (hour / 10) + '0';
 	buffer[i++] = temp;
