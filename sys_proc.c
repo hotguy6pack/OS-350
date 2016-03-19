@@ -17,6 +17,7 @@ PROC_INIT g_sys_procs[NUM_SYS_PROCS];
 int CRT_PROC_ID;
 int KCD_PROC_ID;
 int CLK_PROC_ID;
+int SET_PRIORITY_PROC_ID;
 int PRIORITY_CHANGE_PROC_ID;
 int current_sys_proc_count;
 command_registry *command_head;
@@ -65,21 +66,25 @@ void set_sys_procs() {
 	g_sys_procs[0].mpf_start_pc = &nullproc;
 	g_sys_procs[1].mpf_start_pc = &kcd;
 	g_sys_procs[2].mpf_start_pc = &crt;
-	g_sys_procs[3].mpf_start_pc = &clock_proc;
+	g_sys_procs[4].mpf_start_pc = &clock_proc;
+	g_sys_procs[3].mpf_start_pc = &set_priority_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
 	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[2].m_priority=HIGH;
 	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
 	g_sys_procs[3].m_priority=HIGH;
+	SET_PRIORITY_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	g_sys_procs[4].m_priority=HIGH;
 	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
-	
+
 	command_head->val = "WR";
 	command_head->next = NULL;
 	command_head->proc_id = CLK_PROC_ID;
 	
 	reg_cmd("WS", CLK_PROC_ID);
 	reg_cmd("WT", CLK_PROC_ID);
+	reg_cmd("C", SET_PRIORITY_PROC_ID);
 }
 
 void reg_cmd(char* val, int proc_id){
@@ -198,6 +203,37 @@ void clock_proc(void){
 			}
 		}
 	}
+}
+
+void set_priority_proc(void){
+	int sender_id;
+	int i;
+	int process_id;
+	int new_priority;
+	char *data;
+	char* token;
+	msgbuf* env;
+	
+	while(1) {
+		env = receive_message(&sender_id);
+		if (env->mtext[0] == '%' && env->mtext[1] == 'C'){
+			
+			token = strtok(env->mtext, " ");
+			token = strtok(env->mtext, " ");
+			
+			if (token){
+				printf("%s\n", token);
+			}
+			
+			token = strtok(env->mtext, " ");
+			if(token){
+				printf("%s\n", token);
+			}	
+		}
+		
+		release_memory_block(env);
+	}
+	
 }
 
 void kcd(void) {

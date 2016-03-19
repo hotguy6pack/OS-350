@@ -6,6 +6,7 @@
 extern int CRT_PROC_ID;
 extern int KCD_PROC_ID;
 extern int CLK_PROC_ID;
+extern int SET_PRIORITY_PROC_ID;
 //extern int PRIORITY_CHANGE_PROC_ID;
 extern command_registry *command_head;
 extern int command_registry_current_count;
@@ -16,6 +17,7 @@ void reg_cmd(char* val, int proc_id);
 void kcd(void);
 void crt(void);
 void clock_proc(void);
+void set_priority_proc(void);
 //void priority_change_proc(void);
 
 #endif /* SYS_PROC_H_ */
