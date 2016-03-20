@@ -58,6 +58,7 @@ void proc0(void) {
 void proc1(void)
 {
 	msgbuf* env;
+	msgbuf* env2;
 	char* data;
 	int actual;
 	int expected = 2;
@@ -75,8 +76,20 @@ void proc1(void)
 	if (actual == expected){
 			printf("G006_test: test 1 OK\r\n");
 	}
-	//send_message(2, env);
 	
+	env2 = (msgbuf *)request_memory_block();
+	data = "%C 2 1";
+	env2->mtype = DEFAULT;
+	strncpy(env2->mtext, data, strlen(data));
+	
+	send_message(SET_PRIORITY_PROC_ID, env2);
+
+	expected = 3;
+	actual = get_process_priority(2);
+	
+	if (actual == expected){
+			printf("G006_test: test 3 OK\r\n");
+	}
 	while(1){
 		release_processor();
 	}
@@ -90,23 +103,27 @@ void proc2(void)
 {
 	int sender_id;
 	int sender_id2;
-	char data[5];
+	char* data;
 	char data2[5];
 	msgbuf* envo;
 	msgbuf* envo2;
 	msgbuf* env;
+	int actual;
 	
-	envo = (msgbuf *)request_memory_block();
-	//envo = receive_message(&sender_id);
-	//strncpy(data, envo->mtext, 5);
-
-	envo2 = (msgbuf *)request_memory_block();
-	//envo2 = receive_message(&sender_id);
-	//strncpy(data, envo2->mtext, 5);
+	int expected = 1;
+	actual = get_process_priority(2);
+	
+	if (actual == expected){
+			printf("G006_test: test 2 OK\r\n");
+	}
 	
 	env = (msgbuf *)request_memory_block();
-	//env = receive_message(&sender_id2);
-	//strncpy(data2, envo->mtext, 5);
+	
+	data = "%C 2 3";
+	env->mtype = DEFAULT;
+	strncpy(env->mtext, data, strlen(data));
+
+	send_message(SET_PRIORITY_PROC_ID, env);
 	
 	while(1){
 		release_processor();
