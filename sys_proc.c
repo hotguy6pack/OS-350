@@ -201,6 +201,7 @@ void set_priority_proc(void){
 	
 	while(1) {
 		env = receive_message(&sender_id);
+		env->mtext[6] = '\0';
 		buf = env->mtext;
 		i = 0;
 		current_token_index = 0;

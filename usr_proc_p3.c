@@ -57,26 +57,23 @@ void proc0(void) {
 void proc1(void)
 {
 	msgbuf* env;
-	msgbuf* env2;
 	char* data;
-
+	int actual;
+	int expected = 2;
+	
 	env = (msgbuf *)request_memory_block();
-	env2 = (msgbuf *)request_memory_block();
 	
-	data = "All";
-	env->mtype = CRT_DISPLAY;
+	data = "%C 1 2";
+	env->mtype = DEFAULT;
 	strncpy(env->mtext, data, strlen(data));
-	
-	//delayed_send(CRT_PROC_ID, env, 150);
-	
-	data = "Bee";
-	env2->mtype = CRT_DISPLAY;
-	strncpy(env2->mtext, data, strlen(data));
-	
-	//delayed_send(CRT_PROC_ID, env2, 100);
 
-	set_process_priority(2, 1);
+	send_message(SET_PRIORITY_PROC_ID, env);
 	
+	actual = get_process_priority(1);
+	
+	if (actual == expected){
+			printf("G006_test: test 1 OK\r\n");
+	}
 	//send_message(2, env);
 	
 	while(1){
