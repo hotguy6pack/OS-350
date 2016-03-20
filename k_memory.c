@@ -9,6 +9,7 @@
 #include "k_process.h"
 #include "sys_proc.h"
 #include "k_rtx.h"
+#include "timer.h"
 
 #ifdef DEBUG_0
 #include "printf.h"
@@ -51,6 +52,8 @@ mem_block* free_mem;
 
 U32 start_addr;
 U32 stack_size;
+
+//int starved_clock;
 
 void memory_init(void)
 {
@@ -242,7 +245,7 @@ int k_release_memory_block_i(void *p_mem_blk) {
 	// else put the mem_blk into heap
 		
 
-		if (free_mem == NULL) {
+		if (free_mem == NULL && starved_clock == 0) {
 			rel = notify_mem_released();
 			
 		}

@@ -17,6 +17,7 @@ extern int g_second_count; // increment every 1 ms
 extern int terminated;
 extern int string_to_time( char* time );
 extern int g_clock_display_force;
+extern int starved_clock;
 
 void timer_i_process(void);
 

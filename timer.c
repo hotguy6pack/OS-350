@@ -23,6 +23,7 @@ int g_clock_display_force = 1;
 
 msgbuf* timer_q;
 int release_flag;
+int starved_clock;
 
 
 /**
@@ -115,6 +116,7 @@ int timer_init(int n_timer)
 	g_second_count = 0;
 	terminated = 0;
 	release_flag = 0;
+	starved_clock = 0;
 
 	return 0;
 
@@ -170,6 +172,17 @@ void update_clock(){
 	char *time;
 	int debug = 0;
 	
+	if(starved_clock == 1){
+		msg = (msgbuf *) k_request_memory_block_i();
+		if (msg != NULL){
+			msg->mtype = CRT_DISPLAY;
+			time = time_to_string();
+			strncpy(msg->mtext, time, strlen(time));
+			k_send_message_i(CRT_PROC_ID, msg);
+			starved_clock = 0;
+		}
+	}
+	
 	if ( g_clock_display_force == 1 || (terminated == 0 && (debug == 1 || g_timer_count / 1000 > g_second_count)) ){
 		g_clock_display_force = 0;
 		g_second_count = g_timer_count / 1000; // convert from ms to s
@@ -179,6 +192,10 @@ void update_clock(){
 			time = time_to_string();
 			strncpy(msg->mtext, time, strlen(time));
 			k_send_message_i(CRT_PROC_ID, msg);
+			starved_clock = 0;
+		}
+		else{
+			starved_clock = 1;
 		}
 	}
 }

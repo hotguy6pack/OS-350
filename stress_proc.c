@@ -63,7 +63,10 @@ void proc1(void)
 	p = (msgbuf*) request_memory_block();
 	
 	// register the %Z command
-	reg_cmd("Z", 1);
+	p->mtype = KCD_REG;
+	strcpy(p->mtext, "%Z");
+	send_message(KCD_PROC_ID, p);
+	// reg_cmd("Z", 1);
 	
 	while(1) {
 		p = receive_message(&sender_id);
@@ -81,6 +84,7 @@ void proc1(void)
 		p = (msgbuf*) request_memory_block();
 		p->mtype = COUNT_REPORT;
 		p->m_kdata[0] = num;
+		//__enable_irq();////////////////////////////////////
 		send_message(2, p);
 		num = num + 1;
 		release_processor();
@@ -142,11 +146,15 @@ void proc3(void)
 					} else {
 						// put p into local queue
 						temp_msg_ptr = msg_q;
-						while (temp_msg_ptr != NULL) {
-							temp_msg_ptr = (msgbuf*) temp_msg_ptr->mp_next;
+						if(msg_q==NULL){
+							msg_q=p;
+						}else{
+							while (temp_msg_ptr->mp_next != NULL) {
+								temp_msg_ptr = (msgbuf*) temp_msg_ptr->mp_next;
+							}
+							temp_msg_ptr->mp_next = (void*) p;
 						}
-						temp_msg_ptr->mp_next = (void*) p;
-						p->mp_next = NULL;
+						p->mp_next=NULL;
 					}
 				}
 			}
