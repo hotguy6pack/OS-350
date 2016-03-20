@@ -62,6 +62,7 @@ void proc1(void)
 	int actual;
 	int expected = 2;
 	
+
 	env = (msgbuf *)request_memory_block();
 	
 	data = "%C 1 2";

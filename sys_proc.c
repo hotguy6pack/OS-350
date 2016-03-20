@@ -181,7 +181,14 @@ void clock_proc(void){
 			}else if (env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'T'){
 				printf("Command - Terminate Clock\r\n");
 				terminated = 1;
-				send_message(CRT_PROC_ID, env);
+				
+				#ifdef _OBJ
+					send_message(13, env);
+				#else
+					send_message(CRT_PROC_ID, env);
+				#endif
+				
+				
 			}
 	}
 }
@@ -265,7 +272,7 @@ void kcd(void) {
 			k_send_message_i(receiver_id, env);
 			k_send_message_i(CRT_PROC_ID, env2);
 		}
-	}
+	} 
 }
 
 void crt(void) {
@@ -282,7 +289,14 @@ void crt(void) {
 
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
-			send_message(UART_PROC_ID, env);
+			
+			#ifdef _OBJ
+				send_message(15, env);
+			#else
+				send_message(UART_PROC_ID, env);
+			#endif
+			
+			
 			pUart = (LPC_UART_TypeDef *) LPC_UART0;
 			pUart->IER = IER_THRE | IER_RLS | IER_RBR;
 		}else{

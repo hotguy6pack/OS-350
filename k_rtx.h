@@ -33,6 +33,8 @@
 #define COMMAND_REG_SIZE 0xc
 #define COMMAND_REG_NUM 0xf
 
+#define _OBJ 1
+
 #ifdef DEBUG_0
 #define USR_SZ_STACK 0x200         /* user proc stack size 512B   */
 #else

@@ -10,6 +10,9 @@ int k_send_message(int process_id, void * message_envelope){
 	
 	//init message 
 	msgbuf* message = (msgbuf*) message_envelope;
+	#ifdef _OBJ
+				process_id = process_map(process_id);
+	#endif
 	message->m_recv_pid = process_id;
 	message->m_send_pid = gp_current_process->m_pid;
 
@@ -48,6 +51,7 @@ int k_send_message(int process_id, void * message_envelope){
 int k_send_message_i(int process_id, void * message_envelope){
 	//init message 
 	msgbuf* message = (msgbuf*) message_envelope;
+	
 	message->m_recv_pid = process_id;
 	
 	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
@@ -108,6 +112,11 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 		//init message 
 	
 	msgbuf* message = (msgbuf*) message_envelope;
+	
+	#ifdef _OBJ
+				process_id = process_map(process_id);
+	#endif
+	
 	message->m_recv_pid = process_id;
 	message->m_send_pid = gp_current_process->m_pid;
 	message->m_expiry = g_timer_count + delay;
