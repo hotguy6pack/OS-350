@@ -8,7 +8,7 @@
 
 #include "rtx.h"
 #include "uart_polling.h"
-#include "usr_proc.h"
+#include "stress_proc.h"
 #include "k_process.h"
 #include "k_message.h"
 #include "sys_proc.h"
@@ -18,47 +18,40 @@
 #endif /* DEBUG_0 */
 
 /* initialization table item */
-PROC_INIT g_test_procs[NUM_TEST_PROCS];
-int numTestTotal;
-int numTestPassed;
+PROC_INIT g_stress_procs[NUM_STRESS_PROCS];
 
-void set_test_procs() {
+int PROC_A_ID;
+int PROC_B_ID;
+int PROC_C_ID;
+
+int current_stress_proc_count;
+
+void set_stress_procs() {
 	int i;
-	numTestTotal = 0;
-	numTestPassed = 0;
+	current_stress_proc_count = 1;
 	
-	
-	for( i = 0; i < NUM_TEST_PROCS; i++ ) {
-		g_test_procs[i].m_pid=(U32)(i+1);
-		g_test_procs[i].m_priority=LOWEST;
-		g_test_procs[i].m_stack_size=0x100;
+	for( i = 0; i < NUM_STRESS_PROCS; i++ ) {
+		g_stress_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
+		g_stress_procs[i].m_priority=LOWEST;
+		g_stress_procs[i].m_stack_size=0x100;
 	}
 	
-	g_test_procs[0].mpf_start_pc = &proc1;
-	g_test_procs[1].mpf_start_pc = &proc2;
-	g_test_procs[2].mpf_start_pc = &proc3;
-	g_test_procs[3].mpf_start_pc = &proc4;
-	g_test_procs[4].mpf_start_pc = &proc5;
-	g_test_procs[5].mpf_start_pc = &proc6;
+	g_stress_procs[0].mpf_start_pc = &procA; // Process A
+	PROC_A_ID = NUM_TEST_PROCS + current_stress_proc_count++;
+	g_stress_procs[1].mpf_start_pc = &procB; // Process B
+	PROC_B_ID = NUM_TEST_PROCS + current_stress_proc_count++;
+	g_stress_procs[2].mpf_start_pc = &procC; // Process C
+	PROC_C_ID = NUM_TEST_PROCS + current_stress_proc_count++;
 	
-	g_test_procs[0].m_priority=HIGH;
-	g_test_procs[1].m_priority=HIGH;
-	g_test_procs[2].m_priority=HIGH;
+	
+	g_stress_procs[0].m_priority=HIGH;
+	g_stress_procs[1].m_priority=HIGH;
+	g_stress_procs[2].m_priority=HIGH;
+
 }
 
 
-void proc0(void) {
-	printf("proc0 started\r\n");
-	while(1) {
-		release_processor();
-	}
-}
-
-/**
- * @brief: a process that prints 5x6 uppercase letters
- *         and then yields the cpu.
- */
-void proc1(void)
+void procA(void)
 {
 	msgbuf* p;
 	int sender_id;
@@ -88,28 +81,24 @@ void proc1(void)
 		p->mtype = COUNT_REPORT;
 		p->m_kdata[0] = num;
 		//__enable_irq();////////////////////////////////////
-		send_message(2, p);
+		send_message(PROC_B_ID, p);
 		num = num + 1;
 		release_processor();
 	}
 }
 
-/**
- * @brief: a process that prints 5x6 numbers
- *         and then yields the cpu.
- */
-void proc2(void)
+void procB(void)
 {
 	msgbuf* p;
 	int sender_id;
 	
 	while(1){
 		p = receive_message(&sender_id);
-		send_message(3, p);
+		send_message(PROC_C_ID, p);
 	}
 }
 
-void proc3(void)
+void procC(void)
 {
 	msgbuf* p;
 	int sender_id;
@@ -142,7 +131,7 @@ void proc3(void)
 				//hibernate for 10 sec
 				q = p;//(msgbuf*) request_memory_block();
 				q->mtype = WAKEUP10;
-				delayed_send(3, q, 50);
+				delayed_send(PROC_B_ID, q, 50);
 				while (1) {
 					p2 = receive_message(&sender_id);
 					if (p2->mtype == WAKEUP10) {
@@ -168,30 +157,6 @@ void proc3(void)
 		}else{
 			release_memory_block(p);
 		}
-		release_processor();
-	}
-}
-
-void proc4(void)
-{
-	while(1){
-		//printf("inside proc4\r\n");
-		release_processor();
-	}
-}
-
-void proc5(void)
-{
-	while(1){
-		//printf("inside proc5\r\n");
-		release_processor();
-	}
-}
-
-void proc6(void)
-{
-	while(1){
-		//printf("inside proc6\r\n");
 		release_processor();
 	}
 }

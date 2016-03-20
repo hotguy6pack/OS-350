@@ -67,7 +67,7 @@ void memory_init(void)
 
 
 	
-	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
+	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
 	free_mem = (mem_block*) (start_addr - MEM_BLK_SZ);
 	
 	current = free_mem;
@@ -83,9 +83,9 @@ void memory_init(void)
 	
 	/* allocate memory for pcb pointers   */
 	gp_pcbs = (PCB **)p_end;
-	p_end += (NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * sizeof(PCB *);
+	p_end += (NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * sizeof(PCB *);
   
-	for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
+	for ( i = 0; i < NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
 		gp_pcbs[i] = (PCB *)p_end;
 		p_end += sizeof(PCB); 
 	}
@@ -185,7 +185,7 @@ int is_valid_mem_blk( void* p_mem_blk ){
 	int ret = 0;
 	int first_valid;
 	
-	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
+	start_addr = RAM_TOP - ((NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS) * USR_SZ_STACK);
 	first_valid = start_addr - MEM_BLK_SZ;
 	for (i = 0; i < NUM_MEM_BLKS; ++i){
 		if ((unsigned int) p_mem_blk == first_valid - i * MEM_BLK_SZ)

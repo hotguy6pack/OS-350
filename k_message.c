@@ -16,7 +16,7 @@ int k_send_message(int process_id, void * message_envelope){
 	message->m_recv_pid = process_id;
 	message->m_send_pid = gp_current_process->m_pid;
 
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
+	if(NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
 		return 1;
 	}
 	else if(process_id < 0){
@@ -54,7 +54,7 @@ int k_send_message_i(int process_id, void * message_envelope){
 	
 	message->m_recv_pid = process_id;
 	
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
+	if(NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
 		return 1;
 	}
 	else if(process_id < 0){
@@ -125,7 +125,7 @@ int k_delayed_send(int process_id, void * message_envelope, int delay){
 		 return k_send_message(process_id, message_envelope);
 	}
 	
-	if(NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
+	if(NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS < process_id - 1){
 		return 1;
 	}
 	else if(process_id < 0){

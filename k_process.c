@@ -37,10 +37,11 @@ U32 g_switch_flag = 0;          /* whether to continue to run the process before
 				/* this value will be set by UART handler */
 
 /* process initialization table */
-PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS];
+PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS];
 extern PROC_INIT2 g_test_procs[NUM_TEST_PROCS];
 extern PROC_INIT2 g_sys_procs[NUM_SYS_PROCS];
 extern PROC_INIT2 g_i_procs[NUM_I_PROCS];
+extern PROC_INIT2 g_stress_procs[NUM_STRESS_PROCS];
 int proc_id_map[16];
 
 /**
@@ -67,24 +68,32 @@ void process_init()
         g_proc_table[i].mpf_start_pc = g_test_procs[i].mpf_start_pc;
     }
 		
+		set_stress_procs();
+		for ( i = 0; i < NUM_STRESS_PROCS; i++ ) {
+				g_proc_table[i+ NUM_TEST_PROCS].m_pid = g_stress_procs[i].m_pid;
+				g_proc_table[i+ NUM_TEST_PROCS].m_priority = g_stress_procs[i].m_priority;
+        g_proc_table[i+ NUM_TEST_PROCS].m_stack_size = g_stress_procs[i].m_stack_size;
+        g_proc_table[i+ NUM_TEST_PROCS].mpf_start_pc = g_stress_procs[i].mpf_start_pc;
+		}
+		
 		set_sys_procs();
 		for ( i = 0; i < NUM_SYS_PROCS; i++) {
-				g_proc_table[i+ NUM_TEST_PROCS].m_pid = g_sys_procs[i].m_pid;
-				g_proc_table[i+ NUM_TEST_PROCS].m_priority = g_sys_procs[i].m_priority;
-        g_proc_table[i+ NUM_TEST_PROCS].m_stack_size = g_sys_procs[i].m_stack_size;
-        g_proc_table[i+ NUM_TEST_PROCS].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS].m_pid = g_sys_procs[i].m_pid;
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS].m_priority = g_sys_procs[i].m_priority;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS].m_stack_size = g_sys_procs[i].m_stack_size;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS].mpf_start_pc = g_sys_procs[i].mpf_start_pc;
 		}
 		
 		set_i_procs();
 		for ( i = 0; i < NUM_I_PROCS; i++) {
-				g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_pid = g_i_procs[i].m_pid;
-				g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_priority = g_i_procs[i].m_priority;
-        g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].m_stack_size = g_i_procs[i].m_stack_size;
-        g_proc_table[i+ NUM_TEST_PROCS + NUM_SYS_PROCS].mpf_start_pc = g_i_procs[i].mpf_start_pc;
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS].m_pid = g_i_procs[i].m_pid;
+				g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS].m_priority = g_i_procs[i].m_priority;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS].m_stack_size = g_i_procs[i].m_stack_size;
+        g_proc_table[i+ NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS].mpf_start_pc = g_i_procs[i].mpf_start_pc;
 		}
     
     /* initilize exception stack frame (i.e. initial context) for each process */
-    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS + NUM_I_PROCS; i++ ) {
         int j;
         (gp_pcbs[i])->m_pid = (g_proc_table[i]).m_pid;
 				(gp_pcbs[i])->m_priority = (g_proc_table[i]).m_priority;
@@ -106,7 +115,7 @@ void process_init()
         p_queue_init(&priority_q[i]);    
     }
 		
-    for ( i = 0; i < NUM_TEST_PROCS + NUM_SYS_PROCS; i++ ) {
+    for ( i = 0; i < NUM_TEST_PROCS + NUM_STRESS_PROCS + NUM_SYS_PROCS; i++ ) {
         priority = gp_pcbs[i]->m_priority;
 
         p_enqueue(&priority_q[priority], gp_pcbs[i]);
@@ -265,7 +274,7 @@ int set_process_priority(int process_id, int priority)
 	
 		id = process_id - 1;
 	
-		if (process_id < 1 || process_id > (NUM_TEST_PROCS+NUM_SYS_PROCS+NUM_I_PROCS+1) || priority < 0 || priority > 3){
+		if (process_id < 1 || process_id > (NUM_TEST_PROCS+NUM_STRESS_PROCS+NUM_SYS_PROCS+NUM_I_PROCS+1) || priority < 0 || priority > 3){
 			//invalid proc_id or invalid priority
 			return 1;
 		}

@@ -60,7 +60,7 @@ void set_sys_procs() {
 	command_registry_current_count = 0;
 	
 	for( i = 0; i < NUM_SYS_PROCS; i++ ) {
-		g_sys_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
+		g_sys_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+NUM_STRESS_PROCS+1);
 		g_sys_procs[i].m_priority=NULLPROC;
 		g_sys_procs[i].m_stack_size=0x100;
 	}
@@ -72,13 +72,13 @@ void set_sys_procs() {
 	g_sys_procs[3].mpf_start_pc = &set_priority_proc;
 	
 	g_sys_procs[1].m_priority=HIGH;
-	KCD_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	KCD_PROC_ID = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_sys_proc_count++;
 	g_sys_procs[2].m_priority=HIGH;
-	CRT_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	CRT_PROC_ID = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_sys_proc_count++;
 	g_sys_procs[3].m_priority=HIGH;
-	SET_PRIORITY_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	SET_PRIORITY_PROC_ID = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_sys_proc_count++;
 	g_sys_procs[4].m_priority=HIGH;
-	CLK_PROC_ID = NUM_TEST_PROCS + current_sys_proc_count++;
+	CLK_PROC_ID = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_sys_proc_count++;
 
 	command_head->val = "WR";
 	command_head->next = NULL;

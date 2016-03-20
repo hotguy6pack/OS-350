@@ -368,7 +368,7 @@ void clear_g_buffer(){
 void print_RDY_PROC(){
 		int j;
 		printf("Ready Process:");
-		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS+NUM_STRESS_PROCS);j++){
 			if(gp_pcbs[j]->m_state==RDY||gp_pcbs[j]->m_state==NEW){
 				printf(" %d",gp_pcbs[j]->m_pid);
 			}
@@ -378,7 +378,7 @@ void print_RDY_PROC(){
 void print_BLK_PROC(){
 	int j;
 		printf("Memory Blocked Process:");
-		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS+NUM_STRESS_PROCS);j++){
 			if(gp_pcbs[j]->m_state==BLK){
 				printf(" %d",gp_pcbs[j]->m_pid);
 			}
@@ -388,7 +388,7 @@ void print_BLK_PROC(){
 void print_BLK_MSG_PROC(){
 int j;
 		printf("Message Blocked Process:");
-		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS);j++){
+		for(j=0;j<(NUM_I_PROCS+NUM_SYS_PROCS+NUM_TEST_PROCS+NUM_STRESS_PROCS);j++){
 			if(gp_pcbs[j]->m_state==MSG_BLK){
 				printf(" %d",gp_pcbs[j]->m_pid);
 			}

@@ -8,7 +8,7 @@
 
 #include "rtx.h"
 #include "uart_polling.h"
-#include "usr_proc.h"
+#include "stress_proc.h"
 #include "k_process.h"
 #include "k_message.h"
 #include "sys_proc.h"
@@ -18,43 +18,34 @@
 #endif /* DEBUG_0 */
 
 /* initialization table item */
-PROC_INIT g_test_procs[NUM_TEST_PROCS];
-int numTestTotal;
-int numTestPassed;
+PROC_INIT g_stress_procs[NUM_STRESS_PROCS];
 
-void set_test_procs() {
+int PROC_A_TEST;
+int PROC_B_TEST;
+int PROC_C_TEST;
+
+int current_stress_proc_count;
+
+void set_stress_procs() {
 	int i;
-	numTestTotal = 0;
-	numTestPassed = 0;
+	current_stress_proc_count = 1;
 	
-	
-	for( i = 0; i < NUM_TEST_PROCS; i++ ) {
-		g_test_procs[i].m_pid=(U32)(i+1);
-		g_test_procs[i].m_priority=LOWEST;
-		g_test_procs[i].m_stack_size=0x100;
+	for( i = 0; i < NUM_STRESS_PROCS; i++ ) {
+		g_stress_procs[i].m_pid=(U32)(i+1);
+		g_stress_procs[i].m_priority=LOWEST;
+		g_stress_procs[i].m_stack_size=0x100;
 	}
 	
-	g_test_procs[0].mpf_start_pc = &proc1; // Process A
-	g_test_procs[1].mpf_start_pc = &proc2; // Process B
-	g_test_procs[2].mpf_start_pc = &proc3; // Process C
-	g_test_procs[3].mpf_start_pc = &proc4;
-	g_test_procs[4].mpf_start_pc = &proc5;
-	g_test_procs[5].mpf_start_pc = &proc6;
+	g_stress_procs[0].mpf_start_pc = &procA; // Process A
+	PROC_A_TEST = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_stress_proc_count++;
+	g_stress_procs[1].mpf_start_pc = &procB; // Process B
+	PROC_B_TEST = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_stress_proc_count++;
+	g_stress_procs[2].mpf_start_pc = &procC; // Process C
+	PROC_C_TEST = NUM_TEST_PROCS + NUM_STRESS_PROCS + current_stress_proc_count++;
+
 }
 
-
-void proc0(void) {
-	printf("proc0 started\r\n");
-	while(1) {
-		release_processor();
-	}
-}
-
-/**
- * @brief: a process that prints 5x6 uppercase letters
- *         and then yields the cpu.
- */
-void proc1(void)
+void procA(void)
 {
 	msgbuf* p;
 	int sender_id;
@@ -95,7 +86,7 @@ void proc1(void)
  * @brief: a process that prints 5x6 numbers
  *         and then yields the cpu.
  */
-void proc2(void)
+void procB(void)
 {
 	msgbuf* p;
 	int sender_id;
@@ -106,7 +97,7 @@ void proc2(void)
 	}
 }
 
-void proc3(void)
+void procC(void)
 {
 	msgbuf* p;
 	int sender_id;
@@ -161,30 +152,6 @@ void proc3(void)
 		}
 		
 		release_memory_block(p);
-		release_processor();
-	}
-}
-
-void proc4(void)
-{
-	while(1){
-		printf("inside proc4\r\n");
-		release_processor();
-	}
-}
-
-void proc5(void)
-{
-	while(1){
-		printf("inside proc5\r\n");
-		release_processor();
-	}
-}
-
-void proc6(void)
-{
-	while(1){
-		printf("inside proc6\r\n");
 		release_processor();
 	}
 }
