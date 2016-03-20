@@ -19,7 +19,6 @@ int k_send_message(int process_id, void * message_envelope){
 	else if(process_id < 0){
 		return 1;
   }
-	// m.type =	
 
 	//add msg to to desination PCB linked list
 	
@@ -41,7 +40,7 @@ int k_send_message(int process_id, void * message_envelope){
 					k_release_processor();
 			}
 	}
-
+	
 	return 0;
 }
 
@@ -78,7 +77,6 @@ int k_send_message_i(int process_id, void * message_envelope){
 			//		k_release_processor();
 			//}
 	}
-
 	return 0;
 }
 

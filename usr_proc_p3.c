@@ -12,6 +12,7 @@
 #include "k_process.h"
 #include "k_message.h"
 #include "sys_proc.h"
+#include "timer.h"
 #ifdef DEBUG_0
 #include "printf.h"
 
@@ -66,7 +67,7 @@ void proc1(void)
 	data = "%C 1 2";
 	env->mtype = DEFAULT;
 	strncpy(env->mtext, data, strlen(data));
-
+	
 	send_message(SET_PRIORITY_PROC_ID, env);
 	
 	actual = get_process_priority(1);

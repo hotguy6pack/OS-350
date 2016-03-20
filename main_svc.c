@@ -22,7 +22,7 @@
 
 int main() 
 {	
-	/* CMSIS system initialization */
+	/* CMSIS system initialization */	
 	SystemInit(); 
 #ifdef DEBUG_0
 	init_printf(NULL, putc);

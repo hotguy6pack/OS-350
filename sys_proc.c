@@ -227,6 +227,8 @@ void set_priority_proc(void){
 }
 
 void kcd(void) {
+	int start_time;
+	int end_time;
 	int sender_id;
 	int receiver_id;
 	int i;
@@ -262,13 +264,19 @@ void kcd(void) {
 			
 			env2->mtype = CRT_DISPLAY;
 			
+			start_time = g_timer_count;
 			k_send_message_i(receiver_id, env);
+			end_time = g_timer_count;
+			printf("KCD Process: Start Time - %d, End Time - %d, Total time taken - %d\r\n", start_time, end_time, end_time - start_time);
+			
 			k_send_message_i(CRT_PROC_ID, env2);
 		}
 	}
 }
 
 void crt(void) {
+	int start_time;
+	int end_time;
 	msgbuf* env;
 	int sender_id;
 	char data[MEM_BLK_SZ - 0x28];
@@ -282,7 +290,10 @@ void crt(void) {
 
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
+			start_time = g_timer_count;
 			send_message(UART_PROC_ID, env);
+			end_time = g_timer_count;
+			printf("CRT Process: Start Time - %d, End Time - %d, Total time taken - %d\r\n", start_time, end_time, end_time - start_time);
 			pUart = (LPC_UART_TypeDef *) LPC_UART0;
 			pUart->IER = IER_THRE | IER_RLS | IER_RBR;
 		}else{
