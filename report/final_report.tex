@@ -1,0 +1,110 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%amsmath is a packaged use for typesetting math
+%amsfonts is required for special fonts, e.g. blackboard bold (for denoting real numbers, etc.)
+\usepackage{amsmath,amsfonts}
+
+%graphicx is required for images
+\usepackage{graphicx}
+
+%used for customzing enumarations
+\usepackage{enumerate}
+
+%tikz is the package used for trees
+\usepackage{tikz}
+
+\usepackage{algo,fullpage,url,amssymb,epsfig,color,xspace}
+\usepackage[pdftitle={Final Report},%
+pdfsubject={University of Waterloo, SE 350, Winter 2016},%
+pdfauthor={}]{hyperref}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\renewcommand{\contentsname}{Table of Contents}
+
+%Note: Many of the packages above have other uses beyond those used in this document
+
+%this marks the beginning of the document. Everything before this is called the Preamble.
+\begin{document}
+%marks the end of the title section
+\begin{center}
+{\Large\bf University of Waterloo}\\
+\vspace{3mm}
+{\Large\bf SE350, Winter 2016}\\
+\vspace{80mm}
+{\Large\bf RTX Project Final Report}\\
+\vspace{80mm}
+\textbf{Chen Pin Jie, 20516440, pjchen} \\
+\textbf{Rahman Md Wasiur, 20516440, mwrahman} \\
+\textbf{Duncan Philip Oudom, 20516440,  poduncan} \\
+\textbf{Hariharan Ajanthan, 20516440, a2hariha} \\
+
+\end{center}
+
+\definecolor{care}{rgb}{0,0,0}
+\def\question#1{\item[\bf #1.]}
+\def\part#1{\item[\bf #1)]}
+\newcommand{\pc}[1]{\mbox{\textbf{#1}}} % pseudocode
+
+\clearpage
+\tableofcontents
+\newpage
+\section{Introduction}
+\newpage
+\section{Global Variable Documentation}
+\textbf{free\_mem}\\ \\
+\textbf{gp\_currentpcb}\\ \\
+\textbf{gp\_pcbs}\\ \\
+\textbf{priority\_q}\\ \\
+\textbf{g\_timer\_count} \\ \\
+\newpage
+\section{Kernel API}
+\subsection{Memory Management}
+\subsubsection{Request Memory}
+\subsubsection{Release Memory}
+\subsection{Process Management}
+\subsubsection{Process Control Block}
+\subsubsection{Release Processor}
+\subsubsection{Set Process Priority}
+\subsubsection{Get Process Priority}
+\subsection{Interprocess Communication}
+\subsubsection{Send Message}
+\subsubsection{Receive Message}
+\subsubsection{Delay Send Message}
+\newpage
+\section{Interrupts and their Handlers/Processes}
+\subsection{Timer I-Process}
+\subsection{UART I-Process}
+\subsubsection{Debugging Hotkeys}
+\newpage
+\section{System and User Processes}
+\subsection{System Processes}
+\subsubsection{Null Process}
+\subsubsection{KCD Process}
+\subsubsection{Clock Process}
+\subsubsection{CRT Process}
+\subsubsection{Set Priority Process}
+\subsection{User Processes}
+\subsubsection{User Test Process}
+\subsubsection{Stress Test Process}
+\newpage
+\section{Initialization}
+\newpage
+\section{Testing}
+\subsection{Debugging}
+\subsection{Timing Analysis}
+\subsubsection{send message}
+\subsubsection{receive message}
+\subsubsection{request memory block}
+\newpage
+\section{Major Design Changes}
+\subsection{Lessons learned}
+
+\end{document}
