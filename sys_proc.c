@@ -145,21 +145,6 @@ void clock_proc(void){
 			message[i] = '\0';
 		}
 		
-		if (sender_id == CLK_PROC_ID && terminated == 0){
-			env->mtype = DEFAULT;
-			// TODO: send delayed message by 1000
-			k_delayed_send(CLK_PROC_ID, env, 1000);
-			
-			env1 = (msgbuf*) request_memory_block();
-			env1->mtype = CRT_DISPLAY;
-			sprintf(message, "\033[s\033[1;69H%02d:%02d:%02d\n\033[u", (g_second_count / 3600) % 24, (g_second_count / 60) % 60, (g_second_count % 60));
-			strncpy(env1->mtext, message, strlen(message));
-			
-			
-			g_second_count++;
-			g_second_count = g_second_count % (60 * 60 * 24);
-			
-		}else{
 			if(env->mtext[0] == '%' && env->mtext[1] == 'W' && env->mtext[2] == 'R'){
 				printf("Command - Reset Clock\r\n");
 				g_second_count = 0;
@@ -198,7 +183,6 @@ void clock_proc(void){
 				terminated = 1;
 				send_message(CRT_PROC_ID, env);
 			}
-		}
 	}
 }
 
@@ -275,7 +259,6 @@ void kcd(void) {
 				env2->mtext[i+2] = '\0';
 			}
 			
-			
 			env2->mtype = CRT_DISPLAY;
 			
 			k_send_message_i(receiver_id, env);
@@ -295,6 +278,7 @@ void crt(void) {
 		while(is_printing){
 			release_processor();
 		}
+
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {
 			send_message(UART_PROC_ID, env);

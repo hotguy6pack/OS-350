@@ -307,7 +307,7 @@ input_char(){
 				pUart->THR = '\0';
 				g_send_char = 0;
 				//gp_buffer = g_buffer;			
-				k_release_memory_block(message);
+				g_switch_flag = k_release_memory_block_i(message);
 		}
 	}
 	      

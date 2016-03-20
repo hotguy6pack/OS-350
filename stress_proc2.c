@@ -81,6 +81,7 @@ void proc1(void)
 		p = (msgbuf*) request_memory_block();
 		p->mtype = COUNT_REPORT;
 		p->m_kdata[0] = num;
+		//__enable_irq();////////////////////////////////////
 		send_message(2, p);
 		num = num + 1;
 		release_processor();
@@ -134,7 +135,7 @@ void proc3(void)
 				//hibernate for 10 sec
 				q = (msgbuf*) request_memory_block();
 				q->mtype = WAKEUP10;
-				delayed_send(3, q, 10000);
+				delayed_send(3, q, 100);
 				while (1) {
 					p = receive_message(&sender_id);
 					if (p->mtype == WAKEUP10) {
@@ -151,7 +152,6 @@ void proc3(void)
 				}
 			}
 		}
-		
 		release_memory_block(p);
 		release_processor();
 	}

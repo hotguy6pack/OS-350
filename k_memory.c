@@ -170,7 +170,7 @@ void *k_request_memory_block_i(void) {
 	free_mem = (mem_block*)free_mem->next;
 	
 	for(i = (int)req_block; i < (int)req_block + MEM_BLK_SZ; i += 4){
-		*((int*)i) = 0;
+		*((int*)i) = '\0';
 	}
 	
 	//printf("assigned mem_block: 0x%08x\r\n", (int)req_block);
@@ -225,4 +225,34 @@ int k_release_memory_block(void *p_mem_blk) {
 	
 
   return ret;
+}
+
+int k_release_memory_block_i(void *p_mem_blk) {
+	int ret;
+	int rel =0;
+	mem_block* temp;
+	
+	
+	if (!is_valid_mem_blk(p_mem_blk)){
+		ret = RTX_ERR;
+	}
+	else
+	{
+			// if we have a blocked proc, assign this mem address to it
+	// else put the mem_blk into heap
+		
+
+		if (free_mem == NULL) {
+			rel = notify_mem_released();
+			
+		}
+		temp = (mem_block*) p_mem_blk;
+		temp->next = (mem_block *)free_mem;
+		free_mem = temp;
+		
+		//printf("k_release_memory_block: releasing block @ 0x%x\n", p_mem_blk);
+	}
+	
+
+  return rel;
 }
