@@ -41,6 +41,7 @@ PROC_INIT2 g_proc_table[NUM_TEST_PROCS + NUM_SYS_PROCS + NUM_I_PROCS];
 extern PROC_INIT2 g_test_procs[NUM_TEST_PROCS];
 extern PROC_INIT2 g_sys_procs[NUM_SYS_PROCS];
 extern PROC_INIT2 g_i_procs[NUM_I_PROCS];
+int proc_id_map[16];
 
 /**
  * @biref: initialize all processes in the system
@@ -111,6 +112,15 @@ void process_init()
         p_enqueue(&priority_q[priority], gp_pcbs[i]);
     }
 		
+		for(i = 0; i < 15; i++){
+			proc_id_map[i] = i;
+		}
+		
+		proc_id_map[0] = 7;
+		proc_id_map[12] = 8;
+		proc_id_map[13] = 9;
+		proc_id_map[14] = 13;
+		proc_id_map[15] = 12;
 		/*
 	timer_i_pcb->mp_sp = NULL;	
 	timer_i_pcb->m_priority = 0; 
@@ -249,6 +259,10 @@ int set_process_priority(int process_id, int priority)
     int old_priority;
 		int i;
 		int id;
+		#ifdef _OBJ
+				process_id = process_map(process_id);
+		#endif
+	
 		id = process_id - 1;
 	
 		if (process_id < 1 || process_id > (NUM_TEST_PROCS+NUM_SYS_PROCS+NUM_I_PROCS+1) || priority < 0 || priority > 3){
@@ -288,6 +302,11 @@ int get_process_priority(int process_id)
 		int ret;
 		int id;
 		PCB* proc;
+	
+		#ifdef _OBJ
+				process_id = process_map(process_id);
+		#endif
+
 		id = process_id - 1;
     proc = gp_pcbs[id];
 		ret = proc->m_priority;
@@ -317,4 +336,8 @@ void unblock_proc(int id) {
 
 void block_proc(int id){
 		gp_pcbs[id -1]->m_state = BLK;
+}
+
+int process_map(int id){
+	return proc_id_map[id];
 }
