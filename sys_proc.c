@@ -275,9 +275,9 @@ void crt(void) {
 	
 	printf("crt started\r\n");
 	while(1) {
-		while(is_printing){
-			release_processor();
-		}
+// 		while(is_printing){
+// 			release_processor();
+// 		}
 
 		env = receive_message(&sender_id);
 		if (env->mtype == CRT_DISPLAY) {

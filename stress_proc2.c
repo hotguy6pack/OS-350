@@ -40,6 +40,10 @@ void set_test_procs() {
 	g_test_procs[3].mpf_start_pc = &proc4;
 	g_test_procs[4].mpf_start_pc = &proc5;
 	g_test_procs[5].mpf_start_pc = &proc6;
+	
+	g_test_procs[0].m_priority=HIGH;
+	g_test_procs[1].m_priority=HIGH;
+	g_test_procs[2].m_priority=HIGH;
 }
 
 
@@ -61,9 +65,11 @@ void proc1(void)
 	int num;
 	
 	p = (msgbuf*) request_memory_block();
-	
 	// register the %Z command
-	reg_cmd("Z", 1);
+	p->mtype = KCD_REG;
+	strcpy(p->mtext, "%Z");
+	send_message(KCD_PROC_ID, p);
+	// reg_cmd("Z", 1);
 	
 	while(1) {
 		p = receive_message(&sender_id);
@@ -108,6 +114,7 @@ void proc3(void)
 	msgbuf* p;
 	int sender_id;
 	msgbuf* q;
+	msgbuf* p2;
 	msgbuf* msg_q;
 	char* data;
 	
@@ -131,28 +138,36 @@ void proc3(void)
 				p->mtype = CRT_DISPLAY;
 				strcpy(p->mtext, data, strlen(data));
 				send_message(CRT_PROC_ID, p);
-				
+			} else if (p->m_kdata[0] % 20 == 1) {
 				//hibernate for 10 sec
-				q = (msgbuf*) request_memory_block();
+				q = p;//(msgbuf*) request_memory_block();
 				q->mtype = WAKEUP10;
-				delayed_send(3, q, 100);
+				delayed_send(3, q, 50);
 				while (1) {
-					p = receive_message(&sender_id);
-					if (p->mtype == WAKEUP10) {
+					p2 = receive_message(&sender_id);
+					if (p2->mtype == WAKEUP10) {
 						break;
 					} else {
 						// put p into local queue
 						temp_msg_ptr = msg_q;
-						while (temp_msg_ptr != NULL) {
-							temp_msg_ptr = (msgbuf*) temp_msg_ptr->mp_next;
+						if(msg_q==NULL){
+							msg_q=p2;
+						}else{
+							while (temp_msg_ptr->mp_next != NULL) {
+								temp_msg_ptr = (msgbuf*) temp_msg_ptr->mp_next;
+							}
+							temp_msg_ptr->mp_next = (void*) p2;
 						}
-						temp_msg_ptr->mp_next = (void*) p;
-						p->mp_next = NULL;
+						p2->mp_next=NULL;
 					}
 				}
+				release_memory_block(p);
+			}else{
+				release_memory_block(p);
 			}
+		}else{
+			release_memory_block(p);
 		}
-		release_memory_block(p);
 		release_processor();
 	}
 }
