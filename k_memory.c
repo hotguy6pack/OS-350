@@ -49,9 +49,13 @@ U32 *gp_stack; /* The last allocated stack low address. 8 bytes aligned */
 */
 
 mem_block* free_mem;
+mem_block* starve_mem;
+
+int starve =0;
 
 U32 start_addr;
 U32 stack_size;
+
 
 //int starved_clock;
 
@@ -199,7 +203,6 @@ int k_release_memory_block(void *p_mem_blk) {
 	int rel;
 	mem_block* temp;
 	
-	
 	if (!is_valid_mem_blk(p_mem_blk)){
 		ret = RTX_ERR;
 	}
@@ -207,9 +210,8 @@ int k_release_memory_block(void *p_mem_blk) {
 	{
 			// if we have a blocked proc, assign this mem address to it
 	// else put the mem_blk into heap
-		
-
-		if (free_mem == NULL) {
+	
+		if (starved_clock == 0) {
 			rel = notify_mem_released();
 			
 		}
@@ -245,9 +247,8 @@ int k_release_memory_block_i(void *p_mem_blk) {
 	// else put the mem_blk into heap
 		
 
-		if (free_mem == NULL && starved_clock == 0) {
+		if (starved_clock == 0) {
 			rel = notify_mem_released();
-			
 		}
 		temp = (mem_block*) p_mem_blk;
 		temp->next = (mem_block *)free_mem;

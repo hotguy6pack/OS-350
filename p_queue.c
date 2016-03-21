@@ -31,7 +31,7 @@ PCB* p_findproc(p_queue* queue){
     PCB* retNode;
     int count;
     
-    cur_node = queue->first;
+    cur_node = (queue->first);
     
 	count = 0;
     while(count < queue->size)
@@ -139,7 +139,7 @@ void p_queue_remove(p_queue* queue, int id)
     int count;
     
     cur_node = queue->first;
-		queue->size = queue->size - 1;
+		
 	
 		count = 0;
     while(count < queue->size)
@@ -150,12 +150,14 @@ void p_queue_remove(p_queue* queue, int id)
 								next = cur_node->next;
 								next->prev = NULL;
                 queue->first = next;
+								queue->size = queue->size - 1;
                 return;
             }
 						else if (cur_node == queue->last){
 						     	prev = cur_node->prev;
 									prev->next = NULL;
 									queue->last = prev;
+									queue->size = queue->size - 1;
 									return;
 						}
             
@@ -164,6 +166,9 @@ void p_queue_remove(p_queue* queue, int id)
             
             next = cur_node->next;
             next->prev = cur_node->prev;
+						
+						queue->size = queue->size - 1;
+						return;
         }
         cur_node = cur_node->next;
 				count++;

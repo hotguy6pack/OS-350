@@ -21,7 +21,7 @@
 #define NUM_STRESS_PROCS 3
 #define NUM_SYS_PROCS 5
 #define NUM_I_PROCS 2
-#define NUM_MEM_BLKS 5
+#define NUM_MEM_BLKS 20
 
 #define RTX_ERR -1
 #define RTX_OK  0

@@ -32,7 +32,7 @@ void set_stress_procs() {
 	
 	for( i = 0; i < NUM_STRESS_PROCS; i++ ) {
 		g_stress_procs[i].m_pid=(U32)(i+NUM_TEST_PROCS+1);
-		g_stress_procs[i].m_priority=LOWEST;
+		g_stress_procs[i].m_priority=4;
 		g_stress_procs[i].m_stack_size=0x100;
 	}
 	
@@ -44,9 +44,9 @@ void set_stress_procs() {
 	PROC_C_ID = NUM_TEST_PROCS + current_stress_proc_count++;
 	
 	
-	g_stress_procs[0].m_priority=HIGH;
-	g_stress_procs[1].m_priority=HIGH;
-	g_stress_procs[2].m_priority=HIGH;
+	g_stress_procs[0].m_priority=3;
+	g_stress_procs[1].m_priority=3;
+	g_stress_procs[2].m_priority=3;
 
 }
 
@@ -131,7 +131,7 @@ void procC(void)
 				//hibernate for 10 sec
 				q = p;//(msgbuf*) request_memory_block();
 				q->mtype = WAKEUP10;
-				delayed_send(PROC_B_ID, q, 50);
+				delayed_send(PROC_B_ID, q, 10000);
 				while (1) {
 					p2 = receive_message(&sender_id);
 					if (p2->mtype == WAKEUP10) {

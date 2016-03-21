@@ -175,11 +175,12 @@ void update_clock(){
 	if(starved_clock == 1){
 		msg = (msgbuf *) k_request_memory_block_i();
 		if (msg != NULL){
+			starved_clock = 0;
 			msg->mtype = CRT_DISPLAY;
 			time = time_to_string();
 			strncpy(msg->mtext, time, strlen(time));
 			k_send_message_i(CRT_PROC_ID, msg);
-			starved_clock = 0;
+			
 		}
 	}
 	
@@ -188,11 +189,11 @@ void update_clock(){
 		g_second_count = g_timer_count / 1000; // convert from ms to s
 		msg = (msgbuf *) k_request_memory_block_i();
 		if (msg != NULL){
+			starved_clock = 0;
 			msg->mtype = CRT_DISPLAY;
 			time = time_to_string();
 			strncpy(msg->mtext, time, strlen(time));
 			k_send_message_i(CRT_PROC_ID, msg);
-			starved_clock = 0;
 		}
 		else{
 			starved_clock = 1;
