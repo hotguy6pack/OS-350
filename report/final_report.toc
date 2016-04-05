@@ -4,35 +4,34 @@
 \contentsline {subsection}{\numberline {3.1}Memory Management}{6}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Request Memory}{6}{subsubsection.3.1.1}
 \contentsline {subsubsection}{\numberline {3.1.2}Release Memory}{6}{subsubsection.3.1.2}
-\contentsline {subsection}{\numberline {3.2}Process Management}{6}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Process Control Block}{6}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Release Processor}{6}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}Set Process Priority}{6}{subsubsection.3.2.3}
-\contentsline {subsubsection}{\numberline {3.2.4}Get Process Priority}{6}{subsubsection.3.2.4}
-\contentsline {subsection}{\numberline {3.3}Interprocess Communication}{6}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Send Message}{6}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Receive Message}{6}{subsubsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.3}Delay Send Message}{6}{subsubsection.3.3.3}
-\contentsline {section}{\numberline {4}Interrupts and their Handlers/Processes}{7}{section.4}
-\contentsline {subsection}{\numberline {4.1}Timer I-Process}{7}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}UART I-Process}{7}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Debugging Hotkeys}{7}{subsubsection.4.2.1}
-\contentsline {section}{\numberline {5}System and User Processes}{8}{section.5}
-\contentsline {subsection}{\numberline {5.1}System Processes}{8}{subsection.5.1}
-\contentsline {subsubsection}{\numberline {5.1.1}Null Process}{8}{subsubsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.2}KCD Process}{8}{subsubsection.5.1.2}
-\contentsline {subsubsection}{\numberline {5.1.3}Clock Process}{8}{subsubsection.5.1.3}
-\contentsline {subsubsection}{\numberline {5.1.4}CRT Process}{8}{subsubsection.5.1.4}
-\contentsline {subsubsection}{\numberline {5.1.5}Set Priority Process}{8}{subsubsection.5.1.5}
-\contentsline {subsection}{\numberline {5.2}User Processes}{8}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}User Test Process}{8}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}Stress Test Process}{8}{subsubsection.5.2.2}
-\contentsline {section}{\numberline {6}Initialization}{9}{section.6}
-\contentsline {section}{\numberline {7}Testing}{10}{section.7}
-\contentsline {subsection}{\numberline {7.1}Debugging}{10}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Timing Analysis}{10}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}send message}{10}{subsubsection.7.2.1}
-\contentsline {subsubsection}{\numberline {7.2.2}receive message}{10}{subsubsection.7.2.2}
-\contentsline {subsubsection}{\numberline {7.2.3}request memory block}{10}{subsubsection.7.2.3}
-\contentsline {section}{\numberline {8}Major Design Changes}{11}{section.8}
-\contentsline {subsection}{\numberline {8.1}Lessons learned}{11}{subsection.8.1}
+\contentsline {subsection}{\numberline {3.2}Process Management}{7}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Release Processor}{7}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Set Process Priority}{7}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Get Process Priority}{8}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Interprocess Communication}{8}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Send Message}{8}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Receive Message}{8}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Delay Send Message}{8}{subsubsection.3.3.3}
+\contentsline {section}{\numberline {4}Interrupts and their Handlers/Processes}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Timer I-Process}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}UART I-Process}{9}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Debugging Hotkeys}{11}{subsubsection.4.2.1}
+\contentsline {section}{\numberline {5}System and User Processes}{11}{section.5}
+\contentsline {subsection}{\numberline {5.1}System Processes}{11}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}Null Process}{11}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}KCD Process}{11}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}Clock Process}{12}{subsubsection.5.1.3}
+\contentsline {subsubsection}{\numberline {5.1.4}CRT Process}{13}{subsubsection.5.1.4}
+\contentsline {subsubsection}{\numberline {5.1.5}Set Priority Process}{13}{subsubsection.5.1.5}
+\contentsline {subsection}{\numberline {5.2}User Processes}{13}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}User Test Process}{13}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}Stress Test Process}{14}{subsubsection.5.2.2}
+\contentsline {section}{\numberline {6}Initialization}{16}{section.6}
+\contentsline {section}{\numberline {7}Testing}{17}{section.7}
+\contentsline {subsection}{\numberline {7.1}Debugging}{17}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Timing Analysis}{17}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}send message}{18}{subsubsection.7.2.1}
+\contentsline {subsubsection}{\numberline {7.2.2}receive message}{19}{subsubsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.3}request memory block}{20}{subsubsection.7.2.3}
+\contentsline {section}{\numberline {8}Major Design Changes}{21}{section.8}
+\contentsline {section}{\numberline {9}Lessons learned}{21}{section.9}
